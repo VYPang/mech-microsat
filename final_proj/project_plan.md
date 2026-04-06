@@ -55,7 +55,7 @@ Our team will utilize a Concurrent Engineering approach to solve the heavily cou
     *   *Deliverable:* Final System Mass/Volume/Power Budgets and iteration tracking.
 
 ## 5. Software & Tools
-*   **Python:** For numerical integration (CR3BP solver) and trajectory plotting.
+*   **Python:** For numerical integration (CR3BP solver), trajectory plotting, and System Optimization. A detailed analysis of our Multidisciplinary Design Optimization (MDO) library architecture (utilizing Tudatpy, OpenMDAO, and Astropy) can be found in the [library.md](library.md) manual.
 *   **MATLAB / Excel:** For Link Budget and Power/Mass Budget tracking.
 *   **CAD (Optional):** SolidWorks/Fusion360 to visually demonstrate that the selected components fit within a standard 12U dispenser volume.
 
