@@ -9,7 +9,9 @@ dependencies = [
     "numpy>=2.4.3",
     "pandas>=3.0.1",
     "plotly>=6.3.1",
+    "pyxdsm>=2.3.2",
     "rich>=14.1.0",
     "scipy>=1.17.1",
+    "sgp4>=2.25",
     "typer>=0.16.1",
 ]

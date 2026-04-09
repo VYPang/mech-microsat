@@ -1,0 +1,153 @@
+
+%%% Preamble Requirements %%%
+% \usepackage{geometry}
+% \usepackage{amsfonts}
+% \usepackage{amsmath}
+% \usepackage{amssymb}
+% \usepackage{tikz}
+
+% Optional packages such as sfmath set through python interface
+% \usepackage{sfmath}
+
+% \usetikzlibrary{arrows,chains,positioning,scopes,shapes.geometric,shapes.misc,shadows}
+
+%%% End Preamble Requirements %%%
+
+\input{"/home/hplui/Y4_Spring_courses/MECH Microsat/.venv/lib/python3.14/site-packages/pyxdsm/diagram_styles"}
+\begin{tikzpicture}
+
+\matrix[MatrixSetup]{
+%Row 0
+\node [DataIO] (output_OPT) {$\text{Mission Req}, \text{12U limits}$};&
+&
+&
+&
+&
+&
+&
+&
+\\
+%Row 1
+\node [Optimization] (OPT) {$\text{Systems Optimizer}$};&
+\node [DataInter] (OPT-COM) {$R_{L4}, DataRate$};&
+\node [DataInter] (OPT-PWR) {$P_{payload}$};&
+\node [DataInter] (OPT-THM) {$T_{req}$};&
+&
+&
+\node [DataInter] (OPT-BDG) {$M_{payload}, V_{payload}$};&
+&
+\\
+%Row 2
+&
+\node [Function] (COM) {$\text{Comms}$};&
+\node [DataInter] (COM-PWR) {$P_{tx}$};&
+&
+&
+&
+\node [DataInter] (COM-BDG) {$M_{com}, V_{com}$};&
+&
+\\
+%Row 3
+&
+&
+\node [Function] (PWR) {$\text{Power}$};&
+\node [DataInter] (PWR-THM) {$A_{sa}, P_{dissipated}$};&
+\node [DataInter] (PWR-ORB) {$A_{sa}$};&
+&
+\node [DataInter] (PWR-BDG) {$M_{pwr}, V_{pwr}$};&
+&
+\\
+%Row 4
+&
+&
+&
+\node [Function] (THM) {$\text{Thermal}$};&
+\node [DataInter] (THM-ORB) {$\rho_{eff}$};&
+&
+\node [DataInter] (THM-BDG) {$M_{thm}, V_{thm}$};&
+&
+\\
+%Row 5
+&
+&
+&
+&
+\node [Function] (ORB) {$\text{Orbit (tudatpy)}$};&
+\node [DataInter] (ORB-PRP) {$\Delta V$};&
+&
+&
+\\
+%Row 6
+&
+&
+\node [DataInter] (PRP-PWR) {$P_{ion}$};&
+&
+&
+\node [Function] (PRP) {$\text{Propulsion}$};&
+\node [DataInter] (PRP-BDG) {$M_{prop}, V_{prop}$};&
+&
+\\
+%Row 7
+\node [DataInter] (BDG-OPT) {$M_{tot}, V_{tot}$};&
+&
+&
+&
+&
+&
+\node [Function] (BDG) {$\text{12U Budget}$};&
+&
+\node [DataIO] (right_output_BDG) {$\text{Final Design}$};\\
+%Row 8
+&
+&
+&
+&
+&
+&
+&
+&
+\\
+};
+
+% XDSM process chains
+
+
+\begin{pgfonlayer}{data}
+\path
+% Horizontal edges
+(OPT) edge [DataLine] (OPT-COM)
+(OPT) edge [DataLine] (OPT-PWR)
+(OPT) edge [DataLine] (OPT-THM)
+(OPT) edge [DataLine] (OPT-BDG)
+(COM) edge [DataLine] (COM-PWR)
+(PWR) edge [DataLine] (PWR-THM)
+(PWR) edge [DataLine] (PWR-ORB)
+(THM) edge [DataLine] (THM-ORB)
+(ORB) edge [DataLine] (ORB-PRP)
+(COM) edge [DataLine] (COM-BDG)
+(PWR) edge [DataLine] (PWR-BDG)
+(THM) edge [DataLine] (THM-BDG)
+(PRP) edge [DataLine] (PRP-BDG)
+(PRP) edge [DataLine] (PRP-PWR)
+(BDG) edge [DataLine] (BDG-OPT)
+(BDG) edge [DataLine] (right_output_BDG)
+% Vertical edges
+(OPT-COM) edge [DataLine] (COM)
+(OPT-PWR) edge [DataLine] (PWR)
+(OPT-THM) edge [DataLine] (THM)
+(OPT-BDG) edge [DataLine] (BDG)
+(COM-PWR) edge [DataLine] (PWR)
+(PWR-THM) edge [DataLine] (THM)
+(PWR-ORB) edge [DataLine] (ORB)
+(THM-ORB) edge [DataLine] (ORB)
+(ORB-PRP) edge [DataLine] (PRP)
+(COM-BDG) edge [DataLine] (BDG)
+(PWR-BDG) edge [DataLine] (BDG)
+(THM-BDG) edge [DataLine] (BDG)
+(PRP-BDG) edge [DataLine] (BDG)
+(PRP-PWR) edge [DataLine] (PWR)
+(BDG-OPT) edge [DataLine] (OPT)
+(OPT) edge [DataLine] (output_OPT);
+\end{pgfonlayer}
+
+\end{tikzpicture}

@@ -205,8 +205,10 @@ dependencies = [
     { name = "numpy" },
     { name = "pandas" },
     { name = "plotly" },
+    { name = "pyxdsm" },
     { name = "rich" },
     { name = "scipy" },
+    { name = "sgp4" },
     { name = "typer" },
 ]
 
@@ -216,8 +218,10 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.4.3" },
     { name = "pandas", specifier = ">=3.0.1" },
     { name = "plotly", specifier = ">=6.3.1" },
+    { name = "pyxdsm", specifier = ">=2.3.2" },
     { name = "rich", specifier = ">=14.1.0" },
     { name = "scipy", specifier = ">=1.17.1" },
+    { name = "sgp4", specifier = ">=2.25" },
     { name = "typer", specifier = ">=0.16.1" },
 ]
 
@@ -374,6 +378,17 @@ wheels = [
 ]
 
 [[package]]
+name = "pyxdsm"
+version = "2.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f1/d5/0f5e5bbecc3416af6eb5b99cbae39589a3138a2004e93269bb7b707e1191/pyxdsm-2.3.2-py3-none-any.whl", hash = "sha256:fc8a93bddac3070e2e02a60a437ea09053b4283e0047c02aca1184fdb8616f22", size = 15422, upload-time = "2026-03-19T15:30:24.895Z" },
+]
+
+[[package]]
 name = "rich"
 version = "14.3.3"
 source = { registry = "https://pypi.org/simple" }
@@ -416,6 +431,12 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/11/2f/b29eafe4a3fbc3d6de9662b36e028d5f039e72d345e05c250e121a230dd4/scipy-1.17.1-cp314-cp314t-win_amd64.whl", hash = "sha256:eb092099205ef62cd1782b006658db09e2fed75bffcae7cc0d44052d8aa0f484", size = 37345327, upload-time = "2026-02-23T00:22:24.442Z" },
     { url = "https://files.pythonhosted.org/packages/07/39/338d9219c4e87f3e708f18857ecd24d22a0c3094752393319553096b98af/scipy-1.17.1-cp314-cp314t-win_arm64.whl", hash = "sha256:200e1050faffacc162be6a486a984a0497866ec54149a01270adc8a59b7c7d21", size = 25489165, upload-time = "2026-02-23T00:22:29.563Z" },
 ]
+
+[[package]]
+name = "sgp4"
+version = "2.25"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/6e/d0/fc467010d17742321f73b16a71acac88439a88f2b166641942a6566c9b2a/sgp4-2.25.tar.gz", hash = "sha256:e19edc6dcc25d69fb8fde0a267b8f0c44d7e915c7bcbeacf5d3a8b595baf0674", size = 181016, upload-time = "2025-08-04T18:02:33.765Z" }
 
 [[package]]
 name = "shellingham"
