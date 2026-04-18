@@ -1,0 +1,13 @@
+{
+    "simulation": {
+        "epoch_utc": "2026 MAY 01 00:00:00.0 (UTC)",
+        "duration_years": 50.0,
+        "timestep_s": 300.0,
+        "inclination_deg": 7.25
+    },
+    "visualization": {
+        "output_dir": "final_proj/output/low_inc",
+        "inertial_3d_points": 2000,
+        "rotating_3d_points": 50000
+    }
+}
