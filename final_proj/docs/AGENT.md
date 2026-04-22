@@ -11,8 +11,8 @@ These guidelines define the coding standards, libraries, and architectural prefe
 
 ## Physics & Orbital Dynamics
 - **Constants & Frames**: Use **`astropy`** for astronomical constants, time system conversions, and coordinate frame transformations.
-- **Orbital Propagator**: Use **`tudatpy`** for multi-body dynamics, specifically leveraging its built-in support for the Circular Restricted Three-Body Problem (CR3BP) and Libration Point (L4) computation. Use it for realistic station-keeping analysis with its full dynamics propagation, integrating custom thrust models (`ConstantThrustMagnitudeWrapper`, `CustomThrustMagnitudeWrapper`, engine wrappers) to simulate the continuous adjustment required for maintaining the L4 position against solar radiation pressure perturbations.
-- **System Optimization (MDO)**: Use **`openmdao`** later in the workflow to combine satellite mass, thermal control, power generation, and engine specs into an iterative multidisciplinary design optimization loop.
+- **Orbital Propagator**: Use **`bsk`** (Basilisk) for multi-body Sun-Earth dynamics around the Sun-Earth Lagrange points and for cannonball solar radiation pressure modelling via `radiationPressure.RadiationPressure`. Tudatpy was evaluated and dropped because it is not friendly to the project's `uv` package management workflow.
+- **System Optimization (MDO)**: Use a small in-house optimizer built on **`scipy.optimize`** (typically `SLSQP` for bounded, constrained problems) plus a manual fixed-point loop for the mass / power feedback paths. OpenMDAO was considered but rejected for this preliminary 12U project because its scaffolding overhead outweighs the benefits at this design-space size and would be hard to defend as non-AI-generated work in the final presentation.
 
 ## CLI & Output 
 - **Argument Parsing**: Prefer **`typer`** over `argparse` for all CLI entrypoints. Reuse shared `Annotated` type aliases for common options when possible.

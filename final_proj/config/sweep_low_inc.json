@@ -1,0 +1,27 @@
+{
+    "simulation": {
+        "epoch_utc": "2026 MAY 01 00:00:00.0 (UTC)",
+        "inclination_deg": 7.25,
+        "duration_years": 3.0,
+        "timestep_s": 600.0
+    },
+    "grid": {
+        "area_m2":  {"min": 0.02, "max": 0.30, "n": 10},
+        "cr":       {"min": 1.0,  "max": 2.0,  "n": 10},
+        "mass_kg":  {"min": 3.2,  "max": 24.0, "n": 10}
+    },
+    "surrogate": {
+        "degree": 2
+    },
+    "validation": {
+        "beta_targets": [0.005, 0.02, 0.05, 0.10, 0.15],
+        "n_per_family": 6,
+        "samples_parquet": "final_proj/output/low_inc/srp_validation_samples.parquet",
+        "plot_png":        "final_proj/output/low_inc/plots/srp_validation.png"
+    },
+    "output": {
+        "samples_parquet": "final_proj/output/low_inc/srp_samples.parquet",
+        "surrogate_json":  "final_proj/output/low_inc/srp_surrogate.json",
+        "plot_html":       "final_proj/output/low_inc/plots/srp_response_surface.html"
+    }
+}
