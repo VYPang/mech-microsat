@@ -43,7 +43,7 @@ def _load_cfg(path: Path) -> dict:
 
 
 def _build_spec(cfg: dict):
-    from final_proj.source.srp_sweep import GridAxis, SweepSpec
+    from final_proj.source.orbit.srp_sweep import GridAxis, SweepSpec
 
     sim = cfg["simulation"]
     g = cfg["grid"]
@@ -72,19 +72,20 @@ def main(
         help="Skip validation simulations; regenerate the validation PNG only.",
     ),
 ) -> None:
-    from final_proj.source.srp_sweep import run_sweep
-    from final_proj.source.srp_validation import (
+    from final_proj.source.orbit.srp_sweep import run_sweep
+    from final_proj.source.orbit.srp_validation import (
         ValidationSpec,
         plot_validation,
         run_validation,
     )
-    from final_proj.source.surrogate import ResponseSurface, fit_response_surface
-    from final_proj.source.surrogate_plot import plot_response_surface
+    from final_proj.source.orbit.surrogate import ResponseSurface, fit_response_surface
+    from final_proj.source.orbit.surrogate_plot import plot_response_surface, plot_response_surface_png
 
     cfg = _load_cfg(config)
     samples_path = Path(cfg["output"]["samples_parquet"])
     surrogate_path = Path(cfg["output"]["surrogate_json"])
     plot_path = Path(cfg["output"]["plot_html"])
+    plot_png_path = Path(cfg["output"].get("plot_png", str(plot_path.with_suffix(".png"))))
     degree = int(cfg["surrogate"]["degree"])
 
     # ----- Validation-only fast paths --------------------------------
@@ -175,8 +176,10 @@ def main(
         console.print(f"[dim]Wrote surrogate → {surrogate_path}[/dim]")
 
     # 3. Plot.
-    out = plot_response_surface(df, surrogate, plot_path)
-    console.print(f"[dim]Wrote plot → {out}[/dim]")
+    out_html = plot_response_surface(df, surrogate, plot_path)
+    out_png = plot_response_surface_png(df, surrogate, plot_png_path)
+    console.print(f"[dim]Wrote interactive plot → {out_html}[/dim]")
+    console.print(f"[dim]Wrote static figure → {out_png}[/dim]")
     console.print("[bold green]All done.[/bold green]")
 
 

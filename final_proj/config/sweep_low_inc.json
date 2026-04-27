@@ -22,6 +22,7 @@
     "output": {
         "samples_parquet": "final_proj/output/low_inc/srp_samples.parquet",
         "surrogate_json":  "final_proj/output/low_inc/srp_surrogate.json",
-        "plot_html":       "final_proj/output/low_inc/plots/srp_response_surface.html"
+        "plot_html":       "final_proj/output/low_inc/plots/srp_response_surface.html",
+        "plot_png":        "final_proj/output/low_inc/plots/srp_response_surface.png"
     }
 }

@@ -72,8 +72,8 @@
 &
 &
 &
-\node [Function] (ORB) {$\text{Orbit (tudatpy)}$};&
-\node [DataInter] (ORB-PRP) {$\Delta V$};&
+\node [Function] (ORB) {$\text{Orbit (Basilisk SRP)}$};&
+\node [DataInter] (ORB-PRP) {$\Delta V_{avg}$};&
 &
 &
 \\
@@ -82,7 +82,7 @@
 &
 \node [DataInter] (PRP-PWR) {$P_{ion}$};&
 &
-&
+\node [DataInter] (PRP-ORB) {$M_{prop}$};&
 \node [Function] (PRP) {$\text{Propulsion}$};&
 \node [DataInter] (PRP-BDG) {$M_{prop}, V_{prop}$};&
 &
@@ -92,8 +92,8 @@
 &
 &
 &
-&
-&
+\node [DataInter] (BDG-ORB) {$M_{tot}$};&
+\node [DataInter] (BDG-PRP) {$M_{tot}$};&
 \node [Function] (BDG) {$\text{12U Budget}$};&
 &
 \node [DataIO] (right_output_BDG) {$\text{Final Design}$};\\
@@ -129,6 +129,9 @@
 (THM) edge [DataLine] (THM-BDG)
 (PRP) edge [DataLine] (PRP-BDG)
 (PRP) edge [DataLine] (PRP-PWR)
+(BDG) edge [DataLine] (BDG-ORB)
+(BDG) edge [DataLine] (BDG-PRP)
+(PRP) edge [DataLine] (PRP-ORB)
 (BDG) edge [DataLine] (BDG-OPT)
 (BDG) edge [DataLine] (right_output_BDG)
 % Vertical edges
@@ -146,6 +149,9 @@
 (THM-BDG) edge [DataLine] (BDG)
 (PRP-BDG) edge [DataLine] (BDG)
 (PRP-PWR) edge [DataLine] (PWR)
+(BDG-ORB) edge [DataLine] (ORB)
+(BDG-PRP) edge [DataLine] (PRP)
+(PRP-ORB) edge [DataLine] (ORB)
 (BDG-OPT) edge [DataLine] (OPT)
 (OPT) edge [DataLine] (output_OPT);
 \end{pgfonlayer}

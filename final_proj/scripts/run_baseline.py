@@ -51,7 +51,7 @@ def _load_config(path: Path) -> dict:
 
 def _print_orbit_info(epoch_utc: str, inclination_deg: float) -> None:
     """Compute and print L4 + Earth state vectors for transfer orbit design."""
-    from final_proj.source.initial_conditions import compute_l4_state
+    from final_proj.source.orbit.initial_conditions import compute_l4_state
 
     ic = compute_l4_state(epoch_utc, inclination_deg)
 
@@ -118,10 +118,10 @@ def main(
     import polars as pl
     import spiceypy as spice
 
-    from final_proj.source.cr3bp_sim import run_cr3bp_baseline
-    from final_proj.source.initial_conditions import _ensure_spice_kernels, compute_l4_state
-    from final_proj.source.rotating_frame import to_rotating_frame
-    from final_proj.source.visualize import create_all_plots
+    from final_proj.source.orbit.cr3bp_sim import run_cr3bp_baseline
+    from final_proj.source.orbit.initial_conditions import _ensure_spice_kernels, compute_l4_state
+    from final_proj.source.orbit.rotating_frame import to_rotating_frame
+    from final_proj.source.orbit.visualize import create_all_plots
 
     cfg = _load_config(config)
 
@@ -161,7 +161,7 @@ def main(
     # 2. Transform to rotating frame
     # Reset SPICE state in case BSK left it dirty after a long run.
     spice.reset()
-    import final_proj.source.initial_conditions as _ic_mod
+    import final_proj.source.orbit.initial_conditions as _ic_mod
     _ic_mod._KERNELS_LOADED = False
     _ensure_spice_kernels()
     epoch_et = spice.str2et(epoch)

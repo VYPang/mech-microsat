@@ -58,7 +58,7 @@ def simulate(
     output_dir: OutputDir = Path("final_proj/output"),
 ) -> None:
     """Run the CR3BP baseline simulation and save trajectory."""
-    from .cr3bp_sim import run_cr3bp_baseline
+    from .orbit.cr3bp_sim import run_cr3bp_baseline
 
     parquet_path = output_dir / "cr3bp_baseline.parquet"
 
@@ -86,9 +86,9 @@ def visualize(
     import polars as pl
     import spiceypy as spice
 
-    from .initial_conditions import _ensure_spice_kernels
-    from .rotating_frame import to_rotating_frame
-    from .visualize import create_all_plots
+    from .orbit.initial_conditions import _ensure_spice_kernels
+    from .orbit.rotating_frame import to_rotating_frame
+    from .orbit.visualize import create_all_plots
 
     if not data_path.exists():
         console.print(f"[red]File not found:[/red] {data_path}")
@@ -121,10 +121,10 @@ def run_all(
     """Simulate, transform, and visualise in one go."""
     import spiceypy as spice
 
-    from .cr3bp_sim import run_cr3bp_baseline
-    from .initial_conditions import _ensure_spice_kernels
-    from .rotating_frame import to_rotating_frame
-    from .visualize import create_all_plots
+    from .orbit.cr3bp_sim import run_cr3bp_baseline
+    from .orbit.initial_conditions import _ensure_spice_kernels
+    from .orbit.rotating_frame import to_rotating_frame
+    from .orbit.visualize import create_all_plots
 
     parquet_path = output_dir / "cr3bp_baseline.parquet"
     plot_dir = output_dir / "plots"
