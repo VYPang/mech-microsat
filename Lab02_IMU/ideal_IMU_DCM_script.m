@@ -150,6 +150,48 @@ ylim([my - span/2, my + span/2])
 zlim([mz - span/2, mz + span/2])
 FigPos3dAxisLimit = axis;
 
+% Figure 6: Trajectory design view — XY (top), XZ and YZ (bottom)
+figure(6)
+clf
+% Top: XY projection (full width)
+subplot(2, 2, [1 2])
+plot(pos_tr_n_x, pos_tr_n_y, 'b', 'LineWidth', 1.5)
+grid on
+axis equal
+xlabel('x [m]'); ylabel('y [m]')
+title('XY projection (navigation frame)')
+xr = [min(pos_tr_n_x), max(pos_tr_n_x)];
+yr = [min(pos_tr_n_y), max(pos_tr_n_y)];
+span_xy = max([diff(xr), diff(yr), 0.2]);
+xlim([mean(xr) - span_xy/2, mean(xr) + span_xy/2])
+ylim([mean(yr) - span_xy/2, mean(yr) + span_xy/2])
+set(gca, 'YDir', 'reverse')   % invert Y so digit 1 reads upright
+% Bottom left: XZ projection
+subplot(2, 2, 3)
+plot(pos_tr_n_x, pos_tr_n_z, 'b', 'LineWidth', 1.5)
+grid on
+axis equal
+xlabel('x [m]'); ylabel('z [m]')
+title('XZ projection (navigation frame)')
+xr = [min(pos_tr_n_x), max(pos_tr_n_x)];
+zr = [min(pos_tr_n_z), max(pos_tr_n_z)];
+span_xz = max([diff(xr), diff(zr), 0.2]);
+xlim([mean(xr) - span_xz/2, mean(xr) + span_xz/2])
+ylim([mean(zr) - span_xz/2, mean(zr) + span_xz/2])
+% Bottom right: YZ projection
+subplot(2, 2, 4)
+plot(pos_tr_n_y, pos_tr_n_z, 'b', 'LineWidth', 1.5)
+grid on
+axis equal
+xlabel('y [m]'); ylabel('z [m]')
+title('YZ projection (navigation frame)')
+yr = [min(pos_tr_n_y), max(pos_tr_n_y)];
+zr = [min(pos_tr_n_z), max(pos_tr_n_z)];
+span_yz = max([diff(yr), diff(zr), 0.2]);
+xlim([mean(yr) - span_yz/2, mean(yr) + span_yz/2])
+ylim([mean(zr) - span_yz/2, mean(zr) + span_yz/2])
+sgtitle('Trajectory design: orthogonal projections')
+
 figure(10)
 plot(time_s_resmpl, pos_tr_n_x, 'r')
 hold on
@@ -264,6 +306,16 @@ plot_trajectory_subplot(...
 
 sgtitle('Trajectory comparison for accelerometer changes at indices 100:103')
 
+% Figure 21: Effect of gyroscope (angular rate) on trajectory.
+% Gyro is integrated into attitude (body orientation w.r.t. navigation frame).
+% The attitude DCM is used to transform body-frame acceleration into navigation
+% frame before integrating to velocity and position. So a change in gyro at
+% some time step rotates the estimated body frame; thereafter, the same
+% accelerometer readings are projected into a different direction, which
+% changes the integrated velocity and position. Hence gyro errors cause
+% trajectory drift (wrong heading / curved path) rather than a direct
+% translation like accel errors. Row 1: XY (gyro z rotates about vertical);
+% row 2: YZ (gyro x); row 3: XZ (gyro y).
 figure(21)
 clf
 
@@ -285,7 +337,7 @@ plot_trajectory_subplot(...
 plot_trajectory_subplot(...
     3, 2, 2, ...
     traj_mod_gyro_x.pos_tr_n_x, traj_mod_gyro_x.pos_tr_n_y, ...
-    'x [m]', 'y [m]', 'Modified XY trajectory: gyroscope x', 'r', ...
+    'x [m]', 'y [m]', 'After gyro x perturbed: attitude error → XY drift', 'r', ...
     x_limits_xy_gyro, y_limits_xy_gyro);
 
 plot_trajectory_subplot(...
@@ -296,7 +348,7 @@ plot_trajectory_subplot(...
 plot_trajectory_subplot(...
     3, 2, 4, ...
     traj_mod_gyro_y.pos_tr_n_y, traj_mod_gyro_y.pos_tr_n_z, ...
-    'y [m]', 'z [m]', 'Modified YZ trajectory: gyroscope y', 'r', ...
+    'y [m]', 'z [m]', 'After gyro y perturbed: attitude error → YZ drift', 'r', ...
     x_limits_yz_gyro, y_limits_yz_gyro);
 
 plot_trajectory_subplot(...
@@ -307,10 +359,35 @@ plot_trajectory_subplot(...
 plot_trajectory_subplot(...
     3, 2, 6, ...
     traj_mod_gyro_z.pos_tr_n_x, traj_mod_gyro_z.pos_tr_n_z, ...
-    'x [m]', 'z [m]', 'Modified XZ trajectory: gyroscope z', 'r', ...
+    'x [m]', 'z [m]', 'After gyro z perturbed: attitude error → XZ drift', 'r', ...
     x_limits_xz_gyro, y_limits_xz_gyro);
 
-sgtitle('Trajectory comparison for gyroscope changes at indices 100:103')
+sgtitle('Gyro rate vs trajectory: gyro integrated to attitude; attitude rotates accel into nav frame, so gyro errors cause trajectory bend/drift (indices 100:103 modified)')
+
+% Figure 22: 3D view of how gyro errors affect the trajectory. Original (blue)
+% vs trajectories when gyro x, y, or z is perturbed (red, green, magenta).
+% Shows that rotation errors propagate as a wrong heading and curved path.
+figure(22)
+clf
+plot3(traj_original.pos_tr_n_x, traj_original.pos_tr_n_y, traj_original.pos_tr_n_z, 'b', 'LineWidth', 1.5)
+hold on
+plot3(traj_mod_gyro_x.pos_tr_n_x, traj_mod_gyro_x.pos_tr_n_y, traj_mod_gyro_x.pos_tr_n_z, 'r-', 'LineWidth', 1)
+plot3(traj_mod_gyro_y.pos_tr_n_x, traj_mod_gyro_y.pos_tr_n_y, traj_mod_gyro_y.pos_tr_n_z, 'g-', 'LineWidth', 1)
+plot3(traj_mod_gyro_z.pos_tr_n_x, traj_mod_gyro_z.pos_tr_n_y, traj_mod_gyro_z.pos_tr_n_z, 'm-', 'LineWidth', 1)
+hold off
+grid on
+xlabel('x [m]'); ylabel('y [m]'); zlabel('z [m]')
+title('3D trajectory: effect of gyro rate errors (blue=original, red=gyro x, green=gyro y, magenta=gyro z)')
+legend('Original', 'Gyro x modified', 'Gyro y modified', 'Gyro z modified', 'Location', 'best')
+axis equal
+xr = [min(traj_original.pos_tr_n_x), max(traj_original.pos_tr_n_x)];
+yr = [min(traj_original.pos_tr_n_y), max(traj_original.pos_tr_n_y)];
+zr = [min(traj_original.pos_tr_n_z), max(traj_original.pos_tr_n_z)];
+span = max([diff(xr), diff(yr), diff(zr), 0.2]);
+mx = mean(xr); my = mean(yr); mz = mean(zr);
+xlim([mx - span/2, mx + span/2])
+ylim([my - span/2, my + span/2])
+zlim([mz - span/2, mz + span/2])
 
 
 function traj = run_dead_reckoning(time_ms_raw, accm_b_x_raw, accm_b_y_raw, accm_b_z_raw, gyro_b_x_raw, gyro_b_y_raw, gyro_b_z_raw, g_n)

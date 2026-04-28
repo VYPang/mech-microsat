@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>LLAToECEF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LLAToECEF:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Compute ECEF position from latitude, longitude, altitude.
+ Assumes spherical planet.
+--------------------------------------------------------------------------
+   Form:
+   rECEF = LLAToECEF( lla, rP )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   lla         (3,:)   Latitude [rad], longitude [rad], altitude [km]
+   rP          (1,1)   Radius of planet (for Earth: 6378.14) [km]
+                       
+
+   -------
+   Outputs
+   -------
+   rECEF       (3,1)   ECEF position vector [km]
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

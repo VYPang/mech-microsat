@@ -1,0 +1,273 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>CubeSatTiltedWings</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-06-19"><meta name="DC.source" content="CubeSatTiltedWings.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Design a 3U CubeSat with Tilted Wings</a></li><li><a href="#2">Specify the solar panel geometry and construct the model</a></li><li><a href="#3">Visualize the model</a></li><li><a href="#4">Check the RHS output with the model</a></li></ul></div><h2 id="1">Design a 3U CubeSat with Tilted Wings</h2><p>Specify data in the solarPanel field for CubeSatModel to define tilted wings.</p><p>See also RHSCubeSat, CubeSatModel, DrawCubeSat, DrawCubeSatSolarAreas, VOrbit, StructToText, QZero, Unit</p><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2017 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+disp(<span class="string">'3U CubeSat with Tilted Wings'</span>);
+</pre><pre class="codeoutput">3U CubeSat with Tilted Wings
+</pre><h2 id="2">Specify the solar panel geometry and construct the model</h2><pre class="codeinput">d                       = CubeSatModel( <span class="string">'struct'</span> );
+d.massComponents        = 3;
+d.solarPanel.dim        = [100 100 10];	<span class="comment">% [side attached to cubesat, side perpendicular, thickness]</span>
+d.solarPanel.nPanels    = 2; <span class="comment">% Number of panels per wing</span>
+d.solarPanel.rPanel     = [50 -50 0 0;0 0 50 -50;-150 -150 -150 -150]; <span class="comment">% Location of inner edge of panel</span>
+d.solarPanel.sPanel     = [1 -1 0 0;0 0 1 -1;-1 -1 -1 -1];
+d.solarPanel.cellNormal = Unit([1 -1 0 0;0 0 1 -1;1 1 1 1]); <span class="comment">% Cell normal</span>
+d.solarPanel.sigmaCell  = [1;0;0];    <span class="comment">% [absorbed; specular; diffuse]</span>
+d.solarPanel.sigmaBack  = [0;0;1];    <span class="comment">% [absorbed; specular; diffuse]</span>
+d.solarPanel.mass       = 0.1;
+
+[v, f, data] = CubeSatModel( <span class="string">'3U'</span>, d );
+StructToText( data );
+</pre><pre class="codeoutput">jD0:
+	2.4552e+06
+mass:
+	5.39864
+inertia (3,3):
+	0.117895 	-0.000000 	0.000000 
+	-0.000000 	0.098448 	0.000000 
+	0.000000 	0.000000 	0.048872 
+dipole (3,1):
+	0.000000 	0.000000 	0.000000 
+power: STRUCTURE
+power.solarCellEff:
+	0.29
+power.effPowerConversion:
+	0.8
+power.solarCellArea (1,4):
+	0.020000 
+	0.020000 
+	0.020000 
+	0.020000 
+power.solarCellNormal (3,4):
+	0.707107 	-0.707107 	0.000000 	0.000000 
+	0.000000 	0.000000 	0.707107 	-0.707107 
+	0.707107 	0.707107 	0.707107 	0.707107 
+power.consumption:
+	0.5
+power.batteryCapacity:
+	100
+surfData: STRUCTURE
+surfData.cD:
+	2.7
+surfData.cM (3,1):
+	0.000000 	0.000000 	-0.037114 
+surfData.area (1,22):
+	0.030000 
+	0.030000 
+	0.010000 
+	0.030000 
+	0.030000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+	0.010000 
+surfData.nFace (3,22):
+	1.000000 	0.000000 	0.000000 	-1.000000 	-0.000000 	-0.000000 	0.707107 	-0.707107 	0.707107 	-0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 	0.000000 	-0.000000 	0.000000 	-0.000000 	0.000000 	-0.000000 	0.000000 	-0.000000 
+	0.000000 	1.000000 	0.000000 	-0.000000 	-1.000000 	-0.000000 	0.000000 	-0.000000 	0.000000 	-0.000000 	0.000000 	-0.000000 	0.000000 	-0.000000 	0.707107 	-0.707107 	0.707107 	-0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 
+	0.000000 	0.000000 	1.000000 	-0.000000 	-0.000000 	-1.000000 	0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 	-0.707107 	0.707107 	-0.707107 
+surfData.rFace (3,22):
+	0.050000 	0.000000 	0.000000 	-0.050000 	-0.000000 	-0.000000 	0.100000 	0.100000 	0.200000 	0.200000 	-0.100000 	-0.100000 	-0.200000 	-0.200000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 
+	0.000000 	0.050000 	0.000000 	-0.000000 	-0.050000 	-0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.100000 	0.100000 	0.200000 	0.200000 	-0.100000 	-0.100000 	-0.200000 	-0.200000 
+	0.000000 	0.000000 	0.150000 	-0.000000 	-0.000000 	-0.150000 	-0.200000 	-0.200000 	-0.300000 	-0.300000 	-0.200000 	-0.200000 	-0.300000 	-0.300000 	-0.200000 	-0.200000 	-0.300000 	-0.300000 	-0.200000 	-0.200000 	-0.300000 	-0.300000 
+surfData.att: STRUCTURE
+surfData.att.type:
+	'eci'
+surfData.att.qLVLHToBody (4,1):
+	1.000000 
+	0.000000 
+	0.000000 
+	0.000000 
+surfData.sigma (3,22):
+	1.000000 	1.000000 	1.000000 	1.000000 	1.000000 	1.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 
+	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 
+	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 	0.000000 	1.000000 
+surfData.planet:
+   1
+
+aeroModel:
+	CubeSatAero
+opticalModel:
+	CubeSatRadiationPressure
+atm: STRUCTURE
+atm.aP:
+	15
+atm.f:
+	176
+atm.fHat:
+	178.135
+atm.fHat400:
+	146.296
+kWheels:
+	[]
+inertiaRWA:
+	[]
+tRWA:
+	[]
+
+</pre><h2 id="3">Visualize the model</h2><pre class="codeinput">DrawCubeSat( v, f, data );
+DrawCubeSatSolarAreas( data );
+</pre><img vspace="5" hspace="5" src="CubeSatTiltedWings_01.png" style="width:280px;height:210px;" alt=""> <img vspace="5" hspace="5" src="CubeSatTiltedWings_02.png" style="width:280px;height:210px;" alt=""> <h2 id="4">Check the RHS output with the model</h2><p>Point the solar panels (+z) at the sun for the default epoch</p><pre class="codeinput">uSun = SunV1(data.jD0);
+q0 = U2Q( uSun, [0;0;1] );
+x = [7000;0;0;0;VOrbit(7000);0;q0;0;0;0;0];
+t = 0;
+[~,dist,power] = RHSCubeSat( x, t, data );
+
+StructToText( dist );
+fprintf(<span class="string">'Max solar power: %g W\n'</span>,power);
+
+
+<span class="comment">%--------------------------------------</span>
+</pre><pre class="codeoutput">fOptical (3,1):
+	0.000000 	0.000000 	0.000000 
+tOptical (3,1):
+	0.000000 	-0.000000 	-0.000000 
+fAerodyn (3,1):
+	0.000000 	-0.000002 	0.000000 
+tAerodyn (3,1):
+	0.000000 	0.000000 	0.000000 
+tGG (3,1):
+	-0.000000 	0.000000 	-0.000000 
+tMag (3,1):
+	-0.000000 	0.000000 	0.000000 
+fTotal (3,1):
+	0.000000 	-0.000002 	0.000000 
+tTotal (3,1):
+	0.000000 	0.000000 	-0.000000 
+rho:
+	4.08773e-13
+bField (3,1):
+	-0.000010 	0.000017 	-0.000012 
+
+Max solar power: 18.5067 W
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Design a 3U CubeSat with Tilted Wings
+% Specify data in the solarPanel field for CubeSatModel to define tilted wings.
+%
+% See also RHSCubeSat, CubeSatModel, DrawCubeSat, DrawCubeSatSolarAreas, 
+% VOrbit, StructToText, QZero, Unit
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2017 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+disp('3U CubeSat with Tilted Wings');
+
+%% Specify the solar panel geometry and construct the model
+d                       = CubeSatModel( 'struct' );
+d.massComponents        = 3;
+d.solarPanel.dim        = [100 100 10];	% [side attached to cubesat, side perpendicular, thickness]
+d.solarPanel.nPanels    = 2; % Number of panels per wing
+d.solarPanel.rPanel     = [50 -50 0 0;0 0 50 -50;-150 -150 -150 -150]; % Location of inner edge of panel
+d.solarPanel.sPanel     = [1 -1 0 0;0 0 1 -1;-1 -1 -1 -1];
+d.solarPanel.cellNormal = Unit([1 -1 0 0;0 0 1 -1;1 1 1 1]); % Cell normal
+d.solarPanel.sigmaCell  = [1;0;0];    % [absorbed; specular; diffuse]
+d.solarPanel.sigmaBack  = [0;0;1];    % [absorbed; specular; diffuse]
+d.solarPanel.mass       = 0.1;
+
+[v, f, data] = CubeSatModel( '3U', d );
+StructToText( data );
+
+%% Visualize the model
+DrawCubeSat( v, f, data );
+DrawCubeSatSolarAreas( data );
+
+%% Check the RHS output with the model
+% Point the solar panels (+z) at the sun for the default epoch
+uSun = SunV1(data.jD0);
+q0 = U2Q( uSun, [0;0;1] );
+x = [7000;0;0;0;VOrbit(7000);0;q0;0;0;0;0];
+t = 0;
+[~,dist,power] = RHSCubeSat( x, t, data );
+
+StructToText( dist );
+fprintf('Max solar power: %g W\n',power);
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2017-06-12 15:40:32 -0400 (Mon, 12 Jun 2017) $
+% $Revision: 44835 $
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>LossPolarization</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LossPolarization:</h2>
+<p>Path: Link/RF</p>
+<pre>
+% Computes the polarization loss.
+
+   Type LossPolarization for a demo.
+
+   Loss is converted to a gain by making it negative.
+--------------------------------------------------------------------------
+   Form:
+   l = LossPolarization( psi )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   psi   (:)  Angle between transmit and receive planes (deg)
+
+   -------
+   Outputs
+   -------
+   l     (:)  Loss (dB)
+
+--------------------------------------------------------------------------
+   Reference:  Maral, G. and M. Bousquet. (1998.) Satellite Communications
+               Systems, Third Edition. John Wiley. p. 27.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/CosDHeader.html">Math: Trigonometry/CosD</a>
+</pre>
+<hr><p> <a href="../LinkFunctions.html">Back</a> to the Link Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>GroundTrack</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GroundTrack:</h2>
+<p>Path: CubeSat/Visualization</p>
+<pre>
+% Plot an orbit track. Converts the inertial positions to planet-fixed.
+ Pass in the time array and the initial epoch. The epoch may be a Julian date
+ or a datetime array. The initial position is marked with an 'o'. Ground
+ stations are marked with 'x'.
+
+ You generate the planet data structure like this example;
+ The replication of the image map is needed because the png is gray scale.
+
+   p = imread('planet.png');
+   p3(:,:,1) = p;
+   p3(:,:,2) = p;
+   p3(:,:,3) = p;
+   planet.planetMap = p3;
+   planet.radius = 1000;
+   planet.name = 'MyPlanet';
+
+ Type GroundTrack for a demo showing an orbit around the Earth.
+--------------------------------------------------------------------------
+   Form:
+   GroundTrack( r, t, jD0, planet, gS )
+   GroundTrack( r, t, datetime, planet, gS )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r                (3*n,:) ECI position vectors (km)
+   t                (1,:) Time array (sec)
+   jD0              (1,1) Epoch Julian date
+             -or- 
+   datetime         (1,6) [year month day hour minute seconds]
+
+   planet           (1,:) Planet (default is earth)
+             -or-
+                    (.)
+                          (1,:) name
+                          (:)   planetMap
+                          (:)   planetColorMap (optional)
+                          (1,1) radius (km)
+   gS               (2,:) Ground stations [lat;lon] (deg)
+
+   -------
+   Outputs
+   -------
+   none   
+
+--------------------------------------------------------------------------
+ See also ECIToPlanet, R2LatLon, Date2JD
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/R2LatLonHeader.html">AerospaceUtils: Coord/R2LatLon</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../SCHeaders/PeriodHeader.html">SC: BasicOrbit/Period</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/ECIToPlanetHeader.html">SC: Ephem/ECIToPlanet</a>
+<a href="../SCHeaders/EarthMRHeader.html">SC: SCMat/EarthMR</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>MassStructure</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MassStructure:</h2>
+<p>Path: Common/MassProperties</p>
+<pre>
+% Create a mass data structure.
+--------------------------------------------------------------------------
+   Form:
+   m = MassStructure( mass, type, info, cM )
+   m = MassStructure( mass, inr, cM )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   mass           (1,1)   Mass
+   type           (1,:)   Type of body or (3,3) Inertia matrix
+   info           (:,:)   Dimensions depends on type see Inertias
+   cM             (3,1)   Center-of-mass location
+
+   -------
+   Outputs
+   -------
+   m              (1,1)   Structure
+                          .mass     (1,1) mass
+                          .inertia  (3,3) Inertia matrix
+                          .cM       (3,1) Center of mass
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/IC623X3Header.html">Common: MassProperties/IC623X3</a>
+<a href="../CommonHeaders/InertiasHeader.html">Common: MassProperties/Inertias</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

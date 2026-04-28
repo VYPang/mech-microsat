@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>GSS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GSS:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Compute the multivariable frequency response of the system.
+   .
+   x = ax + bu
+   y = cx + du
+
+   or
+
+   G(s) = c*inv(sI-a)*b + d
+
+   y(s) = G(s)*u(s)
+
+   For example, for 3 outputs and 2 inputs g is of the form
+
+                   w(1)               w(2)       ...
+   output 1 [ input 1 input 2 | input 1 input 2 |... ]
+   output 2 [ input 1 input 2 | input 1 input 2 |... ]
+   output 3 [ input 1 input 2 | input 1 input 2 |... ]
+
+--------------------------------------------------------------------------
+   Form:
+   [g,nu,w] = GSS(a,b,c,d,iu,iy,w)
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a                   Plant matrix
+   b                   Input matrix
+   c                   Measurement matrix
+   d                   Input feedthrough matrix
+   iu                  Inputs  ( = 0, or leave out for all)
+   iy                  Outputs ( = 0, or leave out for all)
+   w                   Frequency vector
+
+   -------
+   Outputs
+   -------
+   g                   Frequency response matrix
+   nu                  Number of inputs
+   w                   Frequency vector
+
+--------------------------------------------------------------------------
+   References:	  Laub, A., "Efficient Multivariable Frequency Response
+                 Computations," IEEE Transactions on Automatic Control,
+                 Vol. AC-26, No. 2, April 1981, pp. 407-408.
+                 Maciejowski, J. M., Multivariable Feedback Design, 
+                 Addison-Wesley, Reading, MA, 1989, pp. 368-370.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SizeABCDHeader.html">Common: Control/SizeABCD</a>
+<a href="../CommonHeaders/WPZHeader.html">Common: Control/WPZ</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

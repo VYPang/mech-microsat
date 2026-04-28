@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>ZFresp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ZFresp:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Generates the frequency response for a digital filter.
+
+                       -1               -nb
+           b(1) + b(2)z   + Š + b(nb+1)z
+   H(z) = ---------------------------------
+                       -1               -na
+           a(1) + a(2)z   + Š + a(na+1)z
+
+   The routine interprets your input as follows:
+   If only 2 arguments are input it computes the frequency response
+   for 0 to ¼ at 512 points.
+
+   If 3 arguments are entered and the third is a scalar it will
+   interpret n as follows:
+
+     if ( n > 2.25 ),
+       do n point response between 0 and ¼
+       else if ( n < 2.25),
+         if n is an integer do an n point response between 0 and ¼
+       else
+         treat n as a scalar frequency
+       end
+     end
+
+     if 4 arguments are entered it will do an n point response between
+     0 and 2.25.
+
+--------------------------------------------------------------------------
+   Form:
+   [h, w] = ZFresp( num, den, n )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   num                 Numerator polynomial
+   den                 Denominator polynomial
+   n                   Number of points
+
+   -------
+   Outputs
+   -------
+   h                   Complex output vector
+   w                   Frequency points 
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>SpacecraftWithDamping</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SpacecraftWithDamping:</h2>
+<p>Path: CubeSat/Demos/Simulation</p>
+<pre>
+% A spacecraft with rate or hysteresis damping.
+ You can try different kinds of damping. One is 3-axis damping
+ that applies a damping constant to each axis rate. You should 
+ find a constant that approximates whatever damper you have.
+ If everything is working properly the spacecraft will align its
+ torque rod with the Earth's magnetic field.
+
+ This simulation does not have any disturbances. Run for a small number of
+ orbits to clearly see the hysteresis loops. They are minor loops since
+ the Earth's field is not strong enough to take the rod to saturation. Run
+ for several days to damp the rates close to zero.
+
+ The second type is magnetic hysteresis damping. Read the headers for
+ RHSHysteresisDamper.m, TorqueHysteresis.m, and MagneticHysteresis.m
+ MagneticHysteresis.m for more information.
+
+ Things to try:
+
+       1. Try both types of damping.
+       2. Determine a damping constant that produces the same results as
+          hysteresis damping.
+       3. Try different orbits.
+       4. Try different dipoles.
+       5. With no damping determine the oscillation frequency of the
+          spacecraft.
+       6. See what happens with a rotation rate about the dipole axis.
+       7. Remove the dipole and initialize with nonzero rates instead.
+
+
+  ----------------------------------------------------------------------
+  See also BFromHHysteresis, RHSHysteresisDamper, RHSRigidBodyWithDamping,
+  HysteresisOutput
+  ----------------------------------------------------------------------
+%
+--------------------------------------------------------------------------
+   Copyright (c) 2014 Princeton Satellite Systems, Inc.
+   All Rights Reserved
+--------------------------------------------------------------------------
+   Since version 2014.1
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../ACHeaders/ACTConstantsHeader.html">AC: ACData/ACTConstants</a>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../AerospaceUtilsHeaders/QIToBDotHeader.html">AerospaceUtils: Coord/QIToBDot</a>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/ConstantsHeader.html">Common: CommonData/Constants</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/xSplashSmallHeader.html">Common: CommonData/xSplashSmall</a>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/FiguiHeader.html">Common: GUIs/Figui</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/DeleteCellHeader.html">Common: General/DeleteCell</a>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Plot3DHeader.html">Common: Graphics/Plot3D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/SortFigsHeader.html">Common: Graphics/SortFigs</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/HelpSystemHeader.html">Common: Help/HelpSystem</a>
+<a href="../CommonHeaders/IC623X3Header.html">Common: MassProperties/IC623X3</a>
+<a href="../CommonHeaders/InertiasHeader.html">Common: MassProperties/Inertias</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/Q2MatHeader.html">Common: Quaternion/Q2Mat</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../CubeSatHeaders/InertiaCubeSatHeader.html">CubeSat: AttitudeControl/InertiaCubeSat</a>
+<a href="../MathHeaders/RK4Header.html">Math: Integration/RK4</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/SkewHeader.html">Math: Linear/Skew</a>
+<a href="../MathHeaders/SkewSymmHeader.html">Math: Linear/SkewSymm</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/R2P5Header.html">Math: MathUtils/R2P5</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/El2RVHeader.html">SC: BasicOrbit/El2RV</a>
+<a href="../SCHeaders/M2EHeader.html">SC: BasicOrbit/M2E</a>
+<a href="../SCHeaders/M2EAppHeader.html">SC: BasicOrbit/M2EApp</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/M2EHyHeader.html">SC: BasicOrbit/M2EHy</a>
+<a href="../SCHeaders/M2NuHeader.html">SC: BasicOrbit/M2Nu</a>
+<a href="../SCHeaders/M2NuPbHeader.html">SC: BasicOrbit/M2NuPb</a>
+<a href="../SCHeaders/PeriodHeader.html">SC: BasicOrbit/Period</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/HysteresisOutputHeader.html">SC: DemoFuns/HysteresisOutput</a>
+<a href="../SCHeaders/RHSRigidBodyWithDampingHeader.html">SC: Dynamics/RHSRigidBodyWithDamping</a>
+<a href="../SCHeaders/BDipoleHeader.html">SC: Environs/BDipole</a>
+<a href="../SCHeaders/EarthRteHeader.html">SC: Ephem/EarthRte</a>
+<a href="../SCHeaders/MSidDayHeader.html">SC: Ephem/MSidDay</a>
+<a href="../SCHeaders/BFromHHysteresisHeader.html">SC: MagneticControl/BFromHHysteresis</a>
+<a href="../SCHeaders/MagneticHysteresisHeader.html">SC: MagneticControl/MagneticHysteresis</a>
+<a href="../SCHeaders/RHSHysteresisDamperHeader.html">SC: MagneticControl/RHSHysteresisDamper</a>
+<a href="../SCHeaders/TorqueHysteresisDamperHeader.html">SC: MagneticControl/TorqueHysteresisDamper</a>
+<a href="../SCHeaders/sCTConstantsHeader.html">SC: SCData/sCTConstants</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

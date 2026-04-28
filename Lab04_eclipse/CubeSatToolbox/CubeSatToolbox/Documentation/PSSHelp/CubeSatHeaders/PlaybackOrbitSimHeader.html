@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>PlaybackOrbitSim</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PlaybackOrbitSim:</h2>
+<p>Path: CubeSat/MissionPlanning</p>
+<pre>
+% Play back an orbit simulation of multiple objects with sensor cones.
+ Utilizes AnimationGUI.
+--------------------------------------------------------------------------
+   Form:
+   PlaybackOrbitSim( time, object, planet, style )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   time   	(1,N) Time vector. For display only. Use any units.
+   object	(:)   Data structure array of simulated objects in orbit
+                 See PackageOrbitDataForPlayback.m. Fields are:
+                 .rEF         (3,N) Earth fixed position (km)
+                 .vEF         (3,N) Earth fixed velocity (km/s)
+                 .lat         (1,N) Latitude (rad)
+                 .lon         (1,N) Longitude (rad)
+                 .h           (1,N) Altitude (km)
+                 .coneFOV     (1,N) Cone field of view (rad)
+                 .conePitch   (1,N) Cone pitch from nadir (rad)
+                 .coneAzimuth	(N,1) Cone azimuth from north (rad)
+                 .coneAxis    (3,N) Cone axis in Earth-fixed frame
+                 .swathX      (N,P) Swath curve, Earth-fixed x-coord.
+                 .swathY      (N,P) Swath curve, Earth-fixed y-coord.
+                 .swathZ      (N,P) Swath curve, Earth-fixed z-coord.
+                 .swathLat    (N,P) Swath curve, latitude
+                 .swathLon    (N,P) Swath curve, longitude
+   planet    (:)	Name of planet file to use (e.g. 'EarthHR')
+   style     (:)	'2D' or '3D'   
+               	 NOTE: '2D' is not yet supported. To be supported
+                   in a future release.
+
+   -------
+   Outputs
+   -------
+   None
+
+   See also:  PackageOrbitDataForPlayback.m
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/ECEFToLLAHeader.html">AerospaceUtils: Coord/ECEFToLLA</a>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/BoxHeader.html">Common: ComponentModels/Box</a>
+<a href="../CommonHeaders/ConeHeader.html">Common: ComponentModels/Cone</a>
+<a href="../CommonHeaders/FrustrumHeader.html">Common: ComponentModels/Frustrum</a>
+<a href="../CommonHeaders/LegendFigHeader.html">Common: GUIs/LegendFig</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/CloseFigureHeader.html">Common: General/CloseFigure</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/GetNewTagHeader.html">Common: General/GetNewTag</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/AddViewHeader.html">Common: Graphics/AddView</a>
+<a href="../CommonHeaders/AddZoomHeader.html">Common: Graphics/AddZoom</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/CameraControlsHeader.html">Common: Graphics/CameraControls</a>
+<a href="../CommonHeaders/ColorSpreadHeader.html">Common: Graphics/ColorSpread</a>
+<a href="../CommonHeaders/DrawVerticesHeader.html">Common: Graphics/DrawVertices</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Plot3DHeader.html">Common: Graphics/Plot3D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/SliderBarHeader.html">Common: Graphics/SliderBar</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/AU2QHeader.html">Common: Quaternion/AU2Q</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/U2QHeader.html">Common: Quaternion/U2Q</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../CommonHeaders/RotMatHeader.html">Common: Transform/RotMat</a>
+<a href="../CubeSatHeaders/PackageOrbitDataForPlaybackHeader.html">CubeSat: MissionPlanning/PackageOrbitDataForPlayback</a>
+<a href="../CubeSatHeaders/RapidSwathHeader.html">CubeSat: MissionPlanning/RapidSwath</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/CosDHeader.html">Math: Trigonometry/CosD</a>
+<a href="../MathHeaders/SinDHeader.html">Math: Trigonometry/SinD</a>
+<a href="../PlottingHeaders/AnimationGUIHeader.html">Plotting: GUI/AnimationGUI</a>
+<a href="../PlottingHeaders/InitializeAxesHeader.html">Plotting: Utilities/InitializeAxes</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+<a href="../SCHeaders/OrbRateHeader.html">SC: BasicOrbit/OrbRate</a>
+<a href="../SCHeaders/PeriodHeader.html">SC: BasicOrbit/Period</a>
+<a href="../SCHeaders/RV2ElHeader.html">SC: BasicOrbit/RV2El</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/SunV1Header.html">SC: Ephem/SunV1</a>
+<a href="../builderHeaders/HelpSystemHeader.html">builder: Templates/HelpSystem</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

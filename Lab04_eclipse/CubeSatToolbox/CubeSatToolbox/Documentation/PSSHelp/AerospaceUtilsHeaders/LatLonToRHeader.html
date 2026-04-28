@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>LatLonToR</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LatLonToR:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Converts geodetic latitude and longitude to r for an ellipsoidal planet.
+ The default for f is the flattening factor for the earth. The default
+ for type is geodetic.
+
+ Type LatLonToR for a demo.
+
+--------------------------------------------------------------------------
+   Form:
+   r = LatLonToR( lat, lon, f, a, type )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   lat                   (:)    Geodetic latitude (rad)
+   lon                   (:)    Longitude (rad)
+   f                     (1,1)  Flattening factor
+   a                     (1,1)  Equatorial radius
+   type                  (1,:)  'geodetic' or 'geocentric'
+
+   -------
+   Outputs
+   -------
+   r                     (3,:)  Position vectors
+
+--------------------------------------------------------------------------
+   Reference: Escobal, P. R., "Methods of Orbit Determination," Kreiger,
+              1965, pp. 24-28.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../ACHeaders/ACTConstantsHeader.html">AC: ACData/ACTConstants</a>
+<a href="../CommonHeaders/ConstantsHeader.html">Common: CommonData/Constants</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/xSplashSmallHeader.html">Common: CommonData/xSplashSmall</a>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/DeleteCellHeader.html">Common: General/DeleteCell</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../SCHeaders/sCTConstantsHeader.html">SC: SCData/sCTConstants</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

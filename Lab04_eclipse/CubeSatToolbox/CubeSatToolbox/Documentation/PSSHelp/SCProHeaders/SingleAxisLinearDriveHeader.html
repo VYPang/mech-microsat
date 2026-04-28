@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>SingleAxisLinearDrive</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SingleAxisLinearDrive:</h2>
+<p>Path: SCPro/ProActuators</p>
+<pre>
+% Model a single axis drive with the motor dynamics modeled by a lag.
+ Typing SingleAxisLinearDrive is the same as
+ SingleAxisLinearDrive('initialize')
+--------------------------------------------------------------------------
+
+   -------
+   Inputs
+   -------
+   action      (1,:)     'initialize' 'get power consumption'
+                         'set torque'  'get torque'
+                         'get state derivative' 'update'
+                         'set failure' 'get default datastructure'
+   d           (1,1)     Depends on the action
+
+   -------
+   Outputs
+   -------
+   y           (1,1)     Depends on the action
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../SCProFunctions.html">Back</a> to the SCPro Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

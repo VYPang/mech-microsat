@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>FSWClock</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>FSWClock:</h2>
+<p>Path: Common/General</p>
+<pre>
+% This routine implements the flight software clock.
+--------------------------------------------------------------------------
+   Form:
+   t = FSWClock( action, d );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action        (1,:)     Action to be performed        
+   d             (1,1)     Data structure for inputs
+
+   -------
+   Outputs
+   -------
+   t             (1,1)     Data structure with outputs. Valid only
+                           with action 'update' and 'get telemetry'
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

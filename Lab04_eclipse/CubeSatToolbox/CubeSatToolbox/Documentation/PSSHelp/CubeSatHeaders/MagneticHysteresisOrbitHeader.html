@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>MagneticHysteresisOrbit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MagneticHysteresisOrbit:</h2>
+<p>Path: CubeSat/Demos/Simulation</p>
+<pre>
+% Magnetic hysteresis over multiple orbits.
+
+ Shows the magnetic field in a magnetic hysteresis damper over multiple
+ orbits. The goal is to verify that appropriate hysteresis curves are seen 
+ in the computed bar flux. Without external torque, there will be one
+ hysteresis loop per orbit.
+
+ When using the hysteresis function you must be very careful to have
+ the field rate in the body frame. Otherwise the magnet can go 
+ past saturation. In addition, use BFromHHysteresis to set the initial
+ value for the b field in the bar.
+
+ Things to try:
+
+   1. Try different bar orientations in the body frame 
+   2. Different orbits and initial rates
+   3. Try different numbers of points per orbit.
+   4. Add a nonzero torque
+
+
+  ----------------------------------------------------------------------
+  See also BFromHHysteresis, MagneticHysteresis
+  ----------------------------------------------------------------------
+%
+--------------------------------------------------------------------------
+   Copyright (c) 2014 Princeton Satellite Systems, Inc.
+   All Rights Reserved
+--------------------------------------------------------------------------
+   Since version 2014.1
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../AerospaceUtilsHeaders/QIToBDotHeader.html">AerospaceUtils: Coord/QIToBDot</a>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../CommonHeaders/TimeDisplayHeader.html">Common: GUIs/TimeDisplay</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Plot3DHeader.html">Common: Graphics/Plot3D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/Q2MatHeader.html">Common: Quaternion/Q2Mat</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../MathHeaders/RK4Header.html">Math: Integration/RK4</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/SkewHeader.html">Math: Linear/Skew</a>
+<a href="../MathHeaders/SkewSymmHeader.html">Math: Linear/SkewSymm</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/R2P5Header.html">Math: MathUtils/R2P5</a>
+<a href="../SCHeaders/OrbRateHeader.html">SC: BasicOrbit/OrbRate</a>
+<a href="../SCHeaders/PeriodHeader.html">SC: BasicOrbit/Period</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/FRBHeader.html">SC: Dynamics/FRB</a>
+<a href="../SCHeaders/RBModelHeader.html">SC: Dynamics/RBModel</a>
+<a href="../SCHeaders/BDipoleHeader.html">SC: Environs/BDipole</a>
+<a href="../SCHeaders/EarthRteHeader.html">SC: Ephem/EarthRte</a>
+<a href="../SCHeaders/MSidDayHeader.html">SC: Ephem/MSidDay</a>
+<a href="../SCHeaders/BFromHHysteresisHeader.html">SC: MagneticControl/BFromHHysteresis</a>
+<a href="../SCHeaders/MagneticHysteresisHeader.html">SC: MagneticControl/MagneticHysteresis</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

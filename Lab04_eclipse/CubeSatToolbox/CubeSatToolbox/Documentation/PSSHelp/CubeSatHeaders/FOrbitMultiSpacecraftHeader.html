@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>FOrbitMultiSpacecraft</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>FOrbitMultiSpacecraft:</h2>
+<p>Path: CubeSat/Simulation</p>
+<pre>
+% Multispacecraft orbit model designed to work with ode113.
+ You can include aerodynamic, radiation pressure and thrust models. Sun,
+ earth, and moon perturbations are computed if the planet (Earth or
+ Moon) is given. Uses SunV1 and MoonV1 for ephemeris. 
+--------------------------------------------------------------------------
+   Form:
+      d = FOrbitMultiSpacecraft             % data structure
+   xDot = FOrbitMultiSpacecraft( t, x, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   t                Time
+   x       (7*n,1)  The state vector [r1;v1;m1;r2;v2;m2;...]
+   d       (:)      Data structure array
+                    .jD0                       (1,1)   Julian date at start
+
+                    This is only needed for planetary disturbances
+                    and if a gravity model is entered:
+
+                    .planet                   (1,:)   Planet name, 'earth', 'moon'
+
+                    These are optional:
+
+                    .thrusterModel            (1,:)   Thrust function handle
+                    .thrusterData             (.)     Thrust data structure
+                    .opticalModel             (1,:)   Optical function handle
+                    .aeroModel                (1,:)   Aero function handle
+                    .surfData                 (.)     Surface data structure
+                    .gravityModel             (.)     Gravity model structure;
+                                                        default is point-mass.
+                    The following are only needed if you want J70, otherwise
+                    AtmDens2 will be used.
+
+                    .atm.aP                   (1,1)   Geomagnetic index 6.7 hours before the computation
+                    .atm.f                    (1,1)   Daily 10.7 cm solar flux (e-22 watts/m^2/cycle/sec)
+                    .atm.fHat                 (1,1)   81-day mean of f (e-22 watts/m^2/cycle/sec)
+                    .atm.fHat400              (1,1)   fHat 400 days before computation date
+
+   -------
+   Outputs
+   -------
+   xDot    (7*n,1)  The state vector derivative [v1;r1Dot;m1Dot...]
+
+--------------------------------------------------------------------------
+   See also CubeSatEnvironment, ECIToPlanet, AGravityC, FOrbCart,
+   PlanetaryAccelerations CubeSatRadiationPressure, CubeSatAero,
+   CubeSatPropulsion
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../ACHeaders/ACTConstantsHeader.html">AC: ACData/ACTConstants</a>
+<a href="../AerospaceUtilsHeaders/AtmDens2Header.html">AerospaceUtils: AtmosphericCalculations/AtmDens2</a>
+<a href="../AerospaceUtilsHeaders/AtmJ70Header.html">AerospaceUtils: AtmosphericCalculations/AtmJ70</a>
+<a href="../AerospaceUtilsHeaders/BaromExpHeader.html">AerospaceUtils: AtmosphericCalculations/BaromExp</a>
+<a href="../AerospaceUtilsHeaders/DiffusionExpHeader.html">AerospaceUtils: AtmosphericCalculations/DiffusionExp</a>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/ConstantsHeader.html">Common: CommonData/Constants</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/xSplashSmallHeader.html">Common: CommonData/xSplashSmall</a>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/DeleteCellHeader.html">Common: General/DeleteCell</a>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Mesh2Header.html">Common: Graphics/Mesh2</a>
+<a href="../CommonHeaders/NPlotHeader.html">Common: Graphics/NPlot</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QZeroHeader.html">Common: Quaternion/QZero</a>
+<a href="../CommonHeaders/DTAToDTSHeader.html">Common: Time/DTAToDTS</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2DNHeader.html">Common: Time/Date2DN</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2DNHeader.html">Common: Time/JD2DN</a>
+<a href="../CommonHeaders/JD2DateHeader.html">Common: Time/JD2Date</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/JDToMidnightHeader.html">Common: Time/JDToMidnight</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../CubeSatHeaders/CubeSatAttitudeHeader.html">CubeSat: Utilities/CubeSatAttitude</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/FactorlHeader.html">Math: Linear/Factorl</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/SkewHeader.html">Math: Linear/Skew</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/R2P5Header.html">Math: MathUtils/R2P5</a>
+<a href="../MathHeaders/ACosDHeader.html">Math: Trigonometry/ACosD</a>
+<a href="../MathHeaders/CosDHeader.html">Math: Trigonometry/CosD</a>
+<a href="../MathHeaders/SinDHeader.html">Math: Trigonometry/SinD</a>
+<a href="../OrbitHeaders/LoadGEMHeader.html">Orbit: GravityModels/LoadGEM</a>
+<a href="../OrbitHeaders/NormalizationMatrixHeader.html">Orbit: GravityModels/NormalizationMatrix</a>
+<a href="../OrbitHeaders/AGravityCHeader.html">Orbit: OrbitMechanics/AGravityC</a>
+<a href="../OrbitHeaders/APlanetHeader.html">Orbit: OrbitMechanics/APlanet</a>
+<a href="../SCHeaders/FOrbCartHeader.html">SC: BasicOrbit/FOrbCart</a>
+<a href="../SCHeaders/ECIToPlanetHeader.html">SC: Ephem/ECIToPlanet</a>
+<a href="../SCHeaders/EOfEHeader.html">SC: Ephem/EOfE</a>
+<a href="../SCHeaders/EarthNutHeader.html">SC: Ephem/EarthNut</a>
+<a href="../SCHeaders/EarthPreHeader.html">SC: Ephem/EarthPre</a>
+<a href="../SCHeaders/EarthRotHeader.html">SC: Ephem/EarthRot</a>
+<a href="../SCHeaders/EclipseHeader.html">SC: Ephem/Eclipse</a>
+<a href="../SCHeaders/GMSTimeHeader.html">SC: Ephem/GMSTime</a>
+<a href="../SCHeaders/MSidDayHeader.html">SC: Ephem/MSidDay</a>
+<a href="../SCHeaders/MoonRotHeader.html">SC: Ephem/MoonRot</a>
+<a href="../SCHeaders/MoonV1Header.html">SC: Ephem/MoonV1</a>
+<a href="../SCHeaders/MoonsHeader.html">SC: Ephem/Moons</a>
+<a href="../SCHeaders/NutDeltaHeader.html">SC: Ephem/NutDelta</a>
+<a href="../SCHeaders/ObOfEHeader.html">SC: Ephem/ObOfE</a>
+<a href="../SCHeaders/SunV1Header.html">SC: Ephem/SunV1</a>
+<a href="../SCHeaders/TruEarthHeader.html">SC: Ephem/TruEarth</a>
+<a href="../SCHeaders/sCTConstantsHeader.html">SC: SCData/sCTConstants</a>
+<a href="../SCHeaders/GEMT1Header.html">SC: SCMat/GEMT1</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

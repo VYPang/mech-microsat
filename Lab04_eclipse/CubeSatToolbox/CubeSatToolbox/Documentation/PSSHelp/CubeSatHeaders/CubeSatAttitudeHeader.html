@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>CubeSatAttitude</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CubeSatAttitude:</h2>
+<p>Path: CubeSat/Utilities</p>
+<pre>
+--------------------------------------------------------------------------
+   Returns the CubeSat attitude quaternion from ECI to body.
+
+   There are two options. One is ECI in which case it just passes out
+   d.qECIToBody. For LVLH frame the routine computes the ECI to LVLH
+   quaternion from the entered r and v and multiplies that times
+   qLVLHToBody, to produce the qECIToBody.
+
+   This function is used when you don't want to simulate attitude
+   dynamics. There is an option to retrieve the default data structure. %
+   This sets both qLVLHToBody and qECIToBody to [1;0;0;0].
+   
+   Since version 8.
+--------------------------------------------------------------------------
+   Form:
+   q = CubeSatAttitude( d, r, v )
+   d = CubeSatAttitude
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d         (.)    Data structure
+                    .type        (1,:) 'eci' or 'lvlh'
+                    .qLVLHToBody (4,1) Quaternion from LVLHToBody
+                    .qECIToBody  (4,1) Quaternion from ECI to body frame
+   r        (3,1)   ECI position vector
+   v        (3,1)   ECI velocity vector
+
+
+   -------
+   Outputs
+   -------
+   q        (4,1)   qECIToBody
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

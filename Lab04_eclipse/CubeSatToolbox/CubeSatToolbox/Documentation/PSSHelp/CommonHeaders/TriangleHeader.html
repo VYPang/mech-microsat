@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Triangle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Triangle:</h2>
+<p>Path: Common/ComponentModels</p>
+<pre>
+% Generate a solid triangle. 
+ This function will compute the mass properties data structure if a mass is
+ entered. Type Triangle for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [v, f, m] = Triangle( x, y, z, mass )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x           (1,1) x length
+   y           (1,1) y length
+   z           (1,1) z length
+   mass        (1,1) mass
+   
+
+   -------
+   Outputs
+   -------
+   v           (:,3) Vertices
+   f           (:,3) Faces
+   m           (.)   Mass data structure
+
+--------------------------------------------------------------------------
+  See also Volumes, Inertias, DrawVertices
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DrawVerticesHeader.html">Common: Graphics/DrawVertices</a>
+<a href="../CommonHeaders/InertiasHeader.html">Common: MassProperties/Inertias</a>
+<a href="../CommonHeaders/VolumesHeader.html">Common: MassProperties/Volumes</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

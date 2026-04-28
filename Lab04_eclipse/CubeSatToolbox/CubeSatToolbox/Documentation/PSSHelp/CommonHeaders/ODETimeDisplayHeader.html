@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>ODETimeDisplay</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ODETimeDisplay:</h2>
+<p>Path: Common/GUIs</p>
+<pre>
+% Displays an estimate of time to go, compatible with ode113.
+ Pass this function as an outputfcn for a MATLAB ODE. Opens a window displaying
+ the percent complete and an estimate of the time to go. Updates at 0.5 sec
+ intervals. The time to go will not be exact, as the ode is calculating
+ variable time steps, but will become more accurate as the sim progresses.
+
+ You can only have one ODETimeDisplay operating at once.
+--------------------------------------------------------------------------
+   Form:
+   status = ODETimeDisplay( tspan, y0, 'init' )
+   status = ODETimeDisplay( t, y, '' )
+   status = ODETimeDisplay( [], [], 'done' )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   time          (n)      Time
+   y             (n,1)    Data (currently unused)
+   action        (1,:)    'init', '', or 'done'
+
+   -------
+   Outputs
+   -------
+   None
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

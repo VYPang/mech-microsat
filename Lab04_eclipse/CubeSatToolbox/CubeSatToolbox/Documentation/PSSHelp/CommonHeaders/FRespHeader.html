@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>FResp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>FResp:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Compute the frequency response of the system given a, b, c and d.
+   .
+   x = ax + bu
+   y = cx + du
+
+   for the input vector iu, and output vector iy. If no output arguments
+   are given it will automatically display Bode plots for all channels.
+
+   If only 1 output is requested, the complex values will be output.
+
+--------------------------------------------------------------------------
+   Form:
+   [mag, phase, w, io] = FResp( a, b, c, d, iu, iy, w, uPhase, pType )
+   [mag, phase, w, io] = FResp( num, den, w, uPhase, pType )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a                   Plant matrix
+   b                   Input matrix
+   c                   Measurement matrix
+   d                   Input feedthrough matrix
+   iu                  Inputs  ( = 0, or leave out for all)
+   iy                  Outputs ( = 0, or leave out for all)
+   w            (1,:)  Frequency vector
+   uPhase       (1,:)  Unwrap phase = 'wrap' to wrap it within 180 deg
+   pType        (1,:)  'bode' or 'nichols'
+
+   -------
+   Outputs
+   -------
+   mag                 Magnitude vector
+   phase               Phase angle vector (deg)
+   w            (1,:)  Frequencies computed
+   io                  Input/output vector per plot [input,output;...]
+
+--------------------------------------------------------------------------
+   References: Laub, A., "Efficient Multivariable Frequency Response
+               Computations," IEEE Transactions on Automatic Control,
+               Vol. AC-26, No. 2, April 1981, pp. 407-408.
+               Maciejowski, J. M., Multivariable Feedback Design,
+               Addison-Wesley, Reading, MA, 1989, pp. 368-370.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/GNDHeader.html">Common: Control/GND</a>
+<a href="../CommonHeaders/GSSHeader.html">Common: Control/GSS</a>
+<a href="../CommonHeaders/ND2SSHeader.html">Common: Control/ND2SS</a>
+<a href="../CommonHeaders/S2DampHeader.html">Common: Control/S2Damp</a>
+<a href="../CommonHeaders/SS2NDHeader.html">Common: Control/SS2ND</a>
+<a href="../CommonHeaders/SizeABCDHeader.html">Common: Control/SizeABCD</a>
+<a href="../CommonHeaders/TrnsZeroHeader.html">Common: Control/TrnsZero</a>
+<a href="../CommonHeaders/WPZHeader.html">Common: Control/WPZ</a>
+<a href="../CommonHeaders/WResonHeader.html">Common: Control/WReson</a>
+<a href="../CommonHeaders/ZFrespHeader.html">Common: Control/ZFresp</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/LogLimitHeader.html">Common: Graphics/LogLimit</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TextSHeader.html">Common: Graphics/TextS</a>
+<a href="../MathHeaders/ColCompRHeader.html">Math: Linear/ColCompR</a>
+<a href="../MathHeaders/DelLZHeader.html">Math: Linear/DelLZ</a>
+<a href="../MathHeaders/IsZeroHeader.html">Math: Linear/IsZero</a>
+<a href="../MathHeaders/RowCompUHeader.html">Math: Linear/RowCompU</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

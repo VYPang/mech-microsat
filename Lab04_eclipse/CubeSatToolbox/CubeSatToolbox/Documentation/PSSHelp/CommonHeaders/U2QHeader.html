@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>U2Q</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>U2Q:</h2>
+<p>Path: Common/Quaternion</p>
+<pre>
+% Finds the quaternion that aligns a unit vector with a second vector.
+
+ Type U2Q for a demo.
+
+--------------------------------------------------------------------------
+   Form:
+   q = U2Q( u, v )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   u                   (3,:)    Vector
+   v                   (3,:)    Where vector is after rotation
+
+   -------
+   Outputs
+   -------
+   Q                   (4,:)    Quaternion that rotates u into v
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

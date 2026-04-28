@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>RV2El</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RV2El:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Converts Cartesian state to Keplerian orbital elements.
+--------------------------------------------------------------------------
+   Form:
+   [el, E, f] = RV2El( r, v, mu )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r               (3,1) Position vector
+   v               (3,1) Velocity vector
+   mu              (1,1) Gravitational constant
+
+   -------
+   Outputs
+   -------
+   el              (1,6) Elements vector [a,i,W,w,e,M]
+   E               (1,1) Eccentric anomaly
+   f               (1,1) True anomaly
+
+   See also: El2RV, RVFromKepler
+
+--------------------------------------------------------------------------
+   References:   Vallado, D. A. (1997.) Fundamentals of Astrodynamics and
+                 Applications. pp. 144-147.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

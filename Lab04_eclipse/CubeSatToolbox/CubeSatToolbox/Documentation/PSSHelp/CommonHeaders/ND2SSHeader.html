@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>ND2SS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ND2SS:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Creates state-space model from numerator and denominator polynomials.
+
+   Creates state-space model given a denominator polynomial and
+   a set of numerator polynomials. The state-space model will be
+   of the form
+   .
+   x = ax + bu
+   y = cx + du
+
+   where each row of C corresponds to a row of num. The output is in
+   terms of phase variables, also known as the control canonical form.
+
+--------------------------------------------------------------------------
+   Form:
+   [a, b, c, d] = ND2SS( num, den )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   num                 Numerator polynomial(s) one output per row
+   den                 Denominator polynomial
+
+   -------
+   Outputs
+   -------
+   a                   Plant matrix
+   b                   Input matrix
+   c                   Output matrix
+
+--------------------------------------------------------------------------
+   References: Schultz, D. G., J. L. Melsa, State Functions and Linear 
+               Control Systems, McGraw-Hill, New York, 1967, p. 40.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/DelLZHeader.html">Math: Linear/DelLZ</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>DTSToDTA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>DTSToDTA:</h2>
+<p>Path: Common/Time</p>
+<pre>
+% Converts the date time structure to the date time array
+
+ Typing DTSToDTA returns clock time
+
+--------------------------------------------------------------------------
+   Form:
+   dateTime = DTSToDTA( t )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   t          (1,1)   Date/time structure
+                       .year
+                       .month                             
+                       .day                             
+                       .hour                             
+                       .minute                             
+                       .second
+   -------
+   Outputs
+   -------
+   dateTime    (1,6)  [year month day hour minute seconds 
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

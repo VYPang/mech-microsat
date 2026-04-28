@@ -1,0 +1,248 @@
+<html>
+<head>
+<STYLE TYPE="text/css">
+td.link{font-family: Cambria; font-size: 12pt;}
+td.bio{font-family: Cambria; font-size: 12pt;}
+td.cl{height: 20; cellpadding: 5; cellspacing: 5;}
+h1{text-align: left;}
+h2{font-family: Cambria; color: #990000;}
+h3{font-family: Cambria; color: #990000; font-size: 18pt; }
+table.cl{font-family: Cambria; background-color: #e1e6f2;
+font-size: 14pt; border: 0; cellpadding: 5; cellspacing: 5;}
+</STYLE>
+<title>SC Functions</title>
+</head>
+<body>
+<div class=page>
+
+<table width="600"><tr><td width="50%"><h1>SC Module</h1></td>
+<td width="50%"><img src="Guides/images/PSSLogo.jpg"></td></tr></table>
+
+<h2>Directory List</h2>
+<a name="top"></a>
+<table border="1" cellpadding="0"><tr><td>
+<table class="cl" width="600">
+<tr><td class="cl" width="33%"><a href="SCFunctions.html#Actuator">Actuator</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#Attitude">Attitude</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#BasicOrbit">BasicOrbit</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="SCFunctions.html#DemoFuns">DemoFuns</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#Disturbances">Disturbances</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#Dynamics">Dynamics</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="SCFunctions.html#Environs">Environs</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#Ephem">Ephem</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#Hardware">Hardware</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="SCFunctions.html#MagneticControl">MagneticControl</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#SCData">SCData</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#SCMat">SCMat</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="SCFunctions.html#SCModels">SCModels</a></td>
+ <td class="cl" width="33%"><a href="SCFunctions.html#Visualization">Visualization</a></td>
+ <td width="33%"></td></tr>
+</table></td></tr></table><br><hr>
+
+<h3><a name="Actuator"></a>Actuator</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/FrictionSmoothHeader.html">FrictionSmooth</a> </td>
+<td class="bio"> Rotary friction model using differentiable functions. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/RWAHeader.html">RWA</a> </td>
+<td class="bio"> A RWA model using FrictionSmooth. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/SingleAxisDriveHeader.html">SingleAxisDrive</a> </td>
+<td class="bio"> Model a stepping motor drive. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Attitude"></a>Attitude</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/LibrationFrequencyHeader.html">LibrationFrequency</a> </td>
+<td class="bio"> Compute the libration frequency from inertia and orbit rate. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="BasicOrbit"></a>BasicOrbit</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/CP2IHeader.html">CP2I</a> </td>
+<td class="bio"> Transformation matrix from the perifocal frame to the inertial frame. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/E2MHeader.html">E2M</a> </td>
+<td class="bio"> Converts eccentric anomaly to mean anomaly. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/E2NuHeader.html">E2Nu</a> </td>
+<td class="bio"> Computes the true anomaly from the eccentric or hyperbolic anomaly. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/El2RVHeader.html">El2RV</a> </td>
+<td class="bio"> Converts orbital elements to r and v for an elliptic orbit. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/FOrbCartHeader.html">FOrbCart</a> </td>
+<td class="bio"> Computes the right-hand-side of the orbit equations about a mass point. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/M2EHeader.html">M2E</a> </td>
+<td class="bio"> Computes the eccentric anomaly </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/M2EAppHeader.html">M2EApp</a> </td>
+<td class="bio"> Approximate root to Kepler's Equation for elliptical and hyperbolic orbits. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/M2EElHeader.html">M2EEl</a> </td>
+<td class="bio"> Eccentric anomaly for an ellipse. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/M2EHyHeader.html">M2EHy</a> </td>
+<td class="bio"> Eccentric anomaly for a hyperbola. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/M2NuHeader.html">M2Nu</a> </td>
+<td class="bio"> Computes the true anomaly from the mean anomaly. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/M2NuPbHeader.html">M2NuPb</a> </td>
+<td class="bio"> Generate the true anomaly from the mean anomaly for a parabola. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/Nu2EHeader.html">Nu2E</a> </td>
+<td class="bio"> Converts true anomaly to eccentric or hyperbolic anomaly. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/Nu2MHeader.html">Nu2M</a> </td>
+<td class="bio"> Converts true anomaly to mean anomaly. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/OrbRateHeader.html">OrbRate</a> </td>
+<td class="bio"> Compute the orbital rate from distance and semi-major axis. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/PeriodHeader.html">Period</a> </td>
+<td class="bio"> Compute the period for an orbit. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/RV2ElHeader.html">RV2El</a> </td>
+<td class="bio"> Converts Cartesian state to Keplerian orbital elements. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/RVFromKeplerHeader.html">RVFromKepler</a> </td>
+<td class="bio"> Generate an orbit by propagating Keplerian elements. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/VOrbitHeader.html">VOrbit</a> </td>
+<td class="bio"> Computes the orbital velocity. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="DemoFuns"></a>DemoFuns</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/HysteresisOutputHeader.html">HysteresisOutput</a> </td>
+<td class="bio"> Gather output from the hysteresis damping simulation </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Disturbances"></a>Disturbances</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/GravityGradientFromRHeader.html">GravityGradientFromR</a> </td>
+<td class="bio"> Computes a gravity gradient torque from r and mu. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/OpticalSurfacePropertiesHeader.html">OpticalSurfaceProperties</a> </td>
+<td class="bio"> Returns optical surface properties for selected materials. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/SolarFHeader.html">SolarF</a> </td>
+<td class="bio"> Compute the solar force on a set of elemental areas. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Dynamics"></a>Dynamics</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/FRBHeader.html">FRB</a> </td>
+<td class="bio"> Rigid body right-hand-side. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/RBModelHeader.html">RBModel</a> </td>
+<td class="bio"> Computes the angular acceleration of a rigid body. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/RHSRigidBodyWithDampingHeader.html">RHSRigidBodyWithDamping</a> </td>
+<td class="bio"> Rigid body dynamics with damping. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Environs"></a>Environs</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/BDipoleHeader.html">BDipole</a> </td>
+<td class="bio"> Computes the geocentric magnetic field based on a tilted dipole model. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/SolarFluxPredictionHeader.html">SolarFluxPrediction</a> </td>
+<td class="bio"> Computes the solar flux prediction based on Julian date. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Ephem"></a>Ephem</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/CEcl2EqHeader.html">CEcl2Eq</a> </td>
+<td class="bio"> Transformation matrix from ecliptic to Earth equatorial planes. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/ECIToPlanetHeader.html">ECIToPlanet</a> </td>
+<td class="bio"> Computes the matrix from mean of Aries 2000 to planet fixed frame. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/EarthRteHeader.html">EarthRte</a> </td>
+<td class="bio"> Computes the mean earth rate. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/EclipseHeader.html">Eclipse</a> </td>
+<td class="bio"> Computes eclipses. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/GMSTimeHeader.html">GMSTime</a> </td>
+<td class="bio"> Compute Greenwich mean sidereal time from Julian date. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/InterpolateStateHeader.html">InterpolateState</a> </td>
+<td class="bio"> Interpolate a planet's state for a given Julian Date. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/LoadLunarTopographyHeader.html">LoadLunarTopography</a> </td>
+<td class="bio"> Reads in the Clementine data. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/MSidDayHeader.html">MSidDay</a> </td>
+<td class="bio"> Computes a mean sidereal day </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/MoonElHeader.html">MoonEl</a> </td>
+<td class="bio"> Computes the moon orbital elements with respect to the earth inertial frame. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/MoonRotHeader.html">MoonRot</a> </td>
+<td class="bio"> Computes the matrix that transforms from ECI to selenographic axes. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/MoonV1Header.html">MoonV1</a> </td>
+<td class="bio"> Generate the moon vector in an earth or spacecraft centered frame. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/MoonsHeader.html">Moons</a> </td>
+<td class="bio"> Lists moons of a planet or planet center about which a moon orbits. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/NutDeltaHeader.html">NutDelta</a> </td>
+<td class="bio"> The changes in longitude and obliquity due to earth nutation. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/PlanetPosJPLHeader.html">PlanetPosJPL</a> </td>
+<td class="bio"> Get positions for an array of planets using the JPL ephemeris. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/PlanetsHeader.html">Planets</a> </td>
+<td class="bio"> Simplified planet ephemerides from the almanac. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/RSHMoonHeader.html">RSHMoon</a> </td>
+<td class="bio"> Generates a topographic map of the moon using spherical harmonics. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/SolarSysHeader.html">SolarSys</a> </td>
+<td class="bio"> Computes the position vectors of the planets as a function of time. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/SunV1Header.html">SunV1</a> </td>
+<td class="bio"> Generate the sun vector in the earth-centered inertial frame. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/SunVectorECIHeader.html">SunVectorECI</a> </td>
+<td class="bio"> Finds the sun vector any place in the solar system. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/TerminatorLineHeader.html">TerminatorLine</a> </td>
+<td class="bio"> Compute the terminator line on the Earth that defines day/night. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Hardware"></a>Hardware</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/FloatToWordHeader.html">FloatToWord</a> </td>
+<td class="bio"> Convert floating point to word. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/WordToFloatHeader.html">WordToFloat</a> </td>
+<td class="bio"> Convert an integer word to a floating point number. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="MagneticControl"></a>MagneticControl</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/BFromHHysteresisHeader.html">BFromHHysteresis</a> </td>
+<td class="bio"> Flux density from the magnetic field due to hysteresis. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/MagneticHysteresisHeader.html">MagneticHysteresis</a> </td>
+<td class="bio"> Right hand side for a dynamical model of magnetic hysteresis. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/MagneticTorquerHeader.html">MagneticTorquer</a> </td>
+<td class="bio"> Simple MagneticTorquer model. Outputs the torque in body coordinates. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/RHSHysteresisDamperHeader.html">RHSHysteresisDamper</a> </td>
+<td class="bio"> Right hand side for a dynamical model of magnetic hysteresis. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/TorqueHysteresisDamperHeader.html">TorqueHysteresisDamper</a> </td>
+<td class="bio"> Torque from a hysteresis damper. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="SCData"></a>SCData</h3>
+<table border="0" cellpadding="2" width="100%">
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="SCMat"></a>SCMat</h3>
+<table border="0" cellpadding="2" width="100%">
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="SCModels"></a>SCModels</h3>
+<table border="0" cellpadding="2" width="100%">
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Visualization"></a>Visualization</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="SCHeaders/LoadEarthMapHeader.html">LoadEarthMap</a> </td>
+<td class="bio"> Creates a figure with Earth texturemap, political boundaries, and lat/lon. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/PlotPlanetHeader.html">PlotPlanet</a> </td>
+<td class="bio"> Add planet to the current axes. </td></tr>
+<tr><td class="link" width="200"><a href="SCHeaders/PltOrbitHeader.html">PltOrbit</a> </td>
+<td class="bio"> Plots one orbit and the sun vector looking down on the ECI Plane. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+<p> SVN Revision: 52464 </p><hr>
+<p> <a href="cst_api.php">Back</a> to API main page</p></div></body></html>

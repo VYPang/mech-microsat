@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>BEP</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>BEP:</h2>
+<p>Path: Link/LinkUtilities</p>
+<pre>
+% Computes the bit error probability given C/N and the bit rate.
+   Five types of modulation, 'BPSK' 'QPSK' 'DE-BPSK' 'DE-QPSK' 'D-BPSK'
+   are available.
+
+   Type BEP for a demo of a 1 MB/s channel.
+
+--------------------------------------------------------------------------
+   Form:
+   bEP = BEP( type, bitRate, cOverN )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   type    (1,:)   Modulations: 'BPSK' 'QPSK' 'DE-BPSK' 'DE-QPSK' 'D-BPSK'
+   bitRate	(1,1)   Bit rate (bps)
+   cOverNo	(1,:)   (C/N)T (dB) 
+                        
+   -------
+   Outputs
+   -------
+   bEP     (1,:)   Bit error probability
+   eOverN	(1,:)   Energy per bit (dB)
+                         
+--------------------------------------------------------------------------
+   References:	Maral, G. and M. Bousquet, "Satellite Communications 
+               Systems Third Edition", Wiley, 1993, p. 125.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+</pre>
+<hr><p> <a href="../LinkFunctions.html">Back</a> to the Link Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>IntersectPlanet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>IntersectPlanet:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Altitude of the nearest point to a sphere.
+
+ Type IntersectPlanet for a demo.
+--------------------------------------------------------------------------
+   Form:
+   h = IntersectPlanet( r1, r2, a )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r1             (3,n)  Position vector 1
+   r2             (3,m)  Position vector 2
+   a              (1,1)  Radius of the planet
+
+   -------
+   Outputs
+   -------
+   h              (n,m)  Minimum altitude of vector
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

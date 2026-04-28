@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>PID3Axis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PID3Axis:</h2>
+<p>Path: SCPro/ProControl</p>
+<pre>
+% A PID Based 3 axis controller for rigid body.
+	Use the call with one output to get the default data structure.
+ This has 4 modes:
+ 0 - steady rotation
+ 1 - align two vectors
+ 2 - align with a quaternion
+ 3 - point vector and steady rotation
+
+ Type PID3Axis for a demo
+
+ Forms:
+%               PID3Axis;
+             d = PID3Axis;
+   [torque, d] = PID3Axis( q_ECI_body, d )
+--------------------------------------------------------------------------
+
+   -----
+   Input
+   -----
+   q_ECI_body (4,1) ECI to body quaternion
+   d          (1,1) Data structure
+                    .a               (2,2) PID A Matrix
+                    .b               (2,1) PID B Matrix
+                    .c               (1,2) PID C Matrix
+                    .d               (1,1) PID D Matrix
+                    .x_roll          (2,1) PID roll state
+                    .x_yaw           (2,1) PID yaw state
+                    .x_pitch         (2,1) PID pitch stage
+                    .mode            (1,1) Four options:
+                                           Mode 0 = rotate about an axis
+                                           -requires d.q_desired_state 
+                                                     d.angle / d.axis
+                                           Mode 1 = align two vectors
+                                           -requires d.eci_vector 
+                                                     d.body_vector
+                                           Mode 2 = quaternion
+                                           -requires d.q_desired_state
+                                                     d.body_vector
+                                           Mode 3 = quaternion
+                                           -requires d.eci_vector 
+                                                     d.angle
+                                                     d.body_vector
+                    .inertia         (3,3) Inertia matrix
+                    .l               (2,1) Windup compensation matrix
+                    .accel_sat       (1,1) Saturation acceleration
+                    .max_angle       (1,1) Maximum incremental angle
+                    .axis_command    (3,1) Angle of rotation
+                    .body_vector     (3,1) Axis in body frame (mode 1 and 3)
+                    .eci_vector      (3,1) Axis in ECI frame
+                    .q_desired_state (4,1) Target quaternion
+          .         .q_target_last   (4,1) Last target
+
+   ------
+   Output
+   ------
+
+   torque     (3,1) Control torque
+   d          (1,1) Data structure
+   
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/QIToBDotHeader.html">AerospaceUtils: Coord/QIToBDot</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../CommonHeaders/C2DelZOHHeader.html">Common: Control/C2DelZOH</a>
+<a href="../CommonHeaders/FRespHeader.html">Common: Control/FResp</a>
+<a href="../CommonHeaders/GNDHeader.html">Common: Control/GND</a>
+<a href="../CommonHeaders/GSSHeader.html">Common: Control/GSS</a>
+<a href="../CommonHeaders/ND2SSHeader.html">Common: Control/ND2SS</a>
+<a href="../CommonHeaders/PIDMIMOHeader.html">Common: Control/PIDMIMO</a>
+<a href="../CommonHeaders/S2DampHeader.html">Common: Control/S2Damp</a>
+<a href="../CommonHeaders/SS2NDHeader.html">Common: Control/SS2ND</a>
+<a href="../CommonHeaders/SizeABCDHeader.html">Common: Control/SizeABCD</a>
+<a href="../CommonHeaders/TrnsZeroHeader.html">Common: Control/TrnsZero</a>
+<a href="../CommonHeaders/WPZHeader.html">Common: Control/WPZ</a>
+<a href="../CommonHeaders/WResonHeader.html">Common: Control/WReson</a>
+<a href="../CommonHeaders/ZFrespHeader.html">Common: Control/ZFresp</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/LogLimitHeader.html">Common: Graphics/LogLimit</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TextSHeader.html">Common: Graphics/TextS</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/AU2QHeader.html">Common: Quaternion/AU2Q</a>
+<a href="../CommonHeaders/Q2AUHeader.html">Common: Quaternion/Q2AU</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QPoseHeader.html">Common: Quaternion/QPose</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/U2QHeader.html">Common: Quaternion/U2Q</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/RK4Header.html">Math: Integration/RK4</a>
+<a href="../MathHeaders/ColCompRHeader.html">Math: Linear/ColCompR</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DelLZHeader.html">Math: Linear/DelLZ</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/IsZeroHeader.html">Math: Linear/IsZero</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/RowCompUHeader.html">Math: Linear/RowCompU</a>
+<a href="../MathHeaders/SkewSymmHeader.html">Math: Linear/SkewSymm</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../SCProFunctions.html">Back</a> to the SCPro Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

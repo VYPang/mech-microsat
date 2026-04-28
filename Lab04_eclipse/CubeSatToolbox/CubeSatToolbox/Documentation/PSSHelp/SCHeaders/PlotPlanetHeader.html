@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>PlotPlanet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PlotPlanet:</h2>
+<p>Path: SC/Visualization</p>
+<pre>
+% Add planet to the current axes.
+ The planet will be a solid color sphere. The color may be input as a
+ structure with color data and a texture map, see Earth.mat
+--------------------------------------------------------------------------
+   Form:
+   hSurf = PlotPlanet( r, radius, color, noLines )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r        (3,1)     Location of planet in figure frame
+   radius   (1,1)     Planet radius
+   color    (1,1)     Color, i.e. 'y', 'b' or [R G B], or structure
+                        .planetMap
+                        .planetColorMap
+   noLines  (1,1)     Flag to skip the lat/lon lines
+
+   -------
+   Outputs
+   -------
+   hSurf    (1,1)     Handle to surface object
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../SCHeaders/EarthMRHeader.html">SC: SCMat/EarthMR</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

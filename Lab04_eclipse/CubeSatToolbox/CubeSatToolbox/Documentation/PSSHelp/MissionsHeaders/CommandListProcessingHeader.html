@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>CommandListProcessing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CommandListProcessing:</h2>
+<p>Path: Missions/LunarMission</p>
+<pre>
+% Processes command lists.
+ The command list cell array format is {time command data}
+ where data is a data structure for that command. The command list
+ rows should be in order of Julian date. You can also use +sec instead of
+ jD in which case the time is +sec after the previous command.  For 
+ example, +6 indicates 6 seconds after the previous command.  If the 
+ first command is +sec then it is +sec from the time passed on
+ initialization.  
+
+ Type CommandListProcessing for a demo.
+--------------------------------------------------------------------------
+	Form:
+	kCurrent = CommandListProcessing( jD0, cList, kCurrent, jD )
+--------------------------------------------------------------------------
+
+ ------
+	Inputs
+	------
+   jD0       (1,1)	Base Julian date before any commands
+   cList     {:,3} Command list {time tag, string description, data structure}
+   kCurrent  (1,1) Current command
+   jD        (1,1) Current Julian date
+
+	-------
+	Outputs
+	-------
+   kCurrent  (1,1) Current command
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+</pre>
+<hr><p> <a href="../MissionsFunctions.html">Back</a> to the Missions Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>ListCases</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ListCases:</h2>
+<p>Path: Common/General</p>
+<pre>
+% List the switch cases that are included in a given file.
+ The default is to print the full set of case names to the command line as
+ well as provide an output. To suppress the command line display pass true
+ for quiet.
+--------------------------------------------------------------------------
+   Form:
+   names = ListCases( filename, beQuiet, first )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   filename      (:)    String name of file to examine
+   beQuiet       (1)    Flag for quiet operation - no printout
+   first         (1)    Flag to keep only first case for a cell array 
+
+   -------
+   Outputs
+   -------
+   names         {:}   Cell array of case names
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

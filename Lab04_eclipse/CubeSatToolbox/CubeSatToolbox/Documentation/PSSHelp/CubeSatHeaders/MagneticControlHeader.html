@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>MagneticControl</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MagneticControl:</h2>
+<p>Path: CubeSat/AttitudeControl</p>
+<pre>
+% Implement instantaneous magnetic control with torquers.
+ Magnetic torquers only produce 2-axis torque. This function generates
+ a least squares fit that matches the torque the torquers can produce
+ to the torque demand. The output is the dipole demand in ATM^2 
+ (amp-turn-meter-squared). The scalar cost is any number >= 0. It 
+ assumes that the cost of using any dipole is the same. The output will
+ need to be pulsewidth modulated if the torquers do not have linear
+ actuation.
+
+ For example, the torque is T = [m1 m2 m3] x b, or
+ 
+  T = -b x [m1 m2 m3]
+
+ m1, m2 and m3 are dipoles.  [b x] cannot be inverted hence the least 
+ squares. Has a built-in demo.
+--------------------------------------------------------------------------
+   Form:
+   [m, tErr] = MagneticControl( b, tDemand, u, c )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   b          (3,1)  Magnetic Field (T)
+   tDemand    (3,1)  Torque Demand (Nm)
+   u          (3,n)  Unit dipole vectors for n dipoles
+   c          (1,1)  Scalar cost of using a dipole
+
+   -------
+   Outputs
+   -------
+   m          (n,1)  Dipole values (ATM^2)
+   tErr       (3,1)  Torque error (Nm)
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Plot3DHeader.html">Common: Graphics/Plot3D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/SkewHeader.html">Math: Linear/Skew</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/R2P5Header.html">Math: MathUtils/R2P5</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/El2RVHeader.html">SC: BasicOrbit/El2RV</a>
+<a href="../SCHeaders/M2EHeader.html">SC: BasicOrbit/M2E</a>
+<a href="../SCHeaders/M2EAppHeader.html">SC: BasicOrbit/M2EApp</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/M2EHyHeader.html">SC: BasicOrbit/M2EHy</a>
+<a href="../SCHeaders/M2NuHeader.html">SC: BasicOrbit/M2Nu</a>
+<a href="../SCHeaders/M2NuPbHeader.html">SC: BasicOrbit/M2NuPb</a>
+<a href="../SCHeaders/PeriodHeader.html">SC: BasicOrbit/Period</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/BDipoleHeader.html">SC: Environs/BDipole</a>
+<a href="../SCHeaders/EarthRteHeader.html">SC: Ephem/EarthRte</a>
+<a href="../SCHeaders/MSidDayHeader.html">SC: Ephem/MSidDay</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>TimeDisplay</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>TimeDisplay:</h2>
+<p>Path: Common/GUIs</p>
+<pre>
+% Displays an estimate of time to go.
+
+ Call TimeDisplay('update') each step; the step counter is incremented
+ automatically. This GUI does NOT provide any simulation controls
+ (pause/stop). Updates at 0.5 sec intervals.
+
+ TimeDisplay( 'initialize', nameOfGUI, totalSteps )
+ TimeDisplay( 'update' )
+ TimeDisplay( 'close' )
+
+ You can only have one TimeDisplay operating at once.
+
+--------------------------------------------------------------------------
+   Form:
+   TimeDisplay( action, varargin )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action        (1,:)    'initialize' 'update' 'close'
+   nameOfGUI     (1,:)    Name to display
+   totalSteps    (1,1)    Total number of steps
+
+   -------
+   Outputs
+   -------
+   None
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

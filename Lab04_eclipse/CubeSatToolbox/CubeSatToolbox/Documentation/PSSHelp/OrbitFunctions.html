@@ -1,0 +1,117 @@
+<html>
+<head>
+<STYLE TYPE="text/css">
+td.link{font-family: Cambria; font-size: 12pt;}
+td.bio{font-family: Cambria; font-size: 12pt;}
+td.cl{height: 20; cellpadding: 5; cellspacing: 5;}
+h1{text-align: left;}
+h2{font-family: Cambria; color: #990000;}
+h3{font-family: Cambria; color: #990000; font-size: 18pt; }
+table.cl{font-family: Cambria; background-color: #e1e6f2;
+font-size: 14pt; border: 0; cellpadding: 5; cellspacing: 5;}
+</STYLE>
+<title>Orbit Functions</title>
+</head>
+<body>
+<div class=page>
+
+<table width="600"><tr><td width="50%"><h1>Orbit Module</h1></td>
+<td width="50%"><img src="Guides/images/PSSLogo.jpg"></td></tr></table>
+
+<h2>Directory List</h2>
+<a name="top"></a>
+<table border="1" cellpadding="0"><tr><td>
+<table class="cl" width="600">
+<tr><td class="cl" width="33%"><a href="OrbitFunctions.html#GravityModels">GravityModels</a></td>
+ <td class="cl" width="33%"><a href="OrbitFunctions.html#OrbitCoord">OrbitCoord</a></td>
+ <td class="cl" width="33%"><a href="OrbitFunctions.html#OrbitMechanics">OrbitMechanics</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="OrbitFunctions.html#RHSOrbit">RHSOrbit</a></td>
+ <td class="cl" width="33%"><a href="OrbitFunctions.html#Visualization">Visualization</a></td>
+ <td width="33%"></td></tr>
+</table></td></tr></table><br><hr>
+
+<h3><a name="GravityModels"></a>GravityModels</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="OrbitHeaders/LoadGEMHeader.html">LoadGEM</a> </td>
+<td class="bio"> Load the GEMT1 data. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/LoadGravityModelHeader.html">LoadGravityModel</a> </td>
+<td class="bio"> Load a spherical harmonic gravity model (.geo) from GSFC/U. of Texas at Austin. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/LoadSGM150Header.html">LoadSGM150</a> </td>
+<td class="bio"> Load the SGM150 Lunar gravity model. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/NormalizationMatrixHeader.html">NormalizationMatrix</a> </td>
+<td class="bio"> Generate a normalization matrix for spherical harmonics </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/UnnormalizeGravityHeader.html">UnnormalizeGravity</a> </td>
+<td class="bio"> Remove normalization from a gravity model </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="OrbitCoord"></a>OrbitCoord</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="OrbitHeaders/AE2RPRAHeader.html">AE2RPRA</a> </td>
+<td class="bio"> Converts semi-major axis and eccentricity to right perigee and apogee. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/Alfriend2ElHeader.html">Alfriend2El</a> </td>
+<td class="bio"> [a,th,i,q1,q2,W]         ->     [a,i,W,w,e,M] </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/ConvertNORADHeader.html">ConvertNORAD</a> </td>
+<td class="bio"> Convert NORAD TLE string into a data structure. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/ENUToECEFHeader.html">ENUToECEF</a> </td>
+<td class="bio"> Compute the transformation matrix that rotates ENU to ECEF coordinates. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/El2AlfriendHeader.html">El2Alfriend</a> </td>
+<td class="bio"> Convert the standard orbital element set into an Alfriend orbital element set </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/OrbElemDiffHeader.html">OrbElemDiff</a> </td>
+<td class="bio"> Computes the differences between orbital element vectors. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/RARP2AHeader.html">RARP2A</a> </td>
+<td class="bio"> Computes the semi major axis from apogee and perigee radii </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/RAzToLatLonHeader.html">RAzToLatLon</a> </td>
+<td class="bio"> Transform (range,azimuth) to (latitude,longitude) coordinates. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/RPRA2AEHeader.html">RPRA2AE</a> </td>
+<td class="bio"> Converts perigee and apogee to semi-major axis and eccentricity </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/SLRHeader.html">SLR</a> </td>
+<td class="bio"> Computes the semi-latus rectum. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="OrbitMechanics"></a>OrbitMechanics</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="OrbitHeaders/AGravityHeader.html">AGravity</a> </td>
+<td class="bio"> Compute the gravitational acceleration in spherical coordinates. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/AGravityCHeader.html">AGravityC</a> </td>
+<td class="bio"> Compute the gravitational acceleration in cartesian coordinates. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/APlanetHeader.html">APlanet</a> </td>
+<td class="bio"> Perturbing acceleration due to a planet on a spacecraft. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/LambertTOFHeader.html">LambertTOF</a> </td>
+<td class="bio"> Solves the Lambert time of flight problem using Battin's method. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/NORADHeader.html">NORAD</a> </td>
+<td class="bio"> Propagates the NORAD two line elements, ex. SGP, SGP4, SGP8. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/NORADToElHeader.html">NORADToEl</a> </td>
+<td class="bio"> Convert NORAD to Keplerian elements. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/PropagateTLEHeader.html">PropagateTLE</a> </td>
+<td class="bio"> Propagates the NORAD two line elements, ex. SGP, SGP4, SGP8. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/PropagateTLECommonTimeHeader.html">PropagateTLECommonTime</a> </td>
+<td class="bio"> Propagates a set of NORAD two line elements with a common time frame. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/RVOrbGenHeader.html">RVOrbGen</a> </td>
+<td class="bio"> Generate an orbit by propagating Keplerian elements. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="RHSOrbit"></a>RHSOrbit</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="OrbitHeaders/RHSGeoJ2Header.html">RHSGeoJ2</a> </td>
+<td class="bio"> Computes the right hand side for Earth gravity with J2. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Visualization"></a>Visualization</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="OrbitHeaders/EarthMoonHeader.html">EarthMoon</a> </td>
+<td class="bio"> Plot an orbit track in the Earth/Moon System. </td></tr>
+<tr><td class="link" width="200"><a href="OrbitHeaders/OrbTrackHeader.html">OrbTrack</a> </td>
+<td class="bio"> Plot a planet-fixed orbit track in 2D or 3D. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+<p> SVN Revision: 52464 </p><hr>
+<p> <a href="cst_api.php">Back</a> to API main page</p></div></body></html>

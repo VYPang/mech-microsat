@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>SolarCellPower</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SolarCellPower:</h2>
+<p>Path: CubeSat/Power</p>
+<pre>
+% Compute the power for a solar power system.
+ Has a built-in demo. Can also return the default data structure.
+
+ Type SolarCellPower for a demo.
+
+------------------------------------------------------------------------
+   Form:
+   power = SolarCellPower( d, pSun )
+   d = SolarCellPower
+------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d       (.)      Data structure
+                    .solarCellEff       (1,1) Efficiency of the cells
+                    .effPowerConversion (1,1) Efficiency of the power
+                                              conversion
+                    .solarCellArea      (1,:) Total cell area (m^2)
+                    .solarCellNormal    (3,:) Unit normal vector to the
+                                              cell face
+   pSun   (3,1)     Solar power flux vector (W)
+
+   -------
+   Outputs
+   -------
+   power  (1,1)     Power (W)
+
+------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

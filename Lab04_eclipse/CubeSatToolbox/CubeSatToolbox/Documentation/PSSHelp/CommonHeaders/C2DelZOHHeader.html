@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>C2DelZOH</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>C2DelZOH:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Create a discrete time systems using the delta operator.
+
+   Given
+   .
+   x = ax + bu
+
+   Find f and g where
+
+   x(k+1) = x + fx(k) + gu(k)
+
+--------------------------------------------------------------------------
+   Form:
+   [f, g] = C2DelZOH( a, b, T )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a            (n,n)  Continuous plant matrix
+   b            (n,m)  Input matrix
+   T            (1,1)  Time step
+
+   -------
+   Outputs
+   -------
+   f            (n,n)  Discrete plant matrix
+   g            (n,m)  Discrete input matrix
+
+--------------------------------------------------------------------------
+   References:  Van Loan, C.F., Computing Integrals Involving the Matrix
+                Exponential, IEEE Transactions on Automatic Control
+                Vol. AC-23, No. 3, June 1978, pp. 395-404.
+
+                Middleton, R.H. and G.C. Goodwin, Digital Control and
+                Estimation: A Unified Approach, Prentice-Hall, 1986
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

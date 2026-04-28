@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>ReactionWheelDesign</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ReactionWheelDesign:</h2>
+<p>Path: CubeSat/AttitudeControl</p>
+<pre>
+% Design a reaction wheel to meet input requirements.
+
+ Each input has a corresponding input d.units.name which contains
+ the units in a string.
+
+ Type ReactionWheelDesign for a demo.
+
+--------------------------------------------------------------------------
+   Form:
+   [thickness, inertia, torque, mass]  = ReactionWheelDesign( d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d      (.)       Data structure
+                    .radius      (1,1) Allowable wheel radius    (m)
+                    .wheelSpeed  (1,1) Allowable wheel speed     (rad/s)
+                    .h           (1,1) Maximum momentum storage  (Nms)
+                    .density     (1,1) Density of wheel material (kg/m^3)
+                    .dhdt        (1,1) Maximum momentum change   (Nm)
+
+   -------
+   Outputs
+   -------
+   thickness   (1,1) Wheel thickness           (m)
+   inertia     (1,1) Wheel polar inertia       (Nm^2)
+   torque      (1,1) Wheel torque              (Nm)
+   mass	    (1,1) Wheel mass                  (kg)
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

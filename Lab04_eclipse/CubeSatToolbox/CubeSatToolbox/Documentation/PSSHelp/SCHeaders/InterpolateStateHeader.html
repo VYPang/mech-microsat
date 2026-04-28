@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>InterpolateState</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>InterpolateState:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Interpolate a planet's state for a given Julian Date.
+ Uses the JPL ephemeris files. The returned state is measured from the solar
+ system barycenter and in the Earth equatorial frame. Can be initialized with
+ the binary file name by passing empty for the other inputs, then future calls
+ may omit the file name. The initialization status can be checked with a single
+ empty input.
+
+ A binary file can be generated from a text file (ex. ascp2000.405) 
+ using the tool EphemUtil, available via ftp:
+
+      ftp://ssd.jpl.nasa.gov//pub/eph/export/
+
+ in the folder C-versions/hoffman. You must compile the tool for your
+ system.
+
+ Visit http://ssd.jpl.nasa.gov/?planet_eph_export for more information
+ about these ephemerides.
+--------------------------------------------------------------------------
+   Form:
+   [X, GM] = InterpolateState( target, time, fileName )
+   status = InterpolateState( [], [], fileName )
+   status = InterpolateState( [] )
+--------------------------------------------------------------------------
+
+   1. Mercury
+   2. Venus
+   3. Earth-Moon Barycenter
+   4. Mars
+   5. Jupiter
+   6. Saturn
+   7. Uranus
+   8. Neptune
+   9. Pluto
+   10. Geocentric Moon
+   11. Sun
+
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   Target    (1,1)       Planet ID
+   Time      (1,1)       Julian date (days)
+   fileName   (:)        Binary file name if not initialized
+
+   -------
+   Outputs
+   -------
+   X         (6,1)       Planetary state vector, Earth mean equatorial frame
+   GM        (1,1)       Corresponding gravitational parameter (km3/s2)
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../SCHeaders/bin2000Header.html">SC: SCData/bin2000</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

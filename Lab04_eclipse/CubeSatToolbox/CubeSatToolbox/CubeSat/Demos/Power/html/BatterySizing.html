@@ -1,0 +1,222 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Compute the power storage requirements for a CubeSat.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-08"><meta name="DC.source" content="BatterySizing.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Compute the power storage requirements for a CubeSat.</h1><!--introduction--><p>Compares the requirements versus a commercial Li-Ion battery <a href="http://www.batteryspace.com/polymerli-ionbattery74v830mah614wh10-12cdischargerate.aspx">http://www.batteryspace.com/polymerli-ionbattery74v830mah614wh10-12cdischargerate.aspx</a></p><pre>------------------------------------------------------------------------
+See also RVFromKepler, Date2JD, JD2T, julianCent, SunV1, Eclipse,
+SolarCellPower
+------------------------------------------------------------------------</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Constants</a></li><li><a href="#3">Semi-major axis</a></li><li><a href="#4">Input is orbital elements</a></li><li><a href="#5">We need the time in Julian Date for the sun model</a></li><li><a href="#6">Data structure defining the solar panels</a></li><li><a href="#7">Initialize the array to save time</a></li><li><a href="#8">Size the battery</a></li></ul></div><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2011 Princeton Satellite Systems.</span>
+<span class="comment">%   All Rights Reserved.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 10.</span>
+<span class="comment">%   2019.1 Added explicit quaternion</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><h2 id="2">Constants</h2><pre class="codeinput">solarFlux   = 1367;             <span class="comment">% W</span>
+altitude    = 500;              <span class="comment">% km</span>
+radiusEarth = 6378.165;         <span class="comment">% km</span>
+inc         = 28.4667*pi/180;   <span class="comment">% deg - launch from KSFC</span>
+
+<span class="comment">% Battery parameters</span>
+capacity    = 7.4*0.830;        <span class="comment">% W-hr</span>
+dOD         = 0.6;              <span class="comment">% Depth of discharge</span>
+</pre><h2 id="3">Semi-major axis</h2><pre class="codeinput">sma         = radiusEarth + altitude;
+</pre><h2 id="4">Input is orbital elements</h2><pre class="codeinput">[r,v,t]     = RVFromKepler( [sma inc 0 0 0 0] );
+m           = length(t);
+</pre><h2 id="5">We need the time in Julian Date for the sun model</h2><pre class="codeinput">jD0         = Date2JD([2013 5 1 0 0 0]);
+julianDate  = jD0 + t/86400;
+</pre><h2 id="6">Data structure defining the solar panels</h2><pre class="codeinput">d                       = SolarCellPower;
+d.effPowerConversion    = 0.8;
+d.solarCellArea         = 0.088*0.088*[1 1 1 1 1 1 1 1 1];
+d.solarCellNormal       = [1 -1  0  0  1 -1  0  0;<span class="keyword">...</span>
+                           0  0  1 -1  0  0  1 -1;<span class="keyword">...</span>
+                           0  0  0  0  0  0  0  0];
+d.solarCellEff          = 0.29; <span class="comment">% EMCORE ZTJM</span>
+</pre><h2 id="7">Initialize the array to save time</h2><pre class="codeinput">p                       = zeros(1,m);
+dT                      = t(2) - t(1);
+tE                      = 0;
+
+<span class="comment">% You can add any attitude you would like</span>
+q                       = QLVLH(r,v);
+
+<span class="keyword">for</span> k = 1:m
+	[uSun, rSun]	= SunV1( julianDate(k) );
+	n             = Eclipse( r(:,k), rSun*QForm(q(:,k),uSun) );
+	p(k)          = SolarCellPower( d, solarFlux*n*uSun );
+	tE            = (1-n)*dT + tE;
+<span class="keyword">end</span>
+
+Plot2D(t,[r;p],<span class="string">'Time (sec)'</span>, {<span class="string">'x (km)'</span> <span class="string">'y (km)'</span>, <span class="string">'z (km)'</span> <span class="string">'Power (W)'</span>}, <span class="string">'One Orbit'</span> );
+Plot2D(t,q,<span class="string">'Time (sec)'</span>, {<span class="string">'q_1'</span> <span class="string">'q_x'</span>, <span class="string">'q_y'</span> <span class="string">'q_z'</span>}, <span class="string">'One Orbit: Quaternion'</span> );
+</pre><img vspace="5" hspace="5" src="BatterySizing_01.png" alt=""> <img vspace="5" hspace="5" src="BatterySizing_02.png" alt=""> <h2 id="8">Size the battery</h2><pre class="codeinput">pTotal          = sum(p)*dT;
+pAve            = pTotal/t(end);
+pStored         = pAve*tE/3600;
+batteryCapacity = pStored/(1-dOD);
+
+fprintf(1,<span class="string">'Eclipse Time       %8.1f s\n'</span>,tE);
+fprintf(1,<span class="string">'Orbit period       %8.1f s\n'</span>,t(end));
+fprintf(1,<span class="string">'Total power input  %8.1f Wh\n'</span>,pTotal/3600);
+fprintf(1,<span class="string">'Depth of discharge %8.1f%%\n'</span>,dOD*100);
+fprintf(1,<span class="string">'Battery Storage    %8.1f Wh\n'</span>,pStored);
+fprintf(1,<span class="string">'Battery Capacity   %8.1f Wh\n'</span>,batteryCapacity);
+fprintf(1,<span class="string">'Li-Ion Polymer     %8.1f Wh\n'</span>,capacity);
+
+<span class="comment">%--------------------------------------</span>
+</pre><pre class="codeoutput">Eclipse Time         1325.8 s
+Orbit period         5677.0 s
+Total power input       8.2 Wh
+Depth of discharge     60.0%
+Battery Storage         1.9 Wh
+Battery Capacity        4.8 Wh
+Li-Ion Polymer          6.1 Wh
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Compute the power storage requirements for a CubeSat.
+% Compares the requirements versus a commercial Li-Ion battery
+% <http://www.batteryspace.com/polymerli-ionbattery74v830mah614wh10-12cdischargerate.aspx>
+%
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%  See also RVFromKepler, Date2JD, JD2T, julianCent, SunV1, Eclipse,
+%  SolarCellPower
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2011 Princeton Satellite Systems.
+%   All Rights Reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 10.
+%   2019.1 Added explicit quaternion
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% Constants
+solarFlux   = 1367;             % W
+altitude    = 500;              % km
+radiusEarth = 6378.165;         % km
+inc         = 28.4667*pi/180;   % deg - launch from KSFC
+
+% Battery parameters
+capacity    = 7.4*0.830;        % W-hr
+dOD         = 0.6;              % Depth of discharge
+
+%% Semi-major axis
+sma         = radiusEarth + altitude;
+
+%% Input is orbital elements
+[r,v,t]     = RVFromKepler( [sma inc 0 0 0 0] );
+m           = length(t);
+
+%% We need the time in Julian Date for the sun model
+jD0         = Date2JD([2013 5 1 0 0 0]);
+julianDate  = jD0 + t/86400;
+
+%% Data structure defining the solar panels
+d                       = SolarCellPower;
+d.effPowerConversion    = 0.8;
+d.solarCellArea         = 0.088*0.088*[1 1 1 1 1 1 1 1 1];
+d.solarCellNormal       = [1 -1  0  0  1 -1  0  0;...
+                           0  0  1 -1  0  0  1 -1;...
+                           0  0  0  0  0  0  0  0];
+d.solarCellEff          = 0.29; % EMCORE ZTJM
+
+%% Initialize the array to save time
+p                       = zeros(1,m);
+dT                      = t(2) - t(1);
+tE                      = 0;
+
+% You can add any attitude you would like
+q                       = QLVLH(r,v);
+   
+for k = 1:m
+	[uSun, rSun]	= SunV1( julianDate(k) );
+	n             = Eclipse( r(:,k), rSun*QForm(q(:,k),uSun) );
+	p(k)          = SolarCellPower( d, solarFlux*n*uSun );
+	tE            = (1-n)*dT + tE;
+end
+
+Plot2D(t,[r;p],'Time (sec)', {'x (km)' 'y (km)', 'z (km)' 'Power (W)'}, 'One Orbit' );
+Plot2D(t,q,'Time (sec)', {'q_1' 'q_x', 'q_y' 'q_z'}, 'One Orbit: Quaternion' );
+
+%% Size the battery
+pTotal          = sum(p)*dT;
+pAve            = pTotal/t(end);
+pStored         = pAve*tE/3600;
+batteryCapacity = pStored/(1-dOD);
+
+fprintf(1,'Eclipse Time       %8.1f s\n',tE);
+fprintf(1,'Orbit period       %8.1f s\n',t(end));
+fprintf(1,'Total power input  %8.1f Wh\n',pTotal/3600);
+fprintf(1,'Depth of discharge %8.1f%%\n',dOD*100);
+fprintf(1,'Battery Storage    %8.1f Wh\n',pStored);
+fprintf(1,'Battery Capacity   %8.1f Wh\n',batteryCapacity);
+fprintf(1,'Li-Ion Polymer     %8.1f Wh\n',capacity);
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2020-05-29 16:40:09 -0400 (Fri, 29 May 2020) $
+% $Revision: 52559 $
+
+##### SOURCE END #####
+--></body></html>

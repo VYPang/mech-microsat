@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>SunVectorECI</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SunVectorECI:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Finds the sun vector any place in the solar system.
+   Utilizes Planets and SolarSys to look up the planet ephemeris. If the
+   input is a moon, the nearest planetary center is used.
+--------------------------------------------------------------------------
+   Form:
+   SunVectorECI( 'initialize', center )
+   rSunECI = SunVectorECI( 'update', jD, rSc )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action       (1,:)     'initialize' or 'update'
+
+   'initialize'
+   planetName   (1,:)     Center of spacecraft coordinates
+
+   'update'
+   jD           (1,1)     Julian date
+   rSC          (3,1)     Spacecraft ECI position vector (km)
+
+   -------
+   Outputs
+   -------
+   rSunECI      (3,1)     Sun ECI position vector
+
+--------------------------------------------------------------------------
+   See also: Planets, SolarSys, CEcl2Eq, Moons
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../SCHeaders/CEcl2EqHeader.html">SC: Ephem/CEcl2Eq</a>
+<a href="../SCHeaders/MoonsHeader.html">SC: Ephem/Moons</a>
+<a href="../SCHeaders/PlanetsHeader.html">SC: Ephem/Planets</a>
+<a href="../SCHeaders/SolarSysHeader.html">SC: Ephem/SolarSys</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

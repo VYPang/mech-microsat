@@ -5,13 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "matplotlib>=3.10.8",
-    "numpy>=2.4.3",
-    "pandas>=3.0.1",
+    "astropy>=7.2.0",
+    "bsk>=2.9.1",
+    "matplotlib",
+    "numpy",
+    "pandas",
     "plotly>=6.3.1",
+    "polars>=1.39.3",
     "pyxdsm>=2.3.2",
     "rich>=14.1.0",
     "scipy>=1.17.1",
     "sgp4>=2.25",
+    "spiceypy>=8.1.0",
     "typer>=0.16.1",
 ]

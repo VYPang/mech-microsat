@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>FindTimeWindows</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>FindTimeWindows:</h2>
+<p>Path: CubeSat/MissionPlanning</p>
+<pre>
+% Find time windows when elements of vector x are within specified range
+ Type FindTimeWindows for a demo.
+--------------------------------------------------------------------------
+   Form:
+   window = FindTimeWindows( t, x, lim );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   t           (1,N)   N time points
+   x           (M,N)   Set of M variables across N time points
+   lim         (1,2)   Time window limits (min,max)
+
+   -------
+   Outputs
+   -------
+   window       (.)    Data structure array with window information.
+                       Each element "i" of this array is for a different
+                       row of the x matrix. Fields are:
+                  .nObs:       (1,1)     Number of observations (windows)
+                  .window:     (nObs,2)  Each row is a new time window
+                  .time:       {1,nObs}  Time vectors from t inside each window
+                  .x:          {1,nObs}  Data vectors from x(i,:) inside each window
+                  .indexStart  (1,nObs)  Starting time index for window
+                  .indexEnd    (1,nObs)  Ending time index for window
+
+--------------------------------------------------------------------------
+  See also: ObservationTimeWindows
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

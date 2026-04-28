@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>GND</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GND:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Compute the frequency response given a numerator/denominator pair.
+
+   y(s) = num(s)*u(s)/den(s)
+
+   G(s) = num(s)/den(s)
+
+   This is a multi-output, single-input system
+
+   Each column will give the value for G(s) for that
+   frequency.
+
+--------------------------------------------------------------------------
+   Form:
+   [g,nu,w] = GND(num,den,w)
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   num                 Transfer function numerator(s)
+   den                 Transfer function denomenator(s)
+   w                   Frequency vector
+
+   -------
+   Outputs
+   -------
+   g                   Frequency response matrix
+   nu                  Number of inputs
+   w                   Frequency vector
+
+--------------------------------------------------------------------------
+   References:	Laub, A., "Efficient Multivariable Frequency Response
+               Computations," IEEE Transactions on Automatic Control,
+               Vol. AC-26, No. 2, April 1981, pp. 407-408.
+               Maciejowski, J. M., Multivariable Feedback Design, 
+               Addison-Wesley, Reading, MA, 1989, pp. 368-370.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/GSSHeader.html">Common: Control/GSS</a>
+<a href="../CommonHeaders/ND2SSHeader.html">Common: Control/ND2SS</a>
+<a href="../CommonHeaders/WPZHeader.html">Common: Control/WPZ</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

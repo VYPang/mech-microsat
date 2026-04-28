@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>WReson</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>WReson:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Creates a frequency vector with points around resonances.
+   The resonances are specified in the vector w. 
+   Only complex values of w will be used.
+   Those with negative imaginary parts will be
+   ignored. Thus you can enter the output of eig as an input
+   to this function.
+
+--------------------------------------------------------------------------
+   Form:
+   wV = WReson( lmin, lmax, n, w )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   lmin                Log of minimum frequency
+   lmax                Log of maximum frequency
+   n                   Number of logarithmically spaced points
+   w                   Resonances (complex) 
+
+   -------
+   Outputs
+   -------
+   wV                  Frequency vector
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/S2DampHeader.html">Common: Control/S2Damp</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

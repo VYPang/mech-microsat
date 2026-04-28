@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>GetNewTag</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GetNewTag:</h2>
+<p>Path: Common/General</p>
+<pre>
+% Get a new tag to uniquely identify a figure. 
+ Uses clock and rand to generate a unique string.
+--------------------------------------------------------------------------
+   Form:
+   tag = GetNewTag( name )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   name        (1,:)  Name of the figure
+
+   -------
+   Outputs
+   -------
+   tag         (1,:)  Tag
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

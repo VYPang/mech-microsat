@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>NormalizationMatrix</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>NormalizationMatrix:</h2>
+<p>Path: Orbit/GravityModels</p>
+<pre>
+% Generate a normalization matrix for spherical harmonics
+ c unnormalized * f = c normalized
+ s unnormalized * f = s normalized
+ p normalized   = p unnormalized / fp
+--------------------------------------------------------------------------
+   Form:
+   [f,fp] = NormalizationMatrix( nN, nM )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   nN	(1,1)  Rows
+   nM 	(1,1)  Columns
+
+   -------
+   Outputs
+   -------
+   f	 (nN,mM)   State derivatives 
+   fp (1,nM)    Coefficients for p (zonal terms)
+
+--------------------------------------------------------------------------
+   See also UnnormalizeGravity
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

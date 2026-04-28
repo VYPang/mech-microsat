@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>PropagateTLE</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PropagateTLE:</h2>
+<p>Path: Orbit/OrbitMechanics</p>
+<pre>
+% Propagates the NORAD two line elements, ex. SGP, SGP4, SGP8. 
+   SGP4 output is in the TEME frame - true equator, mean equinox.
+   file can be a file name or a string input. The string must have the
+   same format as the file for example:
+
+   s = [sprintf('SGPTest \n'),...
+   sprintf('1 88888U          80275.98708465  .00073094  13844-3  66816-4 0     8\n'),...
+   sprintf('2 88888  72.8435 115.9689 0086731  52.6988  110.5714 16.05824518  105')];
+
+   See also NORAD, LoadNORAD, ConvertNORAD.
+--------------------------------------------------------------------------
+   Form:
+   [r,v,x] = PropagateTLE( tVec, file, model )
+   [r,v,x] = PropagateTLE( tVec, x, model )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   tVec          (1,:)   Time vector (sec)
+   file          (1,:)   File name OR converted data structure
+   model         (1,:)   Model type 'SGP', 'SGP4', 'SDP4', 'SGP8', 'SGD8'
+                           The default model is SGP4.
+
+   -------
+   Outputs
+   -------
+   r      (3,:) or {:}   Position vectors
+   v      (3,:) or {:}   Velocity vectors
+   x             (:)     Structure of NORAD element data
+
+--------------------------------------------------------------------------
+	References:	Hoots, F. R. and R. L. Roehrich, "Spacetrack Report No. 3:
+               Models for Propagation of NORAD Element Sets", Dec. 1980.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../OrbitHeaders/ConvertNORADHeader.html">Orbit: OrbitCoord/ConvertNORAD</a>
+<a href="../SCHeaders/GMSTimeHeader.html">SC: Ephem/GMSTime</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

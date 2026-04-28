@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>MoonEl</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MoonEl:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Computes the moon orbital elements with respect to the earth inertial frame.
+ These elements are only valid for short term use. Use PlanetPosJPL
+ for more accurate positions and velocities.
+--------------------------------------------------------------------------
+   Form:
+   el = MoonEl( jD )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jD            (1,1)  Julian Date
+
+   -------
+   Outputs
+   -------
+   el            (1,6)  Keplerian elements [a,i,L,w,e,M] (km,rad)
+
+--------------------------------------------------------------------------
+   Reference: Montenbruck, O., T. Fleger, "Astronomy on the Personal 
+               Computer", Springer-Verlag, p 155.
+               http://ssd.jpl.nasa.gov/?sat_elem
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

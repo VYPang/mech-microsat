@@ -1,0 +1,24 @@
+<productinfo>
+<?xml-stylesheet type="text/xsl" href="optional"?>
+
+
+<matlabrelease>R2016b</matlabrelease>
+<name>CubeSat</name>
+<type>toolbox</type>
+<icon>PSSHelp/Guides/images/faviconPSS.gif</icon>
+<help_location>PSSHelp</help_location>
+<help_contents_icon>$toolbox/matlab/icons/bookicon.gif</help_contents_icon>
+
+
+<list>
+<listitem>
+<label>Toolbox Help</label>
+<callback>web PSSHelp/Guides/Index.html -helpbrowser</callback>
+<icon>PSSHelp/Guides/images/faviconPSS.gif</icon>
+</listitem>
+</list>
+
+
+</productinfo>
+<!-- SVN version 53070 -->
+<!-- Copyright 16-Jul-2020 Princeton Satellite Systems, Inc  -->

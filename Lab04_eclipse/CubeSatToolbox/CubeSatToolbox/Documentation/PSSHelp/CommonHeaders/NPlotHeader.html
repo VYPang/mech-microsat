@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>NPlot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>NPlot:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% NPlot generates a plot on which the ylabels are character strings. 
+ The y data is assumed to be integers with each integer corresponding to a
+ label given in yLabels. Will generate a new figure if figTitle is entered.
+   
+ Any input, except yLabels and y may be [].
+--------------------------------------------------------------------------
+   Form:
+   NPlot( yLabels, y, x, xAxisLabel, yAxisLabel, plotTitle, figTitle )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   yLabels                  Labels for the y-axis corresponding to integral
+                            values of y.
+   y                        y-data
+   x                        x-data
+   xAxisLabel               The x-axis label
+   yAxisLabel               The y-axis label
+   plotTitle                The plot title
+   figTitle                 The figure title
+
+   -------
+   Outputs
+   -------
+   none
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

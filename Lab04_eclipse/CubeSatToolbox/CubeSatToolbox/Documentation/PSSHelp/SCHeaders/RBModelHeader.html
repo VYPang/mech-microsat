@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>RBModel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RBModel:</h2>
+<p>Path: SC/Dynamics</p>
+<pre>
+% Computes the angular acceleration of a rigid body. 
+   invInr and t are not used when computing the state-space model. invInr is
+   optional when computing the right-hand-side but will speed up the routine.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   wdot               = RBModel( inr, w, t, invInr )
+   [a, b, c, d, dwdt] = RBModel( inr, w, t, invInr, dT )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   inr          (3,3)     Inertia matrix
+   w            (3,1)     Body rate in the body frame
+   t            (3,1)     External torque on the body
+   invInr       (3,3)     Inverse inertia matrix (Optional)
+   dT                     Time step
+
+   -------
+   Outputs
+   -------
+   wdot         (3,1)     Angular acceleration
+
+   or
+
+   a            (3,3)     State matrix
+   b            (3,3)     Input matrix
+   c            (3,3)     Output matrix
+   d            (3,3)     Feedthrough matrix
+   dwdt         (3)       State acceleration
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/SkewSymmHeader.html">Math: Linear/SkewSymm</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

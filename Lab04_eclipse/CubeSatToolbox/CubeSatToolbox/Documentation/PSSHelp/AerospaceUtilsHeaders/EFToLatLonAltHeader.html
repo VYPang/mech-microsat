@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>EFToLatLonAlt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>EFToLatLonAlt:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Convert an earth fixed position vector to [latitude;longitude;altitude]
+ Altitude is the distance above the subsatellite point. Assumes an
+ ellipsoidal planet.
+--------------------------------------------------------------------------
+   Form:
+   x =  EFToLatLonAlt( r, f, a, tol )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r         (3,:)   Vectors
+   f         (1,1)   Flattening factor*
+   a         (1,1)   Equatorial radius*
+   tol       (1,1)   Tolerance*
+                        * optional
+
+   -------
+   Outputs
+   -------
+   x         (3,:)   [lat (rad); lon (rad); altitude]
+
+--------------------------------------------------------------------------
+   Reference: Vallado, D. A. (1999) Fundamentals of Astrodynamics and 
+              Applications. pp. 204-205.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

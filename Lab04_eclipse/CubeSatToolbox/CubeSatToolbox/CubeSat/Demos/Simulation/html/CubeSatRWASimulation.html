@@ -1,0 +1,591 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Demonstrate CubeSat attitude and power dynamics with reaction wheels.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-05-26"><meta name="DC.source" content="CubeSatRWASimulation.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Demonstrate CubeSat attitude and power dynamics with reaction wheels.</h1><!--introduction--><p>The model includes 3 orthogonal reaction wheels. The satellite is intialized into a polar orbit. The control law keeps the satellite aligned with the magnetic field, which results in flips at the poles.</p><p>-------------------------------------------------------------------------  See also PIDMIMO, QForm, QTForm, CreateLatexTable,  LatexScientificNotation, SaveStructure, Plot2D, TimeLabl, Dot, RK4, Unit,  Date2JD, InertiaCubeSat, RHSCubeSat, BDipole, PID3Axis -------------------------------------------------------------------------</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Constants</a></li><li><a href="#3">Simulation parameters</a></li><li><a href="#4">CubeSat model</a></li><li><a href="#5">Initial state vector for a circular orbit</a></li><li><a href="#6">Start Julian date</a></li><li><a href="#7">Design the PID Controller</a></li><li><a href="#8">Atmosphere model data</a></li><li><a href="#9">Initialize the plotting array to save time</a></li><li><a href="#10">Initialize the time display</a></li><li><a href="#11">Run the simulation</a></li><li><a href="#12">Plotting</a></li><li><a href="#13">Y-axis labels</a></li><li><a href="#14">Plotting utility</a></li><li><a href="#15">Create a table of output</a></li><li><a href="#16">Save data for the budgets</a></li></ul></div><pre class="codeinput"><span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2009-2010,2016 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 9 (2010).</span>
+<span class="comment">%   2016.1 Add display of solar area with DrawCubeSatSolarAreas.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+
+clear <span class="string">g</span>; clear <span class="string">u</span>; clear <span class="string">p</span>; clear <span class="string">d</span>;
+</pre><h2 id="2">Constants</h2><pre class="codeinput"><span class="comment">%-----------</span>
+radToDeg        = 180/pi;
+densitySilicon  = 2600;
+densityAl       = 2700; <span class="comment">% Aluminum</span>
+densityTungsten = 19300;
+</pre><h2 id="3">Simulation parameters</h2><pre class="codeinput"><span class="comment">%-----------------------</span>
+days  = 0.2;
+tEnd  = days*86400;
+dT    = 1;
+nSim  = ceil(tEnd/dT);
+</pre><h2 id="4">CubeSat model</h2><p>Initialize data structure</p><pre class="codeinput"><span class="comment">%--------------------------</span>
+d = RHSCubeSat;
+
+<span class="comment">% CubeSats are 1 kg per U</span>
+<span class="comment">%---------------</span>
+model = <span class="string">'3U'</span>;
+[area,nFace,rFace] = CubeSatFaces( model, 1 );
+d.mass = 3; <span class="comment">% kg</span>
+d.inertia = InertiaCubeSat( model, d.mass );
+
+<span class="comment">% Model data</span>
+<span class="comment">%------------</span>
+d.surfData.area = area;
+d.surfData.nFace = nFace;
+d.surfData.rFace = rFace;
+d.surfData.att.type = <span class="string">'eci'</span>;
+
+<span class="comment">% Reaction wheel design</span>
+<span class="comment">%-----------------------</span>
+d.kWheels    = 14:16; <span class="comment">% indices of wheel states</span>
+radius       = 0.020;
+thickness    = 0.004; <span class="comment">% This is 4 mm</span>
+volRWA       = pi*radius^2*thickness;
+massRWA      = volRWA*densityTungsten; <span class="comment">% Mass from density x volume</span>
+d.inertiaRWA = (massRWA/2)*radius^2; <span class="comment">% Polar inertia</span>
+thicknessSolarPanel = 0.004;
+
+<span class="comment">% Add power system model</span>
+<span class="comment">% Lithium batteries are 360000 J/kg according to</span>
+<span class="comment">% http://en.wikipedia.org/wiki/Lithium-ion_battery,</span>
+<span class="comment">% so size the battery for 100 g = 36000 J = 10 Wh</span>
+<span class="comment">% Solar cell efficieny is 27% to 29.5% according to Emcore,</span>
+<span class="comment">% http://www.emcore.com/solar_photovoltaics/</span>
+<span class="comment">%---------------------------------------------------------</span>
+d.power.solarCellNormal    = [1 1 -1 -1 0 0 0 0;0 0 0 0 1 1 -1 -1;0 0 0 0 0 0 0 0];
+d.power.solarCellEff       = 0.295;
+d.power.effPowerConversion = 0.9;
+d.power.solarCellArea      = 0.1*0.116*ones(1,8);
+d.power.consumption        = 4;
+d.power.batteryCapacity    = 36000;
+volSolarPanel              = d.power.solarCellArea(1,1)*thicknessSolarPanel;
+massSolarPanel             = volSolarPanel *densitySilicon;
+DrawCubeSatSolarAreas(d.power)
+</pre><pre class="codeoutput">ans = 
+  Figure (PlotPSS) with properties:
+
+      Number: 1
+        Name: 'DrawCubeSatSolarAreas'
+       Color: [0.94 0.94 0.94]
+    Position: [560 528 560 420]
+       Units: 'pixels'
+
+  Use GET to show all properties
+</pre><img vspace="5" hspace="5" src="CubeSatRWASimulation_01.png" alt=""> <h2 id="5">Initial state vector for a circular orbit</h2><pre class="codeinput"><span class="comment">%------------------------------------------</span>
+x    = 6387.165+800; <span class="comment">% km</span>
+v    = VOrbit(x);
+
+r    = [x;0;0];                 <span class="comment">% Position vector</span>
+v    = [0;0;v];                 <span class="comment">% Velocity vector - polar orbit</span>
+q    = [1;0;0;0];               <span class="comment">% Quaternion</span>
+w    = [0;0;0];                 <span class="comment">% Angular rate of spacecraft</span>
+c    = [0;0;0];                 <span class="comment">% Reaction wheel rates</span>
+b    = 2*3600;                  <span class="comment">% Battery state of charge (J = Wh*3600)</span>
+
+<span class="comment">% State is [position;velocity;quaternion;angular velocity;wheels;battery charge]</span>
+<span class="comment">%-------------------------------------------------------------------------</span>
+x    = [r;v;q;w;c;b];
+</pre><h2 id="6">Start Julian date</h2><pre class="codeinput"><span class="comment">%------------------</span>
+d.jD0  = Date2JD([2012 4 5 0 0 0]);
+</pre><h2 id="7">Design the PID Controller</h2><p>Specify the z body axis for alignment with the chosen ECI vector</p><pre class="codeinput"><span class="comment">%-----------------------------------------------------------------</span>
+p                    = PID3Axis;
+[p.a, p.b, p.c, p.d] = PIDMIMO( 1, 1, 0.01, 200, 0.1, dT );
+
+p.inertia            = d.inertia;
+p.max_angle          = 0.01;
+p.accel_sat          = [100;100;100];
+p.mode               = 1;
+p.q_target_last      = q;
+p.q_desired_state    = [0;0;0;1];
+p.body_vector        = [0;0;1];
+</pre><h2 id="8">Atmosphere model data</h2><p>Skip the J70 model as it is slow; use the commented out code to switch back if desired. AtmDens2 will be used instead.</p><pre class="codeinput">d.atm = [];
+<span class="comment">% [aP, f, fHat, fHat400] = SolarFluxPrediction( d.jD0, 'nominal' );</span>
+<span class="comment">% d.atm.aP      = aP(1);</span>
+<span class="comment">% d.atm.f       = f(1);</span>
+<span class="comment">% d.atm.fHat    = fHat(1);</span>
+<span class="comment">% d.atm.fHat400 = fHat400(1);</span>
+</pre><h2 id="9">Initialize the plotting array to save time</h2><pre class="codeinput"><span class="comment">%--------------------------------------------</span>
+qECIToBody   = x(7:10);
+bField       = QForm( qECIToBody, BDipole( x(1:3), d.jD0 ) );
+p.eci_vector = Unit(bField);
+angleError   = acos(Dot(p.eci_vector,QTForm(qECIToBody,p.body_vector)))*radToDeg;
+
+xPlot        = [[x;0;0;0;0;angleError;bField;0;0;0] zeros(length(x)+11,nSim)];
+</pre><h2 id="10">Initialize the time display</h2><pre class="codeinput"><span class="comment">%----------------------------</span>
+TimeDisplay( <span class="string">'initialize'</span>, <span class="string">'CubeSat RWA Sim'</span>, nSim );
+</pre><img vspace="5" hspace="5" src="CubeSatRWASimulation_02.png" alt=""> <h2 id="11">Run the simulation</h2><pre class="codeinput"><span class="comment">%-------------------</span>
+t = 0;
+
+<span class="keyword">for</span> k = 1:nSim
+
+  <span class="comment">% Display the status message</span>
+  <span class="comment">%---------------------------</span>
+  TimeDisplay(<span class="string">'update'</span>);
+
+  <span class="comment">% Quaternion</span>
+  <span class="comment">%-----------</span>
+  qECIToBody   = x(7:10);
+
+  <span class="comment">% Magnetic field - the magnetometer output is proportional to this</span>
+  <span class="comment">%-----------------------------------------------------------------</span>
+  bField       = QForm( qECIToBody, BDipole( x(1:3), d.jD0+t/86400 ) );
+
+  <span class="comment">% Control system momentum management</span>
+  <span class="comment">%-----------------------------------</span>
+  d.dipole     = [0.0;0;0]; <span class="comment">% Amp-turns m^2</span>
+
+  <span class="comment">% Reaction wheel control - align with the magnetic field</span>
+  <span class="comment">%-------------------------------------------------------</span>
+  p.eci_vector = Unit(bField);
+  angleError   = acos(Dot(p.eci_vector,QTForm(qECIToBody,p.body_vector)))*radToDeg;
+  [torque, p]  = PID3Axis( qECIToBody, p );
+  d.tRWA       = -torque;
+
+  <span class="comment">% A time step with 4th order Runge-Kutta</span>
+  <span class="comment">%---------------------------------------</span>
+  x            = RK4( @RHSCubeSat, x, dT, t, d );
+
+  <span class="comment">% Get the power</span>
+  <span class="comment">%--------------</span>
+  [xDot, dist, power] = RHSCubeSat( x, t, d );
+
+  <span class="comment">% Update plotting and time</span>
+  <span class="comment">%-------------------------</span>
+  hRWA         = x(14:16)*d.inertiaRWA;
+  xPlot(:,k+1) = [x;power;torque;angleError;bField;hRWA];
+  t            = t + dT;
+
+<span class="keyword">end</span>
+TimeDisplay( <span class="string">'close'</span> );
+</pre><h2 id="12">Plotting</h2><pre class="codeinput"><span class="comment">%---------</span>
+kP = 1:k+1;
+[t, tL] = TimeLabl( (0:k)*dT );
+</pre><h2 id="13">Y-axis labels</h2><pre class="codeinput"><span class="comment">%--------------</span>
+yL = {<span class="string">'r_x (km)'</span> <span class="string">'r_y (km)'</span> <span class="string">'r_z (km)'</span> <span class="string">'v_x (km/s)'</span> <span class="string">'v_y (km/s)'</span> <span class="string">'v_z (km/s)'</span><span class="keyword">...</span>
+      <span class="string">'q_s'</span> <span class="string">'q_x'</span> <span class="string">'q_y'</span> <span class="string">'q_z'</span> <span class="string">'\omega_x (rad/s)'</span> <span class="string">'\omega_y (rad/s)'</span> <span class="string">'\omega_z (rad/s)'</span> <span class="keyword">...</span>
+      <span class="string">'\omega_x (rad/s)'</span> <span class="string">'\omega_y (rad/s)'</span> <span class="string">'\omega_z (rad/s)'</span> <span class="string">'b (Wh)'</span> <span class="string">'Power (W)'</span> <span class="keyword">...</span>
+      <span class="string">'T_x (Nm)'</span> <span class="string">'T_y (Nm)'</span> <span class="string">'T_z (Nm)'</span> <span class="string">'Angle Error (deg)'</span> <span class="string">'B_x'</span> <span class="string">'B_y'</span> <span class="string">'B_z'</span>,<span class="keyword">...</span>
+      <span class="string">'H_x (Nms)'</span> <span class="string">'H_y (Nms)'</span> <span class="string">'H_z (Nms)'</span>};
+</pre><h2 id="14">Plotting utility</h2><pre class="codeinput"><span class="comment">%-----------------</span>
+Plot2D( t, xPlot( 1: 3,kP), tL, yL(  1: 3), <span class="string">'CubeSat Orbit'</span> );
+Plot2D( t, xPlot( 7:10,kP), tL, yL(  7:10), <span class="string">'CubeSat ECI To Body Quaternion'</span> );
+Plot2D( t, xPlot(11:13,kP), tL, yL( 11:13), <span class="string">'CubeSat Attitude Rate (rad/s)'</span> );
+Plot2D( t, xPlot(14:16,kP), tL, yL( 14:16), <span class="string">'CubeSat Reaction Wheel Rate (rad/s)'</span> );
+Plot2D( t, [xPlot(17,kP)/3600;xPlot(18,kP)], tL, yL( 17:18), <span class="string">'CubeSat Power'</span> );
+Plot2D( t, xPlot(19:22,kP), tL, yL( 19:22), <span class="string">'CubeSat Control Torque'</span> );
+Plot2D( t, xPlot(23:25,kP), tL, yL( 23:25), <span class="string">'CubeSat Magnetic Field'</span> );
+Plot2D( t, xPlot(26:28,kP), tL, yL( 26:28), <span class="string">'CubeSat RWA Momentum'</span> );
+
+maximumTorque   = max(max(abs(xPlot(19:21,kP))));
+maximumMomentum = max(max(abs(xPlot(26:28,kP))));
+maximumSpeed    = max(max(abs(xPlot(14:16,kP))));
+</pre><img vspace="5" hspace="5" src="CubeSatRWASimulation_03.png" alt=""> <img vspace="5" hspace="5" src="CubeSatRWASimulation_04.png" alt=""> <img vspace="5" hspace="5" src="CubeSatRWASimulation_05.png" alt=""> <img vspace="5" hspace="5" src="CubeSatRWASimulation_06.png" alt=""> <img vspace="5" hspace="5" src="CubeSatRWASimulation_07.png" alt=""> <img vspace="5" hspace="5" src="CubeSatRWASimulation_08.png" alt=""> <img vspace="5" hspace="5" src="CubeSatRWASimulation_09.png" alt=""> <img vspace="5" hspace="5" src="CubeSatRWASimulation_10.png" alt=""> <h2 id="15">Create a table of output</h2><pre class="codeinput"><span class="comment">%--------------------------</span>
+g{1,1} = <span class="string">'Reaction Wheel Inertia'</span>;
+g{1,2} =  LatexScientificNotation( d.inertiaRWA, 1);
+g{1,3} = <span class="string">'kg-m$^2$'</span>;
+
+g{2,1} = <span class="string">'Reaction Wheel Radius'</span>;
+g{2,2} =  sprintf(<span class="string">'%8.4f'</span>,radius*1000);
+g{2,3} = <span class="string">'mm'</span>;
+
+g{3,1} = <span class="string">'Reaction Wheel Thickness'</span>;
+g{3,2} =  sprintf(<span class="string">'%8.4f'</span>,thickness*1000);
+g{3,3} = <span class="string">'mm'</span>;
+
+g{4,1} = <span class="string">'Maximum RWA torque'</span>;
+g{4,2} =  LatexScientificNotation( maximumTorque, 4);
+g{4,3} = <span class="string">'Nm'</span>;
+
+g{5,1} = <span class="string">'Maximum RWA Momentum'</span>;
+g{5,2} =  LatexScientificNotation( maximumMomentum, 4 );
+g{5,3} = <span class="string">'Nms'</span>;
+
+g{6,1} = <span class="string">'Maximum RWA Rate'</span>;
+g{6,2} =  sprintf(<span class="string">'%12.4f'</span>,maximumSpeed*30/pi);
+g{6,3} = <span class="string">'RPM'</span>;
+
+g{7,1} = <span class="string">'Solar Cell Efficiency'</span>;
+g{7,2} =  sprintf(<span class="string">'%8.4f'</span>,d.power.solarCellEff);
+g{7,3} = <span class="string">''</span>;
+
+g{8,1} = <span class="string">'Power Conversion Efficiency'</span>;
+g{8,2} =  sprintf(<span class="string">'%8.4f'</span>,d.power.effPowerConversion);
+g{8,3} = <span class="string">''</span>;
+
+g{9,1} = <span class="string">'Panel Area'</span>;
+g{9,2} =  sprintf(<span class="string">'%8.4f'</span>,d.power.solarCellArea(1)*1e4);
+g{9,3} = <span class="string">'cm$^2$'</span>;
+
+g{10,1} = <span class="string">'Average Power Consumption'</span>;
+g{10,2} =  sprintf(<span class="string">'%8.1f'</span>,d.power.consumption );
+g{10,3} = <span class="string">'W'</span>;
+
+g{11,1} = <span class="string">'Battery Capacity'</span>;
+g{11,2} =  sprintf(<span class="string">'%8.1f'</span>,d.power.batteryCapacity/3600);
+g{11,3} = <span class="string">'Wh'</span>;
+
+CreateTable( g );
+</pre><pre class="codeoutput">     Reaction Wheel Inertia -    1.9 $\times 10^{-5}$  - kg-m$^2$ 
+      Reaction Wheel Radius -                 20.0000  -       mm 
+   Reaction Wheel Thickness -                  4.0000  -       mm 
+         Maximum RWA torque - 7.1802 $\times 10^{-6}$  -       Nm 
+       Maximum RWA Momentum - 2.2400 $\times 10^{-4}$  -      Nms 
+           Maximum RWA Rate -                110.2463  -      RPM 
+      Solar Cell Efficiency -                  0.2950  -          
+Power Conversion Efficiency -                  0.9000  -          
+                 Panel Area -                116.0000  -   cm$^2$ 
+  Average Power Consumption -                     4.0  -        W 
+           Battery Capacity -                    10.0  -       Wh 
+</pre><h2 id="16">Save data for the budgets</h2><pre class="codeinput"><span class="comment">%--------------------------</span>
+u.rwa.mass          = massRWA;
+u.rwa.volume        = volRWA;
+u.solarPanel.mass   = massSolarPanel;
+u.solarPanel.volume = volSolarPanel;
+
+SaveStructure(u,<span class="string">'BudgetData.mat'</span>);
+
+<span class="comment">%--------------------------------------</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Demonstrate CubeSat attitude and power dynamics with reaction wheels.
+% The model includes 3 orthogonal reaction wheels. The satellite is
+% intialized into a polar orbit. The control law keeps the satellite
+% aligned with the magnetic field, which results in flips at the poles.
+%
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%  See also PIDMIMO, QForm, QTForm, CreateLatexTable, 
+%  LatexScientificNotation, SaveStructure, Plot2D, TimeLabl, Dot, RK4, Unit, 
+%  Date2JD, InertiaCubeSat, RHSCubeSat, BDipole, PID3Axis
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2009-2010,2016 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 9 (2010).
+%   2016.1 Add display of solar area with DrawCubeSatSolarAreas.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+clear g; clear u; clear p; clear d;
+
+%% Constants
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+radToDeg        = 180/pi;
+densitySilicon  = 2600;
+densityAl       = 2700; % Aluminum
+densityTungsten = 19300;
+
+%% Simulation parameters
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+days  = 0.2;
+tEnd  = days*86400; 
+dT    = 1;
+nSim  = ceil(tEnd/dT);
+
+%% CubeSat model
+% Initialize data structure
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d = RHSCubeSat;
+
+% CubeSats are 1 kg per U
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+model = '3U';
+[area,nFace,rFace] = CubeSatFaces( model, 1 );
+d.mass = 3; % kg
+d.inertia = InertiaCubeSat( model, d.mass );
+
+% Model data
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d.surfData.area = area;
+d.surfData.nFace = nFace;
+d.surfData.rFace = rFace;
+d.surfData.att.type = 'eci';
+
+% Reaction wheel design
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.kWheels    = 14:16; % indices of wheel states
+radius       = 0.020;
+thickness    = 0.004; % This is 4 mm
+volRWA       = pi*radius^2*thickness;
+massRWA      = volRWA*densityTungsten; % Mass from density x volume
+d.inertiaRWA = (massRWA/2)*radius^2; % Polar inertia
+thicknessSolarPanel = 0.004;
+
+% Add power system model
+% Lithium batteries are 360000 J/kg according to 
+% http://en.wikipedia.org/wiki/Lithium-ion_battery,
+% so size the battery for 100 g = 36000 J = 10 Wh
+% Solar cell efficieny is 27% to 29.5% according to Emcore,
+% http://www.emcore.com/solar_photovoltaics/
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.power.solarCellNormal    = [1 1 -1 -1 0 0 0 0;0 0 0 0 1 1 -1 -1;0 0 0 0 0 0 0 0];
+d.power.solarCellEff       = 0.295; 
+d.power.effPowerConversion = 0.9;
+d.power.solarCellArea      = 0.1*0.116*ones(1,8);
+d.power.consumption        = 4;
+d.power.batteryCapacity    = 36000; 
+volSolarPanel              = d.power.solarCellArea(1,1)*thicknessSolarPanel;
+massSolarPanel             = volSolarPanel *densitySilicon;
+DrawCubeSatSolarAreas(d.power)
+
+%% Initial state vector for a circular orbit
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+x    = 6387.165+800; % km
+v    = VOrbit(x);
+
+r    = [x;0;0];                 % Position vector
+v    = [0;0;v];                 % Velocity vector - polar orbit
+q    = [1;0;0;0];               % Quaternion
+w    = [0;0;0];                 % Angular rate of spacecraft
+c    = [0;0;0];                 % Reaction wheel rates
+b    = 2*3600;                  % Battery state of charge (J = Wh*3600)
+
+% State is [position;velocity;quaternion;angular velocity;wheels;battery charge]
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+x    = [r;v;q;w;c;b];
+
+%% Start Julian date
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d.jD0  = Date2JD([2012 4 5 0 0 0]);
+
+%% Design the PID Controller
+% Specify the z body axis for alignment with the chosen ECI vector
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+p                    = PID3Axis;
+[p.a, p.b, p.c, p.d] = PIDMIMO( 1, 1, 0.01, 200, 0.1, dT ); 
+
+p.inertia            = d.inertia;
+p.max_angle          = 0.01;
+p.accel_sat          = [100;100;100];
+p.mode               = 1;
+p.q_target_last      = q;
+p.q_desired_state    = [0;0;0;1];
+p.body_vector        = [0;0;1];
+
+%% Atmosphere model data
+% Skip the J70 model as it is slow; use the commented out code to switch
+% back if desired. AtmDens2 will be used instead.
+d.atm = [];
+% [aP, f, fHat, fHat400] = SolarFluxPrediction( d.jD0, 'nominal' );
+% d.atm.aP      = aP(1); 
+% d.atm.f       = f(1); 
+% d.atm.fHat    = fHat(1); 
+% d.atm.fHat400 = fHat400(1);
+
+%% Initialize the plotting array to save time
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+qECIToBody   = x(7:10);
+bField       = QForm( qECIToBody, BDipole( x(1:3), d.jD0 ) );
+p.eci_vector = Unit(bField);
+angleError   = acos(Dot(p.eci_vector,QTForm(qECIToBody,p.body_vector)))*radToDeg;
+
+xPlot        = [[x;0;0;0;0;angleError;bField;0;0;0] zeros(length(x)+11,nSim)];
+
+%% Initialize the time display
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+TimeDisplay( 'initialize', 'CubeSat RWA Sim', nSim );
+
+%% Run the simulation
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+t = 0;
+
+for k = 1:nSim
+  
+  % Display the status message
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+  TimeDisplay('update');
+    
+  % Quaternion
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+  qECIToBody   = x(7:10);
+
+  % Magnetic field - the magnetometer output is proportional to this
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+  bField       = QForm( qECIToBody, BDipole( x(1:3), d.jD0+t/86400 ) );
+
+  % Control system momentum management
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+  d.dipole     = [0.0;0;0]; % Amp-turns m^2
+
+  % Reaction wheel control - align with the magnetic field
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+  p.eci_vector = Unit(bField);
+  angleError   = acos(Dot(p.eci_vector,QTForm(qECIToBody,p.body_vector)))*radToDeg;
+  [torque, p]  = PID3Axis( qECIToBody, p );
+  d.tRWA       = -torque;
+
+  % A time step with 4th order Runge-Kutta
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+  x            = RK4( @RHSCubeSat, x, dT, t, d );
+
+  % Get the power
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+  [xDot, dist, power] = RHSCubeSat( x, t, d );
+
+  % Update plotting and time
+  %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+  hRWA         = x(14:16)*d.inertiaRWA;
+  xPlot(:,k+1) = [x;power;torque;angleError;bField;hRWA];
+  t            = t + dT;
+
+end
+TimeDisplay( 'close' );
+
+%% Plotting
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+kP = 1:k+1;
+[t, tL] = TimeLabl( (0:k)*dT );
+
+%% Y-axis labels
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+yL = {'r_x (km)' 'r_y (km)' 'r_z (km)' 'v_x (km/s)' 'v_y (km/s)' 'v_z (km/s)'...
+      'q_s' 'q_x' 'q_y' 'q_z' '\omega_x (rad/s)' '\omega_y (rad/s)' '\omega_z (rad/s)' ...
+      '\omega_x (rad/s)' '\omega_y (rad/s)' '\omega_z (rad/s)' 'b (Wh)' 'Power (W)' ...
+      'T_x (Nm)' 'T_y (Nm)' 'T_z (Nm)' 'Angle Error (deg)' 'B_x' 'B_y' 'B_z',...
+      'H_x (Nms)' 'H_y (Nms)' 'H_z (Nms)'};
+ 
+%% Plotting utility
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+Plot2D( t, xPlot( 1: 3,kP), tL, yL(  1: 3), 'CubeSat Orbit' );
+Plot2D( t, xPlot( 7:10,kP), tL, yL(  7:10), 'CubeSat ECI To Body Quaternion' );
+Plot2D( t, xPlot(11:13,kP), tL, yL( 11:13), 'CubeSat Attitude Rate (rad/s)' );
+Plot2D( t, xPlot(14:16,kP), tL, yL( 14:16), 'CubeSat Reaction Wheel Rate (rad/s)' );
+Plot2D( t, [xPlot(17,kP)/3600;xPlot(18,kP)], tL, yL( 17:18), 'CubeSat Power' );
+Plot2D( t, xPlot(19:22,kP), tL, yL( 19:22), 'CubeSat Control Torque' );
+Plot2D( t, xPlot(23:25,kP), tL, yL( 23:25), 'CubeSat Magnetic Field' );
+Plot2D( t, xPlot(26:28,kP), tL, yL( 26:28), 'CubeSat RWA Momentum' );
+
+maximumTorque   = max(max(abs(xPlot(19:21,kP))));
+maximumMomentum = max(max(abs(xPlot(26:28,kP))));
+maximumSpeed    = max(max(abs(xPlot(14:16,kP))));
+
+%% Create a table of output
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+g{1,1} = 'Reaction Wheel Inertia';
+g{1,2} =  LatexScientificNotation( d.inertiaRWA, 1);
+g{1,3} = 'kg-m$^2$';
+
+g{2,1} = 'Reaction Wheel Radius';
+g{2,2} =  sprintf('%8.4f',radius*1000);
+g{2,3} = 'mm';
+
+g{3,1} = 'Reaction Wheel Thickness';
+g{3,2} =  sprintf('%8.4f',thickness*1000);
+g{3,3} = 'mm';
+
+g{4,1} = 'Maximum RWA torque';
+g{4,2} =  LatexScientificNotation( maximumTorque, 4);
+g{4,3} = 'Nm';
+
+g{5,1} = 'Maximum RWA Momentum';
+g{5,2} =  LatexScientificNotation( maximumMomentum, 4 );
+g{5,3} = 'Nms';
+
+g{6,1} = 'Maximum RWA Rate';
+g{6,2} =  sprintf('%12.4f',maximumSpeed*30/pi);
+g{6,3} = 'RPM';
+
+g{7,1} = 'Solar Cell Efficiency';
+g{7,2} =  sprintf('%8.4f',d.power.solarCellEff);
+g{7,3} = '';
+
+g{8,1} = 'Power Conversion Efficiency';
+g{8,2} =  sprintf('%8.4f',d.power.effPowerConversion);
+g{8,3} = '';
+
+g{9,1} = 'Panel Area';
+g{9,2} =  sprintf('%8.4f',d.power.solarCellArea(1)*1e4);
+g{9,3} = 'cm$^2$';
+
+g{10,1} = 'Average Power Consumption';
+g{10,2} =  sprintf('%8.1f',d.power.consumption );
+g{10,3} = 'W';
+
+g{11,1} = 'Battery Capacity';
+g{11,2} =  sprintf('%8.1f',d.power.batteryCapacity/3600);
+g{11,3} = 'Wh';
+
+CreateTable( g );
+
+%% Save data for the budgets
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+u.rwa.mass          = massRWA;
+u.rwa.volume        = volRWA;
+u.solarPanel.mass   = massSolarPanel;
+u.solarPanel.volume = volSolarPanel;
+
+SaveStructure(u,'BudgetData.mat'); 
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2020-03-31 14:55:04 -0400 (Tue, 31 Mar 2020) $
+% $Revision: 51695 $
+
+##### SOURCE END #####
+--></body></html>

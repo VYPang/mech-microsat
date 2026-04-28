@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>APlanet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>APlanet:</h2>
+<p>Path: Orbit/OrbitMechanics</p>
+<pre>
+% Perturbing acceleration due to a planet on a spacecraft.
+ The spacecraft is within the sphere of influence of another body. 
+ The equations become
+  2 
+ d r       mu r
+  --    +   ---- = a
+ 	2          3
+ dt        |r|
+
+ This function is valid when r << rho. Multiple planets can be input at once.
+
+--------------------------------------------------------------------------
+   Form:
+   [a, aP] = APlanet( r, mu, rho )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r           (3,1)   Vector of the spacecraft from the central body
+   mu          (:)     Planet gravitational parameter(s)
+   rho         (3,:)   Vector of the perturbing planet(s) from the central body
+
+   -------
+   Outputs
+   -------
+   a           (3,1)   Total acceleration
+   aP          (3,:)   Accelerations of individual planets
+
+--------------------------------------------------------------------------
+   Reference: Bond, V.R., M.C. Allman, Modern Astrodynamics
+              Princeton University Press, 1996, pp. 203-204.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

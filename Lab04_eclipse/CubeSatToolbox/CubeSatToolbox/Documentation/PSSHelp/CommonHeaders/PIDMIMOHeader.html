@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>PIDMIMO</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PIDMIMO:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Produces a state space n degree of freedom PID controller.
+
+   The PID controller will be of the form:
+
+   x(k+1) = a x(k) + b u(k)
+   y(k)   = c x(k) + d u(k)
+
+   By designing in the frequency domain and converting to discrete
+   time using a zero-order hold. The inputs are the desired damping
+   ratio and undamped natural frequency of the complex mode of the
+   closed-loop system and the time constant of the integrator.
+
+   This system does not compensate for the phase lag of the zero order
+   hold and is only applicable to systems where the bandwidth is
+   much lower than the half-sampling frequency. The continuous time
+   equivalent for each axis is
+
+               Kr s         u
+   y = Kp u +  ---- u + Ki ---
+              s + wR        s
+
+   The function converts the result to discrete time if tSamp is entered.
+
+   If only one output is requested it will return a data structure with
+   the matrices.
+                   
+--------------------------------------------------------------------------
+   Form:
+   [a, b, c, d, k] = PIDMIMO( inr, zeta, omega, tauInt, omegaR, tSamp, sType )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   inr           (n,n)    Inertia matrix
+   zeta          (n,1)    Vector of damping ratios
+   omega         (n,1)    Vector of undamped natural frequencies
+   tauInt        (n,1)    Vector of integrator time constants
+   omegaR        (n,1)    Vector of derivative term roll-off frequencies
+   tSamp                  Sampling period
+   sType                  State equation type ('Delta' or 'Z' (default))
+
+   -------
+   Outputs
+   -------
+   a             (2n,2n)  Plant matrix
+   b             (2n, n)  Input matrix
+   c             ( n,2n)  Output matrix
+   d             ( n, n)  Feedthrough matrix
+   k                      Gains
+                          .kP Proportional
+                          .kR Rate
+                          .kI Integral
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../CommonHeaders/C2DelZOHHeader.html">Common: Control/C2DelZOH</a>
+<a href="../CommonHeaders/FRespHeader.html">Common: Control/FResp</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>Map</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Map:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% Draws a 2 or 3 dimensional map of a planet. 
+ Turns on mouse driven 3D rotation if mType == '3d'. String inputs are
+ not case sensitive. planet is the name of a .mat file with the
+ variables planetMap and planetColorMap. 
+ 
+ You generate the planet data structure like this example for a gray scale
+ image of Pluto; the replication of the image map is needed because the png is
+ gray scale.
+
+   p = imread('pluto.png');
+   p3(:,:,1) = p;
+   p3(:,:,2) = p;
+   p3(:,:,3) = p;
+   planet.planetMap = p3;
+   planet.radius = Constant('equatorial radius pluto');
+   planet.name = 'Pluto';
+
+ The planetColorMap is not needed if the planetMap is true color, with
+ channels for R, G, B (m x n x 3).
+ 
+ The radius field may be an array of semimajor axes, (1x3). See Ellipsd.
+--------------------------------------------------------------------------
+   Form:
+   p = Map( planet, mType, noNewFig )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   planet        (1,:)    Any planet mat-file name or the structure
+                            planet.planetMap
+                            planet.planetColorMap
+                            planet.radius
+   mType         (2,:)   '2d' or '3d', default is '3d'
+   noNewFig      (1,1)    If entered, don't create a new figure.
+
+   -------
+   Outputs
+   -------
+   p             (.)      Planet image data structure
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

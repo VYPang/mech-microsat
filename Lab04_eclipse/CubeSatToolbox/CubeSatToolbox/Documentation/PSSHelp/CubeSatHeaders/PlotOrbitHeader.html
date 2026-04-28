@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>PlotOrbit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PlotOrbit:</h2>
+<p>Path: CubeSat/Visualization</p>
+<pre>
+% Plot the state in 3D with an Earth map. 
+
+ Note that the location relative to the map is only accurate for
+ Earth-fixed frame input. Enter time and Julian date to compute the
+ Earth-fixed positions from ECI data automatically.
+
+--------------------------------------------------------------------------
+   Form:
+   [h, l] = PlotOrbit( rEF )
+   [h, l] = PlotOrbit( rECI, t, jD0 )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r         (3,m)  Position vectors (km)
+           or
+              {n}   Cell array of position matrices for multiple satellites
+   t         (1,:)  Time array (sec)
+   jD0       (1,1)  Epoch Julian date
+
+   ------
+   Output
+   ------
+   h         (1,1)  Figure handle
+   l         (1,n)  Handle to orbit lines
+
+--------------------------------------------------------------------------
+   See also: LoadEarthMap
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../CommonHeaders/EarthMapDataHeader.html">Common: CommonData/EarthMapData</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../SCHeaders/LoadEarthMapHeader.html">SC: Visualization/LoadEarthMap</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

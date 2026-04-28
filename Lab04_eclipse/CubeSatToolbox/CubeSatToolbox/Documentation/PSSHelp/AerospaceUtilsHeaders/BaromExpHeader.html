@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>BaromExp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>BaromExp:</h2>
+<p>Path: AerospaceUtils/AtmosphericCalculations</p>
+<pre>
+% Computes the barometric exponent.
+ This is used by AtmJ70 by a quadrature routine.
+--------------------------------------------------------------------------
+   Form:
+   x = BaromExp( z, tX, t90 )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   z          (1,1)   Height
+   tX         (1,1)   Inflection point temperature (deg-K at altitude = 125 km)
+   t90        (1,1)   Assumed temperature at 90km altitude (deg-K)
+
+   -------
+   Outputs
+   -------
+   x          (1,1)   Barometric Exponent
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

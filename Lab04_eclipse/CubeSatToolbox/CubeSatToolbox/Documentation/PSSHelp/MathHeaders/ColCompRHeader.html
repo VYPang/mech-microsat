@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>ColCompR</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ColCompR:</h2>
+<p>Path: Math/Linear</p>
+<pre>
+% Computes the right column compression of a matrix. Compresses the 
+   matrix a so that
+
+   comp(a) = [ 0 c ]
+
+   c is of full column rank, i.e. the columns are linearly independent.
+   Zero columns are determined by the singular values.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form: 
+   [c, v, ac] = ColCompR( a, neps )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a                   Matrix
+   neps                Multiple of machine epsilon to be used
+                       as the tolerance for a zero column
+
+   -------
+   Outputs
+   -------
+   c                   Right column compression of a
+   v                   ac = a*v
+   ac                  a compressed
+
+--------------------------------------------------------------------------
+     References: Maciejowski, J.M., Multivariable Feedback Design, Addison-
+                 Wesley, 1989, pp. 366.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../MathFunctions.html">Back</a> to the Math Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

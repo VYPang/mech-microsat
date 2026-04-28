@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>WrapPhase</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>WrapPhase:</h2>
+<p>Path: Math/Trigonometry</p>
+<pre>
+% Wrap a phase angle (or vector of angles) to keep it between -pi and +pi
+--------------------------------------------------------------------------
+   Form:
+   angle = WrapPhase( angle )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   angle            (1,:)    Phase angle [rad]
+
+   -------
+   Outputs
+   -------
+   angle            (1,:)    Wrapped phase angle between -pi and +pi [rad]
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../MathFunctions.html">Back</a> to the Math Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

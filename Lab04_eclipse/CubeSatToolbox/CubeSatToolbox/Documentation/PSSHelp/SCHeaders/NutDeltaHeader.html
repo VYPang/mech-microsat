@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>NutDelta</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>NutDelta:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% The changes in longitude and obliquity due to earth nutation.
+   From the 1980 IAU Nutation series.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   [deltaPsi, deltaEps] = NutDelta( T )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   T           (1,1) Julian centuries of 86400s dynamical time from j2000.0
+
+   -------
+   Outputs
+   -------
+   deltaPsi    (1,1) The change in longitude due to nutation (degrees)
+   deltaEps    (1,1) The change in obliquity due to nutation (degrees)
+
+--------------------------------------------------------------------------
+   References: Seidelmann, The Explanatory Supplement to the Astronomical
+               Almanac, University Science Books, 1992. Sec. 3.222, 
+               "1980 IAU Theory of Nutation and Reduction", p. 111
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../MathHeaders/CosDHeader.html">Math: Trigonometry/CosD</a>
+<a href="../MathHeaders/SinDHeader.html">Math: Trigonometry/SinD</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

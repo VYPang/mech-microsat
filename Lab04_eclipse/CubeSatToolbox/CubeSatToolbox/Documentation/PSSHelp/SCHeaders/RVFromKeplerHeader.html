@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>RVFromKepler</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RVFromKepler:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Generate an orbit by propagating Keplerian elements.
+   If t is not entered it will plot one orbit. Only handles elliptical orbits.
+--------------------------------------------------------------------------
+   Form:
+   [r, v, t] = RVFromKepler( elI, t, mu, tol )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   elI        (1,6) Elements vector [a,i,W,w,e,M] or structure
+   t          (1,:) Times from 0 to ƒ (sec)
+   mu         (1,1) Gravitational parameter
+   tol        (1,1) Orbit propagation tolerance
+
+   -------
+   Outputs
+   -------
+   r          (3,:) Position vectors for times t
+   v          (3,:) Velocity vectors for times t
+   t          (1,:) Times at which r and v are calculated
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Plot3DHeader.html">Common: Graphics/Plot3D</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

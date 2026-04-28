@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>ECEFToLLA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ECEFToLLA:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Compute latitude, longitude, altitude from ECEF position.
+ Assumes spherical planet.
+--------------------------------------------------------------------------
+   Form:
+   lla = ECEFToLLA( rECEF, rP );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   rECEF       (3,:)   ECEF position vector [km]
+   rP          (1,1)   Radius of planet (for Earth: 6378.14) [km]
+                       
+
+   -------
+   Outputs
+   -------
+   lla         (3,:)   Latitude [rad], longitude [rad], altitude [km]
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

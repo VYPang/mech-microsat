@@ -10,6 +10,7 @@ from .analysis import FixedPointAnalysis
 from .equations import Equation
 from .modules import DisciplineModule, EquationModule, PlaceholderModule
 from .orbit_module import OrbitSurrogateModule
+from .propulsion_module import PropulsionConfig, build_fixed_thruster_propulsion_module
 from .state import SystemState
 
 OPTIMIZER_INPUTS: tuple[str, ...] = (
@@ -137,18 +138,22 @@ def build_sol_sentinel_analysis(
     power_module: DisciplineModule | None = None,
     thermal_module: DisciplineModule | None = None,
     propulsion_module: DisciplineModule | None = None,
+    propulsion_config_source: PropulsionConfig | Path | None = None,
     budget_module: DisciplineModule | None = None,
     tolerance: float = 1e-6,
     max_iterations: int = 25,
 ) -> FixedPointAnalysis:
     orbit_module = OrbitSurrogateModule(_load_surrogate(surrogate_source))
+    resolved_propulsion_module = propulsion_module
+    if resolved_propulsion_module is None and propulsion_config_source is not None:
+        resolved_propulsion_module = build_fixed_thruster_propulsion_module(propulsion_config_source)
     return FixedPointAnalysis(
         modules=(
             comms_module or build_comms_placeholder(),
             power_module or build_power_placeholder(),
             thermal_module or build_thermal_placeholder(),
             orbit_module,
-            propulsion_module or build_propulsion_placeholder(),
+            resolved_propulsion_module or build_propulsion_placeholder(),
             budget_module or build_budget_module(),
         ),
         coupled_variables=COUPLED_VARIABLES,

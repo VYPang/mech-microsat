@@ -1,0 +1,72 @@
+<html>
+<head>
+<title>HierarchicalListPlugIn</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>HierarchicalListPlugIn:</h2>
+<p>Path: Common/Plugins</p>
+<pre>
+% Create and manages a hierarchical list. Each element of the list is
+
+   h(k).name        = 'mike';
+   h(k).parent      = '';
+   h(k).child       = {'pete'};
+   h(k).data        = ...;         Data can be anything.
+
+   Initialize
+   ----------
+   tag = HierarchicalListPlugIn( 'initialize', h, figureHandle, position, callback )
+
+   API
+   ---
+   HierarchicalListPlugIn( 'add',    tag, h ) % Parent can be empty
+   HierarchicalListPlugIn( 'delete', tag )
+   HierarchicalListPlugIn( 'show',   tag )
+   HierarchicalListPlugIn( 'hide',   tag )
+   HierarchicalListPlugIn( 'set',    tag, d )
+   
+   d   = HierarchicalListPlugIn( 'get', tag ) % Gets the entire list
+
+   Get the name of the selected element
+   s   = HierarchicalListPlugIn( 'get selection', tag )
+   s   = HierarchicalListPlugIn( 'get data for selection', tag )
+   s   = HierarchicalListPlugIn( 'get list', tag )
+
+--------------------------------------------------------------------------
+   Form:
+   x = HierarchicalListPlugIn( action, modifier, hFig, position, callback, params )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action      (1,:)  Action 'initialize', 'update'
+   modifier    (1,:)  Modifier to the action
+   hFig        (1,1)  Handle to the figure
+   position    (1,4)  [left bottom width height]
+   callback    (1,:)  Callback string when something has changed in this gui
+   params      {:}    Parameter pairs for the list uicontrol
+
+   -------
+   Outputs
+   -------
+   x           (1,1)  Depends on the action.
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/GetListStringHeader.html">Common: General/GetListString</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

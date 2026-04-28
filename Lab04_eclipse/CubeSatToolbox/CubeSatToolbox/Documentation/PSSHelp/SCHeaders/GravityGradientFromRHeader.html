@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>GravityGradientFromR</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GravityGradientFromR:</h2>
+<p>Path: SC/Disturbances</p>
+<pre>
+%   Computes a gravity gradient torque from r and mu.
+   q transforms from the frame in which r is defined to the body frame.
+
+   Since version 10.
+--------------------------------------------------------------------------
+   Form:
+   t = GravityGradientFromR( q, inr, r, mu )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   q                  (4,1) Quaternion from the r frame to Body
+   inr                (3,3) Inertia matrix
+   r                  (3,:) Orbit from the earth to the spacecraft
+                            in the spacecraft body frame (the same frame as
+                            the inertia matrix.)
+   mu                 (1,1) Gravitational Parameter
+
+   -------
+   Outputs
+   -------
+   t                  (3,:) Torque (units will be consistent with inertia)
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

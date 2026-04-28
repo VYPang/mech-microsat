@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>CubeSatPropulsion</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CubeSatPropulsion:</h2>
+<p>Path: CubeSat/Actuators</p>
+<pre>
+% Returns the force, torque and mass flow for a cold gas system.
+ Will call CubeSatAttitude for the attitude model if p.q is empty.
+--------------------------------------------------------------------------
+   Form:
+   [force, torque, mDot] = CubeSatPropulsion( mass, p, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   mass     (1,1)   Total system mass
+   p         (.)    Data structure
+                    .r    (3,1) ECI position
+                    .v    (3,1) ECI velocity
+                    .q    (4,1) ECI to body quaternion
+   d         (.)    Data structure
+                    .gas            (1,:) Gas name
+                    .throatArea     (1,1) Area of throat (m^2)
+                    .volumeTank     (1,1) Tank volume (m^3)
+                    .temperature    (1,1) Tank temperature (deg-K)
+                    .expansionRatio (1,1) Expansion ratio of nozzle
+                    .rNozzle        (3,n) Position of thruster (m)
+                    .uNozzle        (3,n) Thrust unit vector
+                    .cM             (3,1) Center-of-mass (m)
+                    .pulsewidthFraction (1,n)
+                    .pRegulator     (1,1) Regulator pressure (N/m^2)
+                    .att             (.)  Attitude data structure
+
+   -------
+   Outputs
+   -------
+   force    (3,1)   ECI Force vector (N)
+   torque   (3,1)   Torque vector (N)
+   mDot     (1,1)   Mass flow rate (kg/s)
+
+--------------------------------------------------------------------------
+   See also GasProperties, CubeSatAttitude
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/StrMtchHeader.html">Common: General/StrMtch</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/GasPropertiesHeader.html">Common: Materials/GasProperties</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CubeSatHeaders/CubeSatAttitudeHeader.html">CubeSat: Utilities/CubeSatAttitude</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

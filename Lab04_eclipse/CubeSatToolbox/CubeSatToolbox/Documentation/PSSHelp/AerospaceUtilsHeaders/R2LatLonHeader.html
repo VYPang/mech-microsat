@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>R2LatLon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>R2LatLon:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Computes geocentric latitude and longitude from r 
+
+--------------------------------------------------------------------------
+   Form:
+   [lat, lon] = R2LatLon( x, y, z )
+   [lat, lon] = R2LatLon( r )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x            (1,:)     X or [x;y;z]
+   y            (1,:)     Y
+   z            (1,:)     Z
+
+   -------
+   Outputs
+   -------
+   lat          (1,:)     Latitude (rad)
+   lon          (1,:)     East longitude (0 in xz-plane, +right hand rule
+                          about +z)  (rad)
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>LatLonAltToEF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LatLonAltToEF:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Convert [latitude;longitude;altitude] to an earth fixed position vector.
+ Altitude is the distance above the subsatellite point. Assumes an
+ ellipsoidal planet.
+
+ Type LatLonAltToEF for a demo.
+--------------------------------------------------------------------------
+   Form:
+   r = LatLonAltToEF( x, f, a )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x         (3,:)   [lat (rad); lon (rad); altitude (km)]
+   f         (1,1)   Flattening factor
+   a         (1,1)   Equatorial radius
+   tol       (1,1)   Tolerance
+
+   -------
+   Outputs
+   -------
+   r         (3,:)   Vectors
+
+--------------------------------------------------------------------------
+   Reference: Escobal, P. Methods of Orbit Determination.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

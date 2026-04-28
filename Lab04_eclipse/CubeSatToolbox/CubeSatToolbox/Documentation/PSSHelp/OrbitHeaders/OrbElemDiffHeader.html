@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>OrbElemDiff</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>OrbElemDiff:</h2>
+<p>Path: Orbit/OrbitCoord</p>
+<pre>
+% Computes the differences between orbital element vectors.
+ This wraps the phase appropriately for all the angular elements.
+--------------------------------------------------------------------------
+   Form:
+   dEl = OrbElemDiff( el0, el, type )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   el0            (1,6) reference orbital elements        
+   el             (1,6) secondary orbital elements       
+   type            (1)  type
+                          1 -- [a,th,i,q1,q2,W]
+                          2 -- [a,i,W,w,e,M]
+
+   -------
+   Outputs
+   -------
+   dEl           (:,6) orbital element differences
+   
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/WrapPhaseHeader.html">Math: Trigonometry/WrapPhase</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

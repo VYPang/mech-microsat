@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>FRB</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>FRB:</h2>
+<p>Path: SC/Dynamics</p>
+<pre>
+% Rigid body right-hand-side.
+   See also RBModel.
+
+--------------------------------------------------------------------------
+   Form:
+   xDot = FRB( x, t, inr, invInr, tExt )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x            (7,1)     The state vector [q;w]
+   t            (1,1)     Time
+   inr          (3,3)     Inertia
+   invInr       (3,3)     Inverse inertia
+   tExt         (3,1)     External torque
+
+   -------
+   Outputs
+   -------
+   xDot         (7,1)     The derivative of the state vector
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/QIToBDotHeader.html">AerospaceUtils: Coord/QIToBDot</a>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/SkewSymmHeader.html">Math: Linear/SkewSymm</a>
+<a href="../SCHeaders/RBModelHeader.html">SC: Dynamics/RBModel</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

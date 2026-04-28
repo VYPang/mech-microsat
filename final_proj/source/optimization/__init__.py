@@ -4,6 +4,14 @@ from .analysis import FixedPointAnalysis, FixedPointResult
 from .equations import Equation
 from .modules import DisciplineModule, EquationModule, PlaceholderModule
 from .orbit_module import OrbitSurrogateModule
+from .propulsion_module import (
+    FixedThrusterPropulsionModule,
+    FixedThrusterSpec,
+    MissionConfig,
+    PropulsionConfig,
+    build_fixed_thruster_propulsion_module,
+    load_propulsion_config,
+)
 from .problem import Constraint, DesignVariable, Objective, OptimizationProblem, ProblemEvaluation
 from .sol_sentinel import COUPLED_VARIABLES, OPTIMIZER_INPUTS, build_budget_module, build_sol_sentinel_analysis
 from .state import SystemState
@@ -16,18 +24,24 @@ __all__ = [
     "DisciplineModule",
     "Equation",
     "EquationModule",
+    "FixedThrusterPropulsionModule",
+    "FixedThrusterSpec",
     "FixedPointAnalysis",
     "FixedPointResult",
+    "MissionConfig",
     "OPTIMIZER_INPUTS",
     "Objective",
     "OptimizationProblem",
     "OrbitSurrogateModule",
     "PlaceholderModule",
+    "PropulsionConfig",
     "ProblemEvaluation",
     "SOL_SENTINEL_VARIABLES",
     "SystemState",
     "VARIABLE_REGISTRY",
     "VariableDefinition",
     "build_budget_module",
+    "build_fixed_thruster_propulsion_module",
     "build_sol_sentinel_analysis",
+    "load_propulsion_config",
 ]

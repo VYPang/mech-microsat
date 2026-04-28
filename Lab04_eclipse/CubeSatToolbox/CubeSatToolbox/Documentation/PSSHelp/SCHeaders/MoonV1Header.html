@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>MoonV1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MoonV1:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Generate the moon vector in an earth or spacecraft centered frame.
+   The earth-centered inertial frame is default or, if a spacecraft vector is 
+   input, the vector is in the spacecraft centered frame. 
+   This is the low precision model. 
+   See also MoonV2.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   [u, r] = MoonV1( jd, rSc )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jd        (:)     Julian date
+   rsc       (:)     Spacecraft vector in the ECI frame (km)
+
+   -------
+   Outputs
+   -------
+   u         (3,:)   Unit moon vector
+   r         (:)     Distance from origin to moon (km) 
+
+--------------------------------------------------------------------------
+	References:	  The 1993 Astronomical Almanac, U.S. Government Printing
+                Office, p. D46. 
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/CosDHeader.html">Math: Trigonometry/CosD</a>
+<a href="../MathHeaders/SinDHeader.html">Math: Trigonometry/SinD</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>JD2T</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>JD2T:</h2>
+<p>Path: Common/Time</p>
+<pre>
+% Converts Julian days to centuries from J2000.0
+
+ Typing JD2T returns the current Julian century.
+
+--------------------------------------------------------------------------
+   Form:
+   T = JD2T( jd )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jd           (1,:) Julian date (days)
+
+   -------
+   Outputs
+   -------
+   T            (1,:) Julian centuries of 86400s dynamical time from j2000.0
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

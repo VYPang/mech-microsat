@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>LabelLine</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LabelLine:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% Labels a line.
+ x must have at least 2 rows. 
+ The format string is any standard matlab format such as 't = %12.4f'
+
+--------------------------------------------------------------------------
+   Form:
+   LabelLine( x, t, n, f )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x          (2,:)   [x;y]
+   t          (1,:)   Numbers for labels
+   n          (1,1)   Number of labels
+   f          (1,:)   Format string
+
+   -------
+   Outputs
+   -------
+   None
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

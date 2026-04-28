@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>AbsRelECI2Hills</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>AbsRelECI2Hills:</h2>
+<p>Path: FormationFlying/Transformation</p>
+<pre>
+% Compute a Hills state from a relative ECI state
+ This function takes the absolute position and velocity in the ECI frame along
+ with the relative position and velocity in the ECI frame, and computes the
+ relative position and velocity in the curvilinear Hill's frame.
+--------------------------------------------------------------------------
+   Form:
+   [rH,vH] = AbsRelECI2Hills( r0, v0, dr, dv );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r0              (3,1) Reference position in ECI frame
+   r0              (3,1) Reference velocity in ECI frame
+   dr              (3,n) Relative position in ECI frame
+   dv              (3,n) Relative velocity in ECI frame
+
+   -------
+   Outputs
+   -------
+   rH              (3,n) Curvilinear Hills frame position [dR;    r1*dTheta;                   dZ   ]
+   vH              (3,n) Curvilinear Hills frame velocity [dRDot; r1*dThetaDot + r1Dot*dTheta; dZDot]
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../FormationFlyingHeaders/GetHillsMatsHeader.html">FormationFlying: Coord/GetHillsMats</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+<a href="../SCHeaders/RV2ElHeader.html">SC: BasicOrbit/RV2El</a>
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

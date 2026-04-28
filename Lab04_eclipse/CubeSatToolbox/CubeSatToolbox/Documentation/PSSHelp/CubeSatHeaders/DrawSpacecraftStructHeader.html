@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>DrawSpacecraftStruct</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>DrawSpacecraftStruct:</h2>
+<p>Path: CubeSat/Visualization</p>
+<pre>
+% Create the structure needed by DrawSpacecraftInOrbit
+ Replace v and f with the vertex/face information for your model.
+--------------------------------------------------------------------------
+   Form:
+   g = DrawSpacecraftStruct()
+--------------------------------------------------------------------------
+   ------
+   Inputs
+   ------
+   None.
+
+   -------
+   Outputs
+   -------
+   g        (.)    Data structure
+                      .name    String name of spacecraft
+                      .v     (n,3)  Vertices  
+                      .f     (n,3)  Faces     
+                      .scale (1,1)  Scale     
+                      .color (1,3)  Color spacecraft
+                      .alpha (1,1)  Transparency (0-1)
+
+--------------------------------------------------------------------------
+  See also: DrawSpacecraftInOrbit
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CubeSatHeaders/CubeSatModelHeader.html">CubeSat: Utilities/CubeSatModel</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Cone</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Cone:</h2>
+<p>Path: Common/ComponentModels</p>
+<pre>
+% Compute the vertices for a cone.
+ The cone emanates from p and points in direction u. If no outputs are
+ specified the cone will be drawn in a new figure. 
+
+ Type Cone for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [v, f] = Cone( p, u, halfAngle, l, n)
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   p            (3,1) Location of apex
+   u            (3,1) Cone axis unit vector
+   halfAngle    (1,1) Cone half angle (rad)
+   l            (1,1) Length of cone
+   n            (1,1) Number of divisions
+
+   -------
+   Outputs
+   -------
+   v            (:,3) Vertices
+   f            (:,3) Faces
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/BoxHeader.html">Common: ComponentModels/Box</a>
+<a href="../CommonHeaders/FrustrumHeader.html">Common: ComponentModels/Frustrum</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/DrawVerticesHeader.html">Common: Graphics/DrawVertices</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/U2QHeader.html">Common: Quaternion/U2Q</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

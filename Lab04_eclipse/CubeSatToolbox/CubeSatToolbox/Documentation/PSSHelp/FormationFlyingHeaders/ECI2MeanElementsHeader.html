@@ -1,0 +1,76 @@
+<html>
+<head>
+<title>ECI2MeanElements</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ECI2MeanElements:</h2>
+<p>Path: FormationFlying/Transformation</p>
+<pre>
+% Computes mean orbital elements from reference ECI position and velocity
+
+   Since version 7.
+--------------------------------------------------------------------------
+   Form:
+   [elRefMean, dElMean] = ECI2MeanElements(xRefECI, xRelECI, J2);
+--------------------------------------------------------------------------
+   Note: it is assumed that all inputs have the same time-tag.
+
+   ------
+   Inputs
+   ------
+   xRefECI          (6,1)    reference position & velocity in ECI frame
+   xRelECI          (6,:)    relative positions & velocities in ECI frame
+   J2                (1)     size of J2 perturbation
+
+   -------
+   Outputs
+   -------
+   elRefMean        (1,6)    mean orbital elements of the reference orbit
+   dElMean          (:,6)    mean orbital element differences
+
+     NOTE: Both element sets are in Alfriend format [a,theta,i,q1,q2,W]
+
+--------------------------------------------------------------------------
+  References:  Terry Alfriend, Texas A&M University
+               Joe Mueller, Princeton Satellite Systems
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../FormationFlyingHeaders/Osc2MeanHeader.html">FormationFlying: Transformation/Osc2Mean</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/WrapPhaseHeader.html">Math: Trigonometry/WrapPhase</a>
+<a href="../OrbitHeaders/El2AlfriendHeader.html">Orbit: OrbitCoord/El2Alfriend</a>
+<a href="../OrbitHeaders/OrbElemDiffHeader.html">Orbit: OrbitCoord/OrbElemDiff</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/M2EHeader.html">SC: BasicOrbit/M2E</a>
+<a href="../SCHeaders/M2EAppHeader.html">SC: BasicOrbit/M2EApp</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/M2EHyHeader.html">SC: BasicOrbit/M2EHy</a>
+<a href="../SCHeaders/M2NuHeader.html">SC: BasicOrbit/M2Nu</a>
+<a href="../SCHeaders/M2NuPbHeader.html">SC: BasicOrbit/M2NuPb</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+<a href="../SCHeaders/RV2ElHeader.html">SC: BasicOrbit/RV2El</a>
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

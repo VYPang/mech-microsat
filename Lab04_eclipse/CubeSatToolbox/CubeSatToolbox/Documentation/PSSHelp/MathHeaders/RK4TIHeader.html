@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>RK4TI</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RK4TI:</h2>
+<p>Path: Math/Integration</p>
+<pre>
+% Fourth order Runge-Kutta integration. RHS is time-independent (TI).
+
+   The right-hand-side function "rhs" computes the state derivative. 
+   "rhs" is a function handle with 2 inputs, evaluated as:
+
+   rhs(x,a)
+ 
+--------------------------------------------------------------------------
+   Form:
+   x = RK4TI( rhs, x, h, a )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   rhs        (:)     Right-hand side function handle
+   x         (N,1)    State (column vector)
+   h          (1)     Independent variable step
+   a          (:)     Input provided to rhs function
+
+   -------
+   Outputs
+   -------
+   x         (N,1)    Updated state
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../MathFunctions.html">Back</a> to the Math Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>LunarMissionControl</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LunarMissionControl:</h2>
+<p>Path: Missions/LunarMission</p>
+<pre>
+%	Implements a lunar mission control system.
+	The command list cell array is {time command data}
+	where data is a data structure for that command. The command list
+	rows should be in order of Julian date. You can also use +sec instead of
+ jD in which case the time is +sec after the previous command. If the 
+ first command is +sec then it is +sec from the time passed on
+ initialization.
+
+ Supported commands:
+
+  Command                          data
+  'align with a quaternion',        struct('q_target',[0;1;0;0]);...
+  'lunar orbit insertion prepare',	struct('thrust',20,'massInitial',6,...
+                                          'uE', 290*9.806,...
+                                          'body_vector',[1;0;0],...
+                                          'hLunarOrbit',200);...
+  'align for lunar insertion',      [];...
+  'start main engine',              struct('iD',1,'thrust',20)};
+
+ uE is exhaust velocity in m/s. massInitial is the mass at the start
+ of the burn. hLunarOrbit is the altitude of the burn.
+
+	meas can be the state vector.
+
+	dC = LunarMissionControl gives the default data structure. This also
+	opens a GUI that shows the command list and current command that is
+	being executed.
+
+	Commands are implemented via the dSim data structure. This is compatible
+ with RHSLunarMission.
+   
+--------------------------------------------------------------------------
+   Form:
+   [dC, dSim] = LunarMissionControl( action, jD, dC, dSim, meas, cList )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action  (1,:)   'initialize', 'update', 'terminate'
+   jD      (1,1)   Julian date
+   dC      (.)     Controller data structure
+   dSim    (.)     Simulation data structure
+   meas    (.)     Measurement data structure or state vector
+                   .qECIToBody (4,1) Quaternion
+                   .rECI       (3,1) ECI position
+                   .vECI       (3,1) ECI velocity
+                   .omega      (3,1) Body rate
+                   .omegaRWA   (:,1) RWA rates                  
+   cList   {:,3}   Command list cell array
+
+ 	-------
+   Outputs
+   -------
+   dC      (.)     Controller data structure
+   dSim    (.)     Simulation data structure
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../ACHeaders/ACTConstantsHeader.html">AC: ACData/ACTConstants</a>
+<a href="../AerospaceUtilsHeaders/QIToBDotHeader.html">AerospaceUtils: Coord/QIToBDot</a>
+<a href="../CommonHeaders/ConstantsHeader.html">Common: CommonData/Constants</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/xSplashSmallHeader.html">Common: CommonData/xSplashSmall</a>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../CommonHeaders/C2DelZOHHeader.html">Common: Control/C2DelZOH</a>
+<a href="../CommonHeaders/FRespHeader.html">Common: Control/FResp</a>
+<a href="../CommonHeaders/GNDHeader.html">Common: Control/GND</a>
+<a href="../CommonHeaders/GSSHeader.html">Common: Control/GSS</a>
+<a href="../CommonHeaders/ND2SSHeader.html">Common: Control/ND2SS</a>
+<a href="../CommonHeaders/PIDMIMOHeader.html">Common: Control/PIDMIMO</a>
+<a href="../CommonHeaders/S2DampHeader.html">Common: Control/S2Damp</a>
+<a href="../CommonHeaders/SS2NDHeader.html">Common: Control/SS2ND</a>
+<a href="../CommonHeaders/SizeABCDHeader.html">Common: Control/SizeABCD</a>
+<a href="../CommonHeaders/TrnsZeroHeader.html">Common: Control/TrnsZero</a>
+<a href="../CommonHeaders/WPZHeader.html">Common: Control/WPZ</a>
+<a href="../CommonHeaders/WResonHeader.html">Common: Control/WReson</a>
+<a href="../CommonHeaders/ZFrespHeader.html">Common: Control/ZFresp</a>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/DeleteCellHeader.html">Common: General/DeleteCell</a>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/LogLimitHeader.html">Common: Graphics/LogLimit</a>
+<a href="../CommonHeaders/Mesh2Header.html">Common: Graphics/Mesh2</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TextSHeader.html">Common: Graphics/TextS</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/AU2QHeader.html">Common: Quaternion/AU2Q</a>
+<a href="../CommonHeaders/Q2AUHeader.html">Common: Quaternion/Q2AU</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QPoseHeader.html">Common: Quaternion/QPose</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/U2QHeader.html">Common: Quaternion/U2Q</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/SecToStringHeader.html">Common: Time/SecToString</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/RK4Header.html">Math: Integration/RK4</a>
+<a href="../MathHeaders/ColCompRHeader.html">Math: Linear/ColCompR</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DelLZHeader.html">Math: Linear/DelLZ</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/IsZeroHeader.html">Math: Linear/IsZero</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/RowCompUHeader.html">Math: Linear/RowCompU</a>
+<a href="../MathHeaders/SkewSymmHeader.html">Math: Linear/SkewSymm</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MissionsHeaders/CommandListProcessingHeader.html">Missions: LunarMission/CommandListProcessing</a>
+<a href="../MissionsHeaders/LunarOrbitInsertionHeader.html">Missions: LunarMission/LunarOrbitInsertion</a>
+<a href="../OrbitHeaders/AE2RPRAHeader.html">Orbit: OrbitCoord/AE2RPRA</a>
+<a href="../OrbitHeaders/RARP2AHeader.html">Orbit: OrbitCoord/RARP2A</a>
+<a href="../OrbitHeaders/RPRA2AEHeader.html">Orbit: OrbitCoord/RPRA2AE</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/El2RVHeader.html">SC: BasicOrbit/El2RV</a>
+<a href="../SCHeaders/M2EHeader.html">SC: BasicOrbit/M2E</a>
+<a href="../SCHeaders/M2EAppHeader.html">SC: BasicOrbit/M2EApp</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/M2EHyHeader.html">SC: BasicOrbit/M2EHy</a>
+<a href="../SCHeaders/M2NuHeader.html">SC: BasicOrbit/M2Nu</a>
+<a href="../SCHeaders/M2NuPbHeader.html">SC: BasicOrbit/M2NuPb</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+<a href="../SCHeaders/RV2ElHeader.html">SC: BasicOrbit/RV2El</a>
+<a href="../SCHeaders/VOrbitHeader.html">SC: BasicOrbit/VOrbit</a>
+<a href="../SCHeaders/sCTConstantsHeader.html">SC: SCData/sCTConstants</a>
+<a href="../SCProHeaders/PID3AxisHeader.html">SCPro: ProControl/PID3Axis</a>
+</pre>
+<hr><p> <a href="../MissionsFunctions.html">Back</a> to the Missions Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

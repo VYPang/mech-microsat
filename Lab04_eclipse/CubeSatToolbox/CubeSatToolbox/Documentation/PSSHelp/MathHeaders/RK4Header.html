@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>RK4</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RK4:</h2>
+<p>Path: Math/Integration</p>
+<pre>
+% Fourth order Runge-Kutta. Called function is of the form:
+
+ Fun(x,t,varargin)
+
+ Accepts optional arguments that are passed through to Fun. Time is also
+ optional.
+ This version is streamlined and designed to take advantage of MATLAB's
+ function handles feature (MATLAB versions 6 and up only). Passing a 
+ string function name (version 5) will also work but is slower.
+ 
+--------------------------------------------------------------------------
+   Form:
+   x = RK4( Fun, x, h, t, varargin )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   Fun                Function    Fun(x,{t,...})
+   x                  State (column vector)
+   h                  Independent variable step
+   t                  Current time
+   p1...              Optional arguments
+
+   -------
+   Outputs
+   -------
+   x                  Updated state
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../MathFunctions.html">Back</a> to the Math Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>AntennaGain</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>AntennaGain:</h2>
+<p>Path: Link/RF</p>
+<pre>
+% Antenna gain.
+
+ Type AntennaGain to run a demo.
+--------------------------------------------------------------------------
+   Form:
+   g = AntennaGain( d, frequency )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d             (:)   Antenna data structure
+                         .type             (1,:) Type
+                         .area             (1,1) Area
+                         .effIllumination  (1,1) Illumination efficiency
+                         .effSpillover     (1,1) Spillover efficiency
+                         .effSurfaceFinish (1,1) Surface finish efficiency
+                         .effOhmic         (1,1) Ohmic losses
+                         .effImpedance     (1,1) Impedancy mismatch losses
+                         .eff              (1,1) Miscellaneous
+                         .n                (1,1) Number of turns (helical)
+                         .c                (1,1) Circumference (helical)
+                         .s                (1,1) Spacing (helical)
+   frequency    (1,:)  Frequency (GHz)
+                        
+   -------
+   Outputs
+   -------
+   g            (:)    Gain (dB)
+                        
+--------------------------------------------------------------------------
+   References:	Maral, G. and M. Bousquet. (1998) Satellite Communications
+               Systems. Wiley. pp. 14-17
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/StringMatchHeader.html">Common: General/StringMatch</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+</pre>
+<hr><p> <a href="../LinkFunctions.html">Back</a> to the Link Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

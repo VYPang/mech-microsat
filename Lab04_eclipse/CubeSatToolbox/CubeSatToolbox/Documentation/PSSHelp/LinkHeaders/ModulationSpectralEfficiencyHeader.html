@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>ModulationSpectralEfficiency</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ModulationSpectralEfficiency:</h2>
+<p>Path: Link/LinkUtilities</p>
+<pre>
+% Spectral efficiency of different modulation schemes
+ BPS = bandwidth* spectral efficiency
+
+ There is a built-in demo that cycles through all the types.
+--------------------------------------------------------------------------
+   Form:
+   eff = ModulationSpectralEfficiency( modulation )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   modulation	(1,:)	'BPSK' 'QPSK' 'DE-BPSK' 'DE-QPSK' 'D-BPSK'
+
+   -------
+   Outputs
+   -------
+   eff           (1,1) bps/Hz
+
+--------------------------------------------------------------------------
+   Reference: Bousquet, M. and  Maral, G. "Satellite Communications 
+              Systems, 3rd Edition," Wiley p 121.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../LinkFunctions.html">Back</a> to the Link Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

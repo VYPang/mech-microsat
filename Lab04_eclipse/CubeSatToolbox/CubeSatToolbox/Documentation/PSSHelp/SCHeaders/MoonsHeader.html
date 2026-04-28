@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Moons</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Moons:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Lists moons of a planet or planet center about which a moon orbits.
+--------------------------------------------------------------------------
+   Form:
+   moons  = Moons( planetName )
+   center = Moons( moonName )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   name       (1,:)  Name of planet or moon
+
+   -------
+   Outputs
+   -------
+   s       {:} or (1,:)  Cell array of moons or string name of planet center
+
+--------------------------------------------------------------------------
+   References:   Seidelmann, The Explanatory Supplement to the Astronomical
+                 Almanac, University Science Books, 1992, pp.708-709.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

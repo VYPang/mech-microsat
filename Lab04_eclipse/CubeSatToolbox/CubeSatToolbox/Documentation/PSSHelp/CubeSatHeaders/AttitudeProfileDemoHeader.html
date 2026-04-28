@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>AttitudeProfileDemo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>AttitudeProfileDemo:</h2>
+<p>Path: CubeSat/Demos/MissionPlanning</p>
+<pre>
+% Demonstrate the AttitudeProfile function.
+ Plots the resulting quaternion and the separation angle from the
+ secondary target.
+
+  Mode 1:      Body y to Sun     (Body x to Nadir secondary)
+  Mode 2:      Body x to Lat/Lon (Body y to Sun secondary)
+  Mode 3:      Different Lat/Lon 
+
+ See also AttitudeProfile, ObservationTimeWindows, PlotOrbit, Q2Eul, Plot2D,
+ Date2JD, ObservationTimeWindowsPlot, Period, RVFromKepler
+%
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../AerospaceUtilsHeaders/LLAToECEFHeader.html">AerospaceUtils: Coord/LLAToECEF</a>
+<a href="../AerospaceUtilsHeaders/QAlignHeader.html">AerospaceUtils: Coord/QAlign</a>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../AerospaceUtilsHeaders/QRotateToAlignHeader.html">AerospaceUtils: Coord/QRotateToAlign</a>
+<a href="../AerospaceUtilsHeaders/R2LatLonHeader.html">AerospaceUtils: Coord/R2LatLon</a>
+<a href="../CommonHeaders/EarthMapDataHeader.html">Common: CommonData/EarthMapData</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankAllHeader.html">Common: General/DeBlankAll</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/StringMatchHeader.html">Common: General/StringMatch</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/CoordinatesHeader.html">Common: Graphics/Coordinates</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Plot3DHeader.html">Common: Graphics/Plot3D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/Q2EulHeader.html">Common: Quaternion/Q2Eul</a>
+<a href="../CommonHeaders/Q2MatHeader.html">Common: Quaternion/Q2Mat</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QPoseHeader.html">Common: Quaternion/QPose</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/U2QHeader.html">Common: Quaternion/U2Q</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../CommonHeaders/Mat2EulHeader.html">Common: Transform/Mat2Eul</a>
+<a href="../CubeSatHeaders/AttitudeProfileHeader.html">CubeSat: MissionPlanning/AttitudeProfile</a>
+<a href="../CubeSatHeaders/FindTimeWindowsHeader.html">CubeSat: MissionPlanning/FindTimeWindows</a>
+<a href="../CubeSatHeaders/ObservationTimeWindowsHeader.html">CubeSat: MissionPlanning/ObservationTimeWindows</a>
+<a href="../CubeSatHeaders/ObservationTimeWindowsPlotHeader.html">CubeSat: MissionPlanning/ObservationTimeWindowsPlot</a>
+<a href="../CubeSatHeaders/LatLonPlotHeader.html">CubeSat: Utilities/LatLonPlot</a>
+<a href="../CubeSatHeaders/WrapSegmentsHeader.html">CubeSat: Utilities/WrapSegments</a>
+<a href="../CubeSatHeaders/PlotOrbitHeader.html">CubeSat: Visualization/PlotOrbit</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/CosDHeader.html">Math: Trigonometry/CosD</a>
+<a href="../MathHeaders/SinDHeader.html">Math: Trigonometry/SinD</a>
+<a href="../OrbitHeaders/ENUToECEFHeader.html">Orbit: OrbitCoord/ENUToECEF</a>
+<a href="../OrbitHeaders/RAzToLatLonHeader.html">Orbit: OrbitCoord/RAzToLatLon</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+<a href="../SCHeaders/OrbRateHeader.html">SC: BasicOrbit/OrbRate</a>
+<a href="../SCHeaders/PeriodHeader.html">SC: BasicOrbit/Period</a>
+<a href="../SCHeaders/RV2ElHeader.html">SC: BasicOrbit/RV2El</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/MoonV1Header.html">SC: Ephem/MoonV1</a>
+<a href="../SCHeaders/SunV1Header.html">SC: Ephem/SunV1</a>
+<a href="../SCHeaders/LoadEarthMapHeader.html">SC: Visualization/LoadEarthMap</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

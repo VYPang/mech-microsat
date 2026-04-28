@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>SS2ND</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SS2ND:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Converts from state space to numerator denominator form.
+
+   Creates a transfer function model of a state-space system from
+   one input channel to all of the output channels using
+   the relationship
+
+                       det(sI-A+bc) - (1-d)det(sI-A)
+   c*inv(sI-A)*b + d = -----------------------------
+                               det(sI-A) 
+
+   where c is a row vector and b a column vector.
+
+--------------------------------------------------------------------------
+   Form:
+   [num, den] = SS2ND( a, b, c, d, iu )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a                   Plant matrix
+   b                   Input column vector
+   c                   Output row vector
+   d                   Feedthrough element
+   iu                  Input channel
+
+   -------
+   Outputs
+   -------
+   num                 Numerator polynomial(s) one output per row
+   den                 Denominator polynomial
+
+--------------------------------------------------------------------------
+   References:	Kalaith, T., Linear System, Prentice-Hall, Englewood-Cliffs,
+               NJ, 1980.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SizeABCDHeader.html">Common: Control/SizeABCD</a>
+<a href="../MathHeaders/DelLZHeader.html">Math: Linear/DelLZ</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>RowCompU</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RowCompU:</h2>
+<p>Path: Math/Linear</p>
+<pre>
+% Computes the upper row compression of a matrix. 
+ Compresses the  matrix a so that
+
+   comp(a) = [ r ]
+             [ 0 ]
+
+ r is of full row rank, i.e. the rows are linearly independent.
+ Zero rows are determined by the singular values.
+
+--------------------------------------------------------------------------
+   Form: 
+   [r, uh, ac] = RowCompU( a, neps )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a                   Matrix
+   neps                Multiple of machine epsilon to be used
+                       as the tolerance for a zero row
+
+   -------
+   Outputs
+   -------
+   r                   Upper row compression of a
+   uh                  ac = uh*a
+   ac                  a compressed
+
+--------------------------------------------------------------------------
+   References: Maciejowski, J.M., Multivariable Feedback Design, Addison-
+               Wesley, 1989, pp. 366.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../MathFunctions.html">Back</a> to the Math Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

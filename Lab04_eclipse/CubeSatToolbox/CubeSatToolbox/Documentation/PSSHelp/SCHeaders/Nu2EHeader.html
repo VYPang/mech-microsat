@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>Nu2E</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Nu2E:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Converts true anomaly to eccentric or hyperbolic anomaly.
+ For a demo plot use Nu2E( e ).
+
+--------------------------------------------------------------------------
+   Form:
+   E = Nu2E( e, nu )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   e 	(1,:)  or (1,1) Eccentricity
+   nu	(1,:)  True anomaly
+
+   -------
+   Outputs
+   -------
+   E   (1,:)  Eccentric or hyperbolic anomaly
+
+--------------------------------------------------------------------------
+   References: Wiesel, W. E., Spaceflight Dynamics, McGraw-Hill, 1988,
+   pp. 57,60.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

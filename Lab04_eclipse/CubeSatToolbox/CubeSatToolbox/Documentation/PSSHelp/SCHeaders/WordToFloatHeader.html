@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>WordToFloat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>WordToFloat:</h2>
+<p>Path: SC/Hardware</p>
+<pre>
+% Convert an integer word to a floating point number. 
+   Numbers are assumed to be in standard integer format with kMax <= k <= kMax.
+--------------------------------------------------------------------------
+   Form:
+   f = WordToFloat( k, kMax, kMin, resolution )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   k			         (:)   Integer
+   kMax          (1,1)  Maximum integer
+   kMin          (1,1)  Minimum integer
+   resolution    (1,1)  Floating point value of a 1.
+
+   -------
+   Outputs
+   -------
+   f			  (:)    Floating point value
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

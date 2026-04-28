@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Volumes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Volumes:</h2>
+<p>Path: Common/MassProperties</p>
+<pre>
+% Computes volumes of common objects about their c.m. 
+ All objects have their axis of symmetry about z. If you enter a thickness with
+ 'cylinder', 'box' or 'sphere' it will automatically compute the hollow
+ versions. The 'cylindrical end caps' type has spherical end caps with the
+ given radius.
+--------------------------------------------------------------------------
+   Form:
+   vol = Volumes( x, type)
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x 		           Relevant dimensions
+   type             Type of solid
+                     'sphere'           x = [radius]
+                     'cylinder'         x = [radius, zLength] 
+                     'box'              x = [xLength, yLength, zLength]
+                     'ellipsoid'        x = [a b c]
+                     'plate'            x = [xLength, yLength]
+                     'disk'			       x = [radius, thickness]
+                     'hollow cylinder'  x = [outer radius, zLength, thickness]
+                     'hollow box'       x = [xLength, yLength, zLength, thickness]
+                     'hollow sphere'    x = [radius, thickness]
+                     'torus'            x = [R major,r minor]
+                     'elliptical torus' x = [R major,a minor,b minor]
+                     'cone'             x = [radius,height]
+                     'pyramid'          x = [base,height]
+                     'cylindrical end caps'   x = [radius,length]
+
+   -------
+   Outputs
+   -------
+   vol     (1,1)  Volume
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

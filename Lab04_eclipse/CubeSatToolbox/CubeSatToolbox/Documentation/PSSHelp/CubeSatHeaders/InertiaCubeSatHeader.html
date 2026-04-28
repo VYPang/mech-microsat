@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>InertiaCubeSat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>InertiaCubeSat:</h2>
+<p>Path: CubeSat/AttitudeControl</p>
+<pre>
+% Compute the inertia of a CubeSat. 
+ This assumes the mass is uniformly distributed throught the volume. This is a
+ good first cut.
+
+ Type InertiaCubeSat for a demo. See also CubeSatFaces.
+
+ If mass is omitted is selects the maximum mass for your CubeSat size,
+ which is 1 kg per U.
+------------------------------------------------------------------------
+   Form:
+   inertia = InertiaCubeSat( type, mass )
+------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   type    (1,2)    '1U' '2U' '3U' or [x y z] with U of each side
+   mass    (1,1)    Mass (kg)
+
+   -------
+   Outputs
+   -------
+   inertia (3,3)    Inertia matrix (kg-m^2)
+   mass    (1,1)    Mass (kg)
+
+------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/IC623X3Header.html">Common: MassProperties/IC623X3</a>
+<a href="../CommonHeaders/InertiasHeader.html">Common: MassProperties/Inertias</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

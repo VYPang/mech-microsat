@@ -70,7 +70,8 @@ For the current project baseline:
 
 - `T_life = 3 yr`
 - the orbit surrogate remains the same 3-year low-inclination case used in the SRP sweep
-- `Delta_t_cycle` is still a user-chosen operations assumption and should be fixed before implementation (for example weekly or monthly correction)
+- `Delta_t_cycle = 30 days`
+- a 20% delta-V margin is applied before propulsion sizing
 
 ---
 
@@ -81,7 +82,11 @@ For the current project baseline:
 Convert the annualized orbit-maintenance burden into the velocity correction required over one correction interval:
 
 $$
-\Delta V_{cycle} = \Delta V_{avg} \cdot \frac{\Delta t_{cycle}}{1\ \mathrm{yr}}
+\Delta V_{eff} = 1.2\,\Delta V_{avg}
+$$
+
+$$
+\Delta V_{cycle} = \Delta V_{eff} \cdot \frac{\Delta t_{cycle}}{1\ \mathrm{yr}}
 $$
 
 This is the amount of velocity correction the propulsion system must provide during one station-keeping event.
@@ -145,7 +150,7 @@ but this averaged quantity is not what is currently passed to the Power module.
 The total orbit-maintenance demand over mission life is
 
 $$
-\Delta V_{life} = \Delta V_{avg} \cdot T_{life}
+\Delta V_{life} = \Delta V_{eff} \cdot T_{life}
 $$
 
 with `T_life = 3 yr` in the first baseline case.
@@ -170,10 +175,14 @@ The optimizer variable returned by Propulsion is:
 
 ### 5.8. Propulsion subsystem mass and volume
 
-Because the engine is fixed, the first propulsion model treats the hardware package as a constant imported from the chosen engine specification:
+Because the engine is fixed, the first propulsion model treats the propulsion package mass and volume as fixed quantities imported from the chosen engine specification. For the current NPT30 baseline, the published package mass is a wet mass, so the implementation resolves a bookkeeping split between hardware and propellant capacity.
 
 $$
-M_{prop,sys} = \text{fixed engine package mass}
+M_{prop,max} = \frac{I_{tot,max}}{g_0 Isp_{thr}}
+$$
+
+$$
+M_{prop,sys} = M_{wet,published} - M_{prop,max}
 $$
 
 $$
@@ -185,17 +194,12 @@ These are mapped to the optimizer outputs:
 - `propulsion_mass_kg`
 - `propulsion_volume_u`
 
-If the published engine mass is wet rather than dry, the project must decide whether to:
-
-1. treat that published wet mass as the full propulsion package and avoid double-counting propellant, or
-2. split it into hardware mass plus separately modeled propellant mass.
-
-For optimizer consistency, the preferred convention is:
+For optimizer consistency, the current convention is:
 
 - `propulsion_mass_kg` = hardware package mass excluding separately modeled mission propellant when possible
 - `propellant_mass_kg` = mission propellant consumed over the 3-year maintenance life
 
-If the vendor only publishes total wet mass, that value should be documented as a simplifying assumption.
+The gradual decrease in spacecraft mass over the mission is neglected in the first implementation because the required station-keeping propellant is very small relative to total spacecraft wet mass.
 
 ---
 
@@ -255,7 +259,8 @@ For the current framework, the propulsion discipline can be implemented with:
 - chosen engine package volume
 - chosen engine total impulse capability, if available
 - mission lifetime `T_life = 3 yr`
-- correction interval `Delta_t_cycle`
+- correction interval `Delta_t_cycle = 30 days`
+- delta-V sizing margin = 20%
 
 ### Outputs back into the optimizer state
 

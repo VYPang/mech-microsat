@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>WrapSegments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>WrapSegments:</h2>
+<p>Path: CubeSat/Utilities</p>
+<pre>
+% Separate a wrapped vector into a series of segments in cells.
+
+--------------------------------------------------------------------------
+   Form:
+   [y,k] = WrapSegments( x, tol )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x       (1,:)    Vector of data points
+   tol     (1,1)    Jump tolerance. 
+                    If x(k+1)-x(k) > tol, the segment ends at x(k).
+   
+   -------
+   Outputs
+   -------
+   y       {1,n}    Cell array of segments. 
+                    Each segment "i" is 1 x m(i) array and sum(m)=n
+   k       {1,n}    Cell array of index values so that: y{j} = x( k{j} );
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

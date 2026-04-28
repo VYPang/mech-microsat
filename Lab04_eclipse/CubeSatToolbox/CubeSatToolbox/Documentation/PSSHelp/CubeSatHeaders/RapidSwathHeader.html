@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>RapidSwath</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RapidSwath:</h2>
+<p>Path: CubeSat/MissionPlanning</p>
+<pre>
+% Compute the intersection curve between a sensor cone and spherical planet.
+
+ If no outputs are given this will generate a 3D plot of the sensor
+ field of view. The nadir axis is drawn in green and the sensor
+ boresight in yellow. This function has a built-in demo.
+
+ Since version 8.
+--------------------------------------------------------------------------
+   Form:
+   d = RapidSwath( lat, lon, h, halfAngleFOV, pitch, azimuth, Rp );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   lat           (1,1)    Latitude of satellite  (rad)
+   lon           (1,1)    Longitude of satellite (rad)
+   h             (1,1)    Altitude of satellite  (km)
+   halfAngleFOV  (1,1)    Sensor cone half-angle field of view (rad)
+                          Note: 0 <= halfAngleFOV <= PI/2
+   pitch         (1,1)    Pitch angle between boresight axis and nadir axis (rad)
+                          Note: 0 <= pitch <= PI
+   azimuth       (1,1)    Azimuth angle from north (rad)
+   Rp            (1,1)    Planet radius. Optional. Default is Earth radius. (km)
+
+   -------
+   Outputs
+   -------
+   d         (.)  Data structure with fields:
+              .r             Set of 3D position curves for each elevation
+              .lat           Set of latitude vectors for each elevation
+              .lon           Set of longitude vectors for each elevation
+              .intersect     Flag indicating whether the cone intersects 
+                                the planet.  
+              .aboveHorizon   Flag indicating whether any part of the cone 
+                                goes above the horizon.  
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/BoxHeader.html">Common: ComponentModels/Box</a>
+<a href="../CommonHeaders/ConeHeader.html">Common: ComponentModels/Cone</a>
+<a href="../CommonHeaders/FrustrumHeader.html">Common: ComponentModels/Frustrum</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/DrawVerticesHeader.html">Common: Graphics/DrawVertices</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/AU2QHeader.html">Common: Quaternion/AU2Q</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/U2QHeader.html">Common: Quaternion/U2Q</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

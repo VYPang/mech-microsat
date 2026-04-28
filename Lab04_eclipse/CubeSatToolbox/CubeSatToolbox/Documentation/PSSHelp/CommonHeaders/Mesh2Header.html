@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>Mesh2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Mesh2:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% Draws mesh plots with axis labels. 
+ If either xCol or yRow are a scalar, draws a 2 dimensional plot. 
+ Rows of z are y and columns are x. An example:
+
+   x = 1:10;
+   y = 1:20;
+   z = y'*x;
+   Mesh2(x,y,z,'X','Y','Z')
+
+--------------------------------------------------------------------------
+   Form:
+   hFig  = Mesh2( xCol, yRow, z, xLbl ,yLbl, zLbl, figTitle )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   xCol                Column Indices
+   yRow                Row indices
+   z                   Z values
+   xLbl                X label
+   yLbl                Y label
+   zLbl                Z label
+   title               figTitle
+
+   -------
+   Outputs
+   -------
+   hFig   (1,1) Figure handle
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

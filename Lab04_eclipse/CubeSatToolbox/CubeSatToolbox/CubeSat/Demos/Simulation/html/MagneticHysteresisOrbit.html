@@ -1,0 +1,282 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Magnetic hysteresis over multiple orbits.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-10-17"><meta name="DC.source" content="MagneticHysteresisOrbit.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Magnetic hysteresis over multiple orbits.</h1><!--introduction--><p>Shows the magnetic field in a magnetic hysteresis damper over multiple orbits. The goal is to verify that appropriate hysteresis curves are seen in the computed bar flux. Without external torque, there will be one hysteresis loop per orbit.</p><p>When using the hysteresis function you must be very careful to have the field rate in the body frame. Otherwise the magnet can go past saturation. In addition, use BFromHHysteresis to set the initial value for the b field in the bar.</p><p>Things to try:</p><pre class="language-matlab">1. Try <span class="string">different</span> <span class="string">bar</span> <span class="string">orientations</span> <span class="string">in</span> <span class="string">the</span> <span class="string">body</span> <span class="string">frame</span>
+2. Different <span class="string">orbits</span> <span class="string">and</span> <span class="string">initial</span> <span class="string">rates</span>
+3. Try <span class="string">different</span> <span class="string">numbers</span> <span class="string">of</span> <span class="string">points</span> <span class="string">per</span> <span class="string">orbit.</span>
+4. Add <span class="string">a</span> <span class="string">nonzero</span> <span class="string">torque</span>
+</pre><pre>----------------------------------------------------------------------
+See also BFromHHysteresis, MagneticHysteresis
+----------------------------------------------------------------------</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Rod parameters - typical small satellite damper in the literature</a></li><li><a href="#3">Generate the orbit</a></li><li><a href="#4">Initialize the attitude</a></li><li><a href="#5">Julian date</a></li><li><a href="#6">Magnetic field and derivative</a></li><li><a href="#7">Simulation</a></li><li><a href="#8">Plots</a></li></ul></div><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2014 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All Rights Reserved</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 2014.1</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><h2 id="2">Rod parameters - typical small satellite damper in the literature</h2><pre class="codeinput"><span class="comment">%---------------</span>
+d.Br        = 0.004;        <span class="comment">% Remanence (T)</span>
+d.Bs        = 0.025;        <span class="comment">% Saturation flux density (T)</span>
+d.Hc        = 12;           <span class="comment">% Coercive force (A/m)</span>
+uBody       = [0;0;1];      <span class="comment">% Rod orientation in the body frame</span>
+</pre><h2 id="3">Generate the orbit</h2><pre class="codeinput"><span class="comment">%--------------------</span>
+nOrbit      = 10;            <span class="comment">% Number of orbits</span>
+n           = 2000*nOrbit;	<span class="comment">% Number of time steps</span>
+el          = [7000 55*pi/180 0 0 0 0];
+p           = Period(7000);
+t           = linspace(0,nOrbit*p,n);
+[r,v]       = RVFromKepler(el,t);
+</pre><h2 id="4">Initialize the attitude</h2><pre class="codeinput"><span class="comment">%-------------------------</span>
+qLVLH       = QLVLH(r,v);
+qBody       = qLVLH(:,1); <span class="comment">% [1;0;0;0]</span>
+omega       = [0;-OrbRate(7000);0]; <span class="comment">% 0.001*randn(3,1); % [0;0;0]; %</span>
+torque      = 0e-7*[1;1;1];
+</pre><h2 id="5">Julian date</h2><pre class="codeinput"><span class="comment">%-------------</span>
+jD          = JD2000 + t/86400;
+</pre><h2 id="6">Magnetic field and derivative</h2><pre class="codeinput"><span class="comment">%-------------------------------</span>
+[b,bDot]	  = BDipole(r,jD,v);
+
+mu0         = 4e-7*pi;
+
+h           = b   /mu0;
+hDot        = bDot/mu0;
+u           = QTForm( qBody, uBody );
+hMag        = Dot(u,   h(:,1));
+hDotMag     = Dot(u,hDot(:,1));
+
+bBar        = BFromHHysteresis( hMag, hDotMag, d );
+</pre><h2 id="7">Simulation</h2><pre class="codeinput"><span class="comment">%------------</span>
+n           = length(t);
+xP          = zeros(3,n);
+qP          = zeros(7,n);
+dT          = t(2) - t(1);
+
+<span class="comment">% Integrate hDotMag to verify hysteresis model is working correctly</span>
+hInt        = hMag;
+
+TimeDisplay( <span class="string">'initialize'</span>, <span class="string">'Magnetic Hysteresis'</span>, n );
+<span class="keyword">for</span> k = 1:n
+  u           = QTForm( qBody, uBody );
+  c           = Q2Mat( qBody );
+  hDotBody    = c*(hDot(:,k) - Skew(c'*omega)*h(:,k));
+  hMag        = Dot(u,   h(:,k));
+  hDotMag     = Dot(uBody,hDotBody);
+  xP(:,k)     = [bBar;hMag;hDotMag];
+  qP(:,k)     = [qBody;omega];
+  x           = RK4( @FRB, [qBody;omega], dT, t(k), eye(3), eye(3), torque );
+  qBody       = x(1:4);
+  omega       = x(5:7);
+  bBar        = RK4( @MagneticHysteresis, bBar, dT, 0, hMag, hDotMag, d );
+  hInt(k+1)   = hInt(k) + hDotMag*dT;
+  TimeDisplay( <span class="string">'update'</span> );
+<span class="keyword">end</span>
+TimeDisplay( <span class="string">'close'</span> );
+</pre><h2 id="8">Plots</h2><pre class="codeinput"><span class="comment">%-------</span>
+[t,tL] = TimeLabl(t);
+<span class="keyword">if</span>( nOrbit &gt; 1 )
+    f = <span class="string">'s'</span>;
+<span class="keyword">else</span>
+    f = <span class="string">''</span>;
+<span class="keyword">end</span>
+
+Plot2D(t,h,tL,<span class="string">'H (A/m)'</span>,<span class="string">'External Field'</span>)
+s      = sprintf(<span class="string">'Hysteresis loop Over %d Orbit%s'</span>,nOrbit,f);
+Plot2D(xP(2,:),xP(1,:),<span class="string">'H (A/m)'</span>,<span class="string">'B (T)'</span>,s)
+
+s      = sprintf(<span class="string">'Magnetic Flux and Bar Field Over %d Orbit%s'</span>,nOrbit,f);
+Plot2D(t,xP,tL,{<span class="string">'B (T)'</span> <span class="string">'H (A/m)'</span> <span class="string">'dH/dt (A/ms)'</span>},s)
+
+Plot2D(t,[xP(2,:);hInt(1:end-1)],tL,{<span class="string">'h'</span>},<span class="string">'H Integral'</span>)
+Plot2D(t,qP(5:7,:),tL,{<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>},<span class="string">'Body Rates'</span>)
+
+<span class="comment">%--------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="MagneticHysteresisOrbit_01.png" alt=""> <img vspace="5" hspace="5" src="MagneticHysteresisOrbit_02.png" alt=""> <img vspace="5" hspace="5" src="MagneticHysteresisOrbit_03.png" alt=""> <img vspace="5" hspace="5" src="MagneticHysteresisOrbit_04.png" alt=""> <img vspace="5" hspace="5" src="MagneticHysteresisOrbit_05.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Magnetic hysteresis over multiple orbits.
+%
+% Shows the magnetic field in a magnetic hysteresis damper over multiple
+% orbits. The goal is to verify that appropriate hysteresis curves are seen 
+% in the computed bar flux. Without external torque, there will be one
+% hysteresis loop per orbit.
+%
+% When using the hysteresis function you must be very careful to have
+% the field rate in the body frame. Otherwise the magnet can go 
+% past saturation. In addition, use BFromHHysteresis to set the initial
+% value for the b field in the bar.
+%
+% Things to try:
+%
+%   1. Try different bar orientations in the body frame 
+%   2. Different orbits and initial rates
+%   3. Try different numbers of points per orbit.
+%   4. Add a nonzero torque
+%
+%
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%  See also BFromHHysteresis, MagneticHysteresis
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2014 Princeton Satellite Systems, Inc.
+%   All Rights Reserved
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 2014.1
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% Rod parameters - typical small satellite damper in the literature
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.Br        = 0.004;        % Remanence (T)
+d.Bs        = 0.025;        % Saturation flux density (T)
+d.Hc        = 12;           % Coercive force (A/m)
+uBody       = [0;0;1];      % Rod orientation in the body frame
+
+%% Generate the orbit
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+nOrbit      = 10;            % Number of orbits
+n           = 2000*nOrbit;	% Number of time steps
+el          = [7000 55*pi/180 0 0 0 0];
+p           = Period(7000);
+t           = linspace(0,nOrbit*p,n);
+[r,v]       = RVFromKepler(el,t);
+
+%% Initialize the attitude
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+qLVLH       = QLVLH(r,v); 
+qBody       = qLVLH(:,1); % [1;0;0;0]
+omega       = [0;-OrbRate(7000);0]; % 0.001*randn(3,1); % [0;0;0]; % 
+torque      = 0e-7*[1;1;1];
+
+%% Julian date
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+jD          = JD2000 + t/86400;
+
+%% Magnetic field and derivative
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+[b,bDot]	  = BDipole(r,jD,v);
+
+mu0         = 4e-7*pi;
+
+h           = b   /mu0;
+hDot        = bDot/mu0;
+u           = QTForm( qBody, uBody );
+hMag        = Dot(u,   h(:,1));
+hDotMag     = Dot(u,hDot(:,1));
+
+bBar        = BFromHHysteresis( hMag, hDotMag, d );
+
+%% Simulation
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+n           = length(t);
+xP          = zeros(3,n);
+qP          = zeros(7,n);
+dT          = t(2) - t(1);
+
+% Integrate hDotMag to verify hysteresis model is working correctly
+hInt        = hMag;
+
+TimeDisplay( 'initialize', 'Magnetic Hysteresis', n );
+for k = 1:n
+  u           = QTForm( qBody, uBody );
+  c           = Q2Mat( qBody );
+  hDotBody    = c*(hDot(:,k) - Skew(c'*omega)*h(:,k));
+  hMag        = Dot(u,   h(:,k));
+  hDotMag     = Dot(uBody,hDotBody);
+  xP(:,k)     = [bBar;hMag;hDotMag];
+  qP(:,k)     = [qBody;omega];
+  x           = RK4( @FRB, [qBody;omega], dT, t(k), eye(3), eye(3), torque );
+  qBody       = x(1:4);
+  omega       = x(5:7);
+  bBar        = RK4( @MagneticHysteresis, bBar, dT, 0, hMag, hDotMag, d );
+  hInt(k+1)   = hInt(k) + hDotMag*dT;
+  TimeDisplay( 'update' );
+end
+TimeDisplay( 'close' );
+
+%% Plots
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+[t,tL] = TimeLabl(t);
+if( nOrbit > 1 )
+    f = 's';
+else
+    f = '';
+end
+
+Plot2D(t,h,tL,'H (A/m)','External Field')
+s      = sprintf('Hysteresis loop Over %d Orbit%s',nOrbit,f);
+Plot2D(xP(2,:),xP(1,:),'H (A/m)','B (T)',s)
+
+s      = sprintf('Magnetic Flux and Bar Field Over %d Orbit%s',nOrbit,f);
+Plot2D(t,xP,tL,{'B (T)' 'H (A/m)' 'dH/dt (A/ms)'},s)
+
+Plot2D(t,[xP(2,:);hInt(1:end-1)],tL,{'h'},'H Integral')
+Plot2D(t,qP(5:7,:),tL,{'x','y','z'},'Body Rates')
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2019-09-07 17:12:12 -0400 (Sat, 07 Sep 2019) $
+% $Revision: 49734 $
+##### SOURCE END #####
+--></body></html>

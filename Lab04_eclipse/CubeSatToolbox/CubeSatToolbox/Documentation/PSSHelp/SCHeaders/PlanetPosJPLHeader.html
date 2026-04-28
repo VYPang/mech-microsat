@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>PlanetPosJPL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PlanetPosJPL:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Get positions for an array of planets using the JPL ephemeris.
+ Gives the position vectors, gravitational parameters and velocity
+ for the planets. The frame is heliocentric and can be either in the Earth's 
+ equatorial plane (default) or the ecliptic plane. 
+ Modeled after PlanetPosition.
+
+     0. Sun (at origin)
+     1. Mercury
+     2. Venus
+     3. Earth
+     4. Mars
+     5. Jupiter
+     6. Saturn
+     7. Uranus
+     8. Neptune
+     9. Pluto
+    10. Geocentric Moon
+    11. Earth-Moon Barycenter
+
+ This calls the function InterpolateState which returns planet states in the
+ Earth equatorial frame and measured from the solar system barycenter.
+
+ You must first initialize this function with a set of planet IDs and then
+ you can retrieve the states for a specific Julian date.
+--------------------------------------------------------------------------
+   Form:
+                PlanetPosJPL( 'initialize', id )
+   [r, mu, v] = PlanetPosJPL( 'update', jD, ecl )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action    (1,:)       'initialize' or 'update'
+   id  or jD	(1,n)       Julian date (days) for update or planet ids
+   ecl       (1,1)       Flag for ecliptic plane (1), default is equatorial (0)
+
+   -------
+   Outputs
+   -------
+   r         (3,n)       Planetary position vectors
+   mu        (1,n)       Corresponding gravitational parameters
+   v         (3,n)       Velocity vectors
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../SCHeaders/CEcl2EqHeader.html">SC: Ephem/CEcl2Eq</a>
+<a href="../SCHeaders/InterpolateStateHeader.html">SC: Ephem/InterpolateState</a>
+<a href="../SCHeaders/bin2000Header.html">SC: SCData/bin2000</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

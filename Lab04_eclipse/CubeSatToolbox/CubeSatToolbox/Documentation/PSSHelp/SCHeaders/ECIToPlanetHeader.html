@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>ECIToPlanet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ECIToPlanet:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Computes the matrix from mean of Aries 2000 to planet fixed frame. 
+ Includes all of the planets and many of the moons. Returns the identity 
+ matrix if the moon is unknown. For the Earth's moon it returns the true
+ rotation matrix.
+--------------------------------------------------------------------------
+   Form:
+   c = ECIToPlanet( jD, planet, kEarth )	
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jD         (1,1)  Julian date
+   planet     (1,:)  Name of the planet
+   kEarth     (1,1)  If 0 use TruEarth, if 1 is TruEarth with eofe,
+                     if <0 use Montenbruck (see also ECIToEF)
+
+   -------
+   Outputs
+   -------
+   c         (3,3)  Matrix from Mean of 2000.0 to planet fixed
+
+--------------------------------------------------------------------------
+   References: Seidelmann, ed. The Explanatory Supplement to the 
+               Astronomical Almanac, University Science Books, 1992,
+               p. 705.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+<a href="../SCHeaders/MoonRotHeader.html">SC: Ephem/MoonRot</a>
+<a href="../SCHeaders/MoonsHeader.html">SC: Ephem/Moons</a>
+<a href="../SCHeaders/TruEarthHeader.html">SC: Ephem/TruEarth</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

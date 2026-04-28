@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<demos>
+   <name>CubeSat</name>
+   <type>toolbox</type>
+   <icon>$toolbox/matlab/icons/demoicon.gif</icon>
+   <description>Contains all the demo files for the CubeSat</description>
+   <website>
+      <a href="http://www.psatellite.com">For more info see psatellite.com</a>
+   </website>
+   <demosection>
+      <label>CubeSat</label>
+      <demosection>
+         <label>AttitudeControl</label>
+         <demoitem>
+            <label>DisturbancesDemo: Example CubeSat disturbance analysis</label>
+            <callback>DisturbancesDemo</callback>
+            <file>../CubeSat/Demos/AttitudeControl/html/DisturbancesDemo.html</file>
+         </demoitem>
+         <demoitem>
+            <label>DisturbancesSolarWings: CubeSat disturbance analysis with deployable solar panels</label>
+            <callback>DisturbancesSolarWings</callback>
+            <file>../CubeSat/Demos/AttitudeControl/html/DisturbancesSolarWings.html</file>
+         </demoitem>
+         <demoitem>
+            <label>MagneticControlDemo: Magnetic control demand analysis</label>
+            <callback>MagneticControlDemo</callback>
+            <file>../CubeSat/Demos/AttitudeControl/html/MagneticControlDemo.html</file>
+         </demoitem>
+         <demoitem>
+            <label>NanoSatSimulation: Demonstrate NanoSat attitude control reaction wheels.</label>
+            <callback>NanoSatSimulation</callback>
+            <file>../CubeSat/Demos/AttitudeControl/html/NanoSatSimulation.html</file>
+         </demoitem>
+      </demosection>
+      <demosection>
+         <label>Design</label>
+         <demoitem>
+            <label>CubeSatTiltedWings: Design a 3U CubeSat with Tilted Wings</label>
+            <callback>CubeSatTiltedWings</callback>
+            <file>../CubeSat/Demos/Design/html/CubeSatTiltedWings.html</file>
+         </demoitem>
+         <demoitem>
+            <label>DesignMagneticTorquer: Design an air coil magnetic torquer for a CubeSat.</label>
+            <callback>DesignMagneticTorquer</callback>
+            <file>../CubeSat/Demos/Design/html/DesignMagneticTorquer.html</file>
+         </demoitem>
+      </demosection>
+      <demosection>
+         <label>MissionPlanning</label>
+         <demoitem>
+            <label>AttitudeProfileDemo: Demonstrate the AttitudeProfile function.</label>
+            <callback>AttitudeProfileDemo</callback>
+            <file>../CubeSat/Demos/MissionPlanning/html/AttitudeProfileDemo.html</file>
+         </demoitem>
+         <demoitem>
+            <label>NanoSatNearISS: Show ISS and NanoSat models with AnimateSpacecraft</label>
+            <callback>NanoSatNearISS</callback>
+            <file>../CubeSat/Demos/MissionPlanning/html/NanoSatNearISS.html</file>
+         </demoitem>
+         <demoitem>
+            <label>OrbitAndSensorConeAnimation: Demonstrate the playback of multiple orbits and moving sensor cones.</label>
+            <callback>OrbitAndSensorConeAnimation</callback>
+            <file>../CubeSat/Demos/MissionPlanning/html/OrbitAndSensorConeAnimation.html</file>
+         </demoitem>
+         <demoitem>
+            <label>RepeatingGroundTrackDemo: Compute and simulate a repeat ground track orbit</label>
+            <callback>RepeatingGroundTrackDemo</callback>
+            <file>../CubeSat/Demos/MissionPlanning/html/RepeatingGroundTrackDemo.html</file>
+         </demoitem>
+      </demosection>
+      <demosection>
+         <label>Power</label>
+         <demoitem>
+            <label>BatterySizing: Compute the power storage requirements for a CubeSat.</label>
+            <callback>BatterySizing</callback>
+            <file>../CubeSat/Demos/Power/html/BatterySizing.html</file>
+         </demoitem>
+         <demoitem>
+            <label>CubeSatPowerDemo: Power computation over several orbits.</label>
+            <callback>CubeSatPowerDemo</callback>
+            <file>../CubeSat/Demos/Power/html/CubeSatPowerDemo.html</file>
+         </demoitem>
+      </demosection>
+      <demosection>
+         <label>RelativeOrbit</label>
+         <demoitem>
+            <label>FFSimDemo: Demonstrate the use of FFSim to analyze disturbance effects.</label>
+            <callback>FFSimDemo</callback>
+            <file>../CubeSat/Demos/RelativeOrbit/html/FFSimDemo.html</file>
+         </demoitem>
+      </demosection>
+      <demosection>
+         <label>Simulation</label>
+         <demoitem>
+            <label>CubeSatGGStabilized: Demonstrate a CubeSat with gravity gradient stabilization.</label>
+            <callback>CubeSatGGStabilized</callback>
+            <file>../CubeSat/Demos/Simulation/html/CubeSatGGStabilized.html</file>
+         </demoitem>
+         <demoitem>
+            <label>CubeSatLunarMission: Lunar Mission Demo</label>
+            <callback>CubeSatLunarMission</callback>
+            <file>../CubeSat/Demos/Simulation/html/CubeSatLunarMission.html</file>
+         </demoitem>
+         <demoitem>
+            <label>CubeSatRWASimulation: Demonstrate CubeSat attitude and power dynamics with reaction wheels.</label>
+            <callback>CubeSatRWASimulation</callback>
+            <file>../CubeSat/Demos/Simulation/html/CubeSatRWASimulation.html</file>
+         </demoitem>
+         <demoitem>
+            <label>CubeSatSimulation: Demonstrate a CubeSat attitude and power system dynamics.</label>
+            <callback>CubeSatSimulation</callback>
+            <file>../CubeSat/Demos/Simulation/html/CubeSatSimulation.html</file>
+         </demoitem>
+         <demoitem>
+            <label>MagneticHysteresisOrbit: Magnetic hysteresis over multiple orbits.</label>
+            <callback>MagneticHysteresisOrbit</callback>
+            <file>../CubeSat/Demos/Simulation/html/MagneticHysteresisOrbit.html</file>
+         </demoitem>
+         <demoitem>
+            <label>MomentumManagement: Demonstrate simple dipole based momentum management</label>
+            <callback>MomentumManagement</callback>
+            <file>../CubeSat/Demos/Simulation/html/MomentumManagement.html</file>
+         </demoitem>
+         <demoitem>
+            <label>RadiationDisturbance: Radiation pressure disturbance demo.</label>
+            <callback>RadiationDisturbance</callback>
+            <file>../CubeSat/Demos/Simulation/html/RadiationDisturbance.html</file>
+         </demoitem>
+         <demoitem>
+            <label>SpacecraftWithDamping: A spacecraft with rate or hysteresis damping.</label>
+            <callback>SpacecraftWithDamping</callback>
+            <file>../CubeSat/Demos/Simulation/html/SpacecraftWithDamping.html</file>
+         </demoitem>
+         <demoitem>
+            <label>TubeSatSimulation: Demonstrate a TubeSat attitude and power system dynamics.</label>
+            <callback>TubeSatSimulation</callback>
+            <file>../CubeSat/Demos/Simulation/html/TubeSatSimulation.html</file>
+         </demoitem>
+         <demoitem>
+            <label>TwoSpacecraftOrbitSimulation: Demonstrate a 2 satellite CubeSat constellation.</label>
+            <callback>TwoSpacecraftOrbitSimulation</callback>
+            <file>../CubeSat/Demos/Simulation/html/TwoSpacecraftOrbitSimulation.html</file>
+         </demoitem>
+         <demoitem>
+            <label>TwoSpacecraftSimpleOrbitSimulation: Demonstrate a 2 satellite CubeSat constellation</label>
+            <callback>TwoSpacecraftSimpleOrbitSimulation</callback>
+            <file>../CubeSat/Demos/Simulation/html/TwoSpacecraftSimpleOrbitSimulation.html</file>
+         </demoitem>
+      </demosection>
+      <demosection>
+         <label>Thermal</label>
+         <demoitem>
+            <label>CubeSatFaceTemperaturesDemo: Demonstrate temperatures of faces of a CubeSat</label>
+            <callback>CubeSatFaceTemperaturesDemo</callback>
+            <file>../CubeSat/Demos/Thermal/html/CubeSatFaceTemperaturesDemo.html</file>
+         </demoitem>
+         <demoitem>
+            <label>IsothermalCubeSatDemo: Isothermal satellite demo</label>
+            <callback>IsothermalCubeSatDemo</callback>
+            <file>../CubeSat/Demos/Thermal/html/IsothermalCubeSatDemo.html</file>
+         </demoitem>
+      </demosection>
+   </demosection>
+   <demosection>
+      <label>Link</label>
+      <demosection/>
+   </demosection>
+</demos>

@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>JD2Date</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>JD2Date:</h2>
+<p>Path: Common/Time</p>
+<pre>
+% Compute the calendar date from the Julian date. Uses the format
+ from clock. If no inputs are given it will output the current
+ date and time of the function call.
+
+--------------------------------------------------------------------------
+   Form:
+   datetime = JD2Date( jd, structOut )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jd           (1,1)  Julian date
+   structOut    (1,1)  If entered, output a structure
+
+   -------
+   Outputs
+   -------
+   datetime     (1,6)  [year month day hour minute seconds]
+
+--------------------------------------------------------------------------
+   References: Montenbruck, O., T.Pfleger, Astronomy on the Personal
+               Computer, Springer-Verlag, Berlin, 1991, p. 13.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DTAToDTSHeader.html">Common: Time/DTAToDTS</a>
+<a href="../MathHeaders/R2P5Header.html">Math: MathUtils/R2P5</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,19 @@
+{
+    "mission": {
+        "lifetime_years": 3.0,
+        "delta_v_margin_fraction": 0.20,
+        "correction_cadence_days": 30.0
+    },
+    "propulsion": {
+        "selected_engine": "npt30_i2_1p5u",
+        "thrust_mn": 0.7,
+        "power_w": 50.0,
+        "specific_impulse_s": 2400.0,
+        "wet_mass_kg": 1.7,
+        "volume_u": 1.5,
+        "total_impulse_ns": 9500.0
+    },
+    "comms": {},
+    "power": {},
+    "thermal": {}
+}

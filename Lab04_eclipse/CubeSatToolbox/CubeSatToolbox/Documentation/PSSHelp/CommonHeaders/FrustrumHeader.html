@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>Frustrum</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Frustrum:</h2>
+<p>Path: Common/ComponentModels</p>
+<pre>
+% Generate a frustrum of a cone.
+ Type Frustrum for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [v, f] = Frustrum( rL, r0, l, n, topOpen, bottomOpen )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   rL           (1,1) Top radius    (z = l)
+   r0           (1,1) Bottom radius (z = 0)
+   l            (1,1) Length
+   n            (1,1) Number of divisions
+   topOpen      (1,1) 1 if top is open
+   bottomOpen   (1,1) 1 if bottom is open
+   
+
+   -------
+   Outputs
+   -------
+   v           (:,3) Vertices
+   f           (:,3) Faces
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DrawVerticesHeader.html">Common: Graphics/DrawVertices</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

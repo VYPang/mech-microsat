@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Box</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Box:</h2>
+<p>Path: Common/ComponentModels</p>
+<pre>
+% Generate a box centered at the origin.
+ The open face is a character string:
+
+   -x, +x, -y, +y, -z, +z
+
+ Type Box for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [v, f] = Box( x, y, z, openFace )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x           (1,1)  x length
+   y           (1,1)  y length
+   z           (1,1)  z length
+   openFace    (1,2)  Which face is open (optional)
+   
+
+   -------
+   Outputs
+   -------
+   v           ( 8,3) Vertices
+   f           (12,3) Faces
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/DrawVerticesHeader.html">Common: Graphics/DrawVertices</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

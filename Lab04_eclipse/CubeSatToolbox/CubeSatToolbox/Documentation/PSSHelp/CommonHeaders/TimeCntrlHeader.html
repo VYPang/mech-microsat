@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>TimeCntrl</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>TimeCntrl:</h2>
+<p>Path: Common/GUIs</p>
+<pre>
+% Perform actions specified by the time display.
+
+ This routine is called by a callback routine in TimeGUI.m. You do not 
+ normally call it yourself.
+
+ Initialize the global as follows:
+
+ global simulationAction
+ simulationAction = ' ';
+
+ Use the following code in your simulation loop:
+
+ switch simulationAction
+   case 'pause'
+     pause
+     simulationAction = ' ';
+   case 'stop'
+     return;
+   case 'plot'
+     break;
+ end
+
+ Since version 2.
+--------------------------------------------------------------------------
+   Form:
+   TimeCntrl( action )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action    (1,:) Action to take
+
+   -------
+   Outputs
+   -------
+   None
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

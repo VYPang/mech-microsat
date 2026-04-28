@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>InitializeAxes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>InitializeAxes:</h2>
+<p>Path: Plotting/Utilities</p>
+<pre>
+% Initialize the axes for an animation with AnimationGUI.
+--------------------------------------------------------------------------
+   Form:
+   InitializeAxes( handle, scData, tgtData, time, keepView, point, cameraTarget, axisType  )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   handle                 Handle to the axes
+   scData                 Data structure with position & time for each spacecraft
+   tgtData                Data structure with position & time for each target
+   time                   Time data
+   keepView               Flag indicating whether to keep the current view or not
+   point*
+   cameraTarget*
+   axisType               Specify the type of axes to use.
+                             'default'   x, y, z
+                             'Hills'     x-Radial, y-Along-track, z-Cross-track 
+                             'LVLH'      x-Along-track, y-Cross-track, z-Radial
+                             'PLANET'    The planet will be drawn in the background
+
+   -------
+   Outputs
+   -------
+   d                      Data structure for AnimationGUI.
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../PlottingFunctions.html">Back</a> to the Plotting Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

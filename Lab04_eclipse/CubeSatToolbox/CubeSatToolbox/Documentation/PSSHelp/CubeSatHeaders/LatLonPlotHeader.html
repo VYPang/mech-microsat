@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>LatLonPlot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LatLonPlot:</h2>
+<p>Path: CubeSat/Utilities</p>
+<pre>
+% Plot latitude vs. longitude nicely
+ The wrapped longitude will not create lines across the plot.
+ Type LatLonPlot for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [lat2,lon2,p] = LatLonPlot( lat, lon, tol, varargin )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   lat     (1,:)	Latitude vector (rad)
+   lon     (1,:)	Longitude vector (rad)
+   tol     (1,1)	Tolerance used for WrapSegments call. See WrapSegments
+   varargin (:)  Any additional inputs are treated as additional inputs
+                    to the plot command, as: plot(x,y,varargin)
+   
+   -------
+   Outputs
+   -------
+   lat2    (1,N)	Cell array of N segments of latitude vectors (rad)
+   lon2    (1,N)	Cell array of N segments of longitude vectors (rad)
+   p       (1,N) Pointers to plots
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CubeSatHeaders/WrapSegmentsHeader.html">CubeSat: Utilities/WrapSegments</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

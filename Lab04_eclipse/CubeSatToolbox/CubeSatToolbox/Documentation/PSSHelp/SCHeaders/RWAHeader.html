@@ -1,0 +1,107 @@
+<html>
+<head>
+<title>RWA</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RWA:</h2>
+<p>Path: SC/Actuator</p>
+<pre>
+% A RWA model using FrictionSmooth.
+
+   You will initialize to a Honeywell HR0610 model. Only marketing sheet data is
+   used.
+
+   This model uses FrictionSmooth to model the friction.
+
+   k      = RWA( 'initialize' );                         Initializes the wheel
+   k      = RWA( 'initialize',                 [], k );  Initializes the wheel(s)
+   x      = RWA( 'get tachometer measurement', [], k );  Gets the wheel speed
+   d      = RWA( 'get default datastructure',  [], k );  Gets the default RWA data
+   d      = RWA( 'get datastructure',          [], k );  Gets the RWA data
+   x      = RWA( 'get power',                  [], k );  Gets the power.
+   x      = RWA( 'get current',                [], k );  Gets the power from d
+   x      = RWA( 'get motor voltage',          [], k );  Gets the motor voltage.
+            RWA( 'put voltage',               vIn, k );  Puts the voltage into d
+   x      = RWA( 'compute torque',             [], k );  Computes torque
+            RWA( 'torque speed curve',      omega, k );  Plots the torque speed curve
+                                                         if omega is [] it will use a
+                                                         default rate vector. Omega
+                                                         must be a 1-by-n array.
+   
+   k can be a number or a tag.
+
+   A typical calling sequence is
+
+   RWA;
+
+   loop:
+      d           = RWA( 'put voltage',       voltageIn, k );
+      [torque, d] = RWA( 'compute torque',    omega,     k );
+      power       = RWA( 'get power',         [],        k );
+      current     = RWA( 'get current',       [],        k );
+      voltage     = RWA( 'get motor voltage', [],        k );
+   end loop;
+
+   Since version 3.
+--------------------------------------------------------------------------
+   Form:
+   x = RWA( action, y, k )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action	  (:)    Action
+   y         (1,1)  See above
+             (1,1)  Datastructure for the wheels
+                    .kT          (1,1) Torque constant (N/A)
+                    .kV          (1,1) Voltage Gain (N/rad/sec)
+                    .kW
+                    .friction    = struct( 'fStatic',  (1,1), 'kStatic',  (1,1),
+                                           'fCoulomb', (1,1), 'kCoulomb', (1,1),
+                                           'bViscous', (1,1) );
+                    .currentMax  (1,1) Upper current limit (A)
+                    .currentMin  (1,1) Lower current limit (A)
+                    .busVoltage  (1,1) Bus voltage
+                    .r           (1,1) Motor resistance (Ohms)
+                    .kMaxTach    (1,1) Maximum tach count
+                    .kMinTach    (1,1) Minimum tach count
+                    .resTach     (1,1) Tach resolution
+                    .kMaxVoltage (1,1) Maximum voltage count
+                    .kMinVoltage (1,1) Minimum voltage count
+                    .resVoltage  (1,1) D/A resolution
+                    .kMinVoltage (1,1) Minimum voltage count
+                    .voltageWord (1,1) Voltage word  
+                    .omega       (1,1) Wheel speed
+                    .power       (1,1) Electrical power 
+                    .current     (1,1) Motor current 
+                    .voltage     (1,1) Motor voltage 
+                    .inertia
+
+   -------
+   Outputs
+   -------
+   x        (:)    Output
+   k        (1,1)  Index
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/ProcessTagHeader.html">Common: General/ProcessTag</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../DynamicsHeaders/FrictionSmoothHeader.html">Dynamics: Robotics/FrictionSmooth</a>
+<a href="../SCHeaders/FloatToWordHeader.html">SC: Hardware/FloatToWord</a>
+<a href="../SCHeaders/WordToFloatHeader.html">SC: Hardware/WordToFloat</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

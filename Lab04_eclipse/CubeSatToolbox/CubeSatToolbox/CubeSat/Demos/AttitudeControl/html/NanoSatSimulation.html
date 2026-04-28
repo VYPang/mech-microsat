@@ -1,0 +1,401 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Demonstrate NanoSat attitude control reaction wheels.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-05-26"><meta name="DC.source" content="NanoSatSimulation.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Demonstrate NanoSat attitude control reaction wheels.</h1><!--introduction--><p>The model includes 3 orthogonal reaction wheels. The satellite is intialized into an ISS orbit. The control law keeps the satellite aligned with LVLH. Power, thermal and link are simulated. We don't run momentum management because it takes days to show that it is working.</p><p>-------------------------------------------------------------------------  See also RHSCubeSat, CubeSatFaces, InertiaCubeSat, LatLonToR, DataRateOrbit,  DrawCubeSatSolarAreas, PIDMIMO, PID3Axis, QForm, BDipole, QLVLH, RK4,  TimeDisplay, GroundTrack, TimeLabl, Plot2D, Figui -------------------------------------------------------------------------</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Constants</a></li><li><a href="#3">Simulation parameters</a></li><li><a href="#4">NanoSat model</a></li><li><a href="#5">Initial state vector for an ISS orbit</a></li><li><a href="#6">Start Julian date</a></li><li><a href="#7">Design the PID Controller</a></li><li><a href="#8">Atmosphere model data</a></li><li><a href="#9">Initialize the plotting array to save time</a></li><li><a href="#10">Initialize the time display</a></li><li><a href="#11">Run the simulation</a></li><li><a href="#12">Graphics</a></li><li><a href="#13">Plotting</a></li></ul></div><pre class="codeinput"><span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2020 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 2020.1</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+
+<span class="comment">% In case these were already used in the workspace</span>
+clear <span class="string">g</span>; clear <span class="string">u</span>; clear <span class="string">p</span>; clear <span class="string">d</span>;
+</pre><h2 id="2">Constants</h2><pre class="codeinput">radToDeg        = 180/pi;
+densitySilicon  = 2600;
+densityAl       = 2700; <span class="comment">% Aluminum</span>
+densityTungsten = 19300; <span class="comment">% For the RWA disk</span>
+</pre><h2 id="3">Simulation parameters</h2><pre class="codeinput">days  = 0.2;
+tEnd  = days*86400;
+dT    = 1;
+nSim  = ceil(tEnd/dT);
+</pre><h2 id="4">NanoSat model</h2><p>Initialize the data structure</p><pre class="codeinput">d = RHSCubeSat;
+
+<span class="comment">% CubeSats are 1 kg per U</span>
+model = <span class="string">'3U'</span>;
+[area,nFace,rFace] = CubeSatFaces( model, 1 );
+d.mass = 3; <span class="comment">% kg</span>
+d.inertia = InertiaCubeSat( model, d.mass );
+linkPower = 1;
+rGS       = LatLonToR(33.9191667/radToDeg,-118.4155556/radToDeg);
+dLink     = DataRateOrbit;
+
+<span class="comment">% Model data for our 3U satellite</span>
+d.surfData.area = area;
+d.surfData.nFace = nFace;
+d.surfData.rFace = rFace;
+d.surfData.att.type = <span class="string">'eci'</span>;
+
+<span class="comment">% Reaction wheel design</span>
+d.kWheels    = 14:16; <span class="comment">% indices of wheel states in the state vector</span>
+
+<span class="comment">% From the manufacturer</span>
+d.inertiaRWA = 2e-05; <span class="comment">% Polar inertia kg-m^2</span>
+
+<span class="comment">% Add power system model. Model as a list of areas and normals in the</span>
+<span class="comment">% body frame</span>
+d.power.solarCellNormal    = [1 1 -1 -1 0 0 0 0;<span class="keyword">...</span>
+                              0 0 0 0 1 1 -1 -1;<span class="keyword">...</span>
+                              0 0 0 0 0 0  0  0];
+d.power.solarCellEff       = 0.295;
+d.power.effPowerConversion = 0.9;
+d.power.solarCellArea      = 0.1*0.116*ones(1,8);
+d.power.consumption        = 4;
+d.power.batteryCapacity    = 36000;
+DrawCubeSatSolarAreas(d.power)
+</pre><pre class="codeoutput">ans = 
+  Figure (PlotPSS) with properties:
+
+      Number: 37
+        Name: 'DrawCubeSatSolarAreas'
+       Color: [0.94 0.94 0.94]
+    Position: [560 528 560 420]
+       Units: 'pixels'
+
+  Use GET to show all properties
+</pre><img vspace="5" hspace="5" src="NanoSatSimulation_01.png" alt=""> <h2 id="5">Initial state vector for an ISS orbit</h2><pre class="codeinput">x         = d.x0;
+[el, jD0]	= ISSOrbit;
+[r,v]     = El2RV(el);
+x(1:3)    = r;
+x(4:6)    = v;
+</pre><h2 id="6">Start Julian date</h2><pre class="codeinput">d.jD0   = jD0;
+</pre><h2 id="7">Design the PID Controller</h2><p>Specify the z body axis for alignment with the chosen ECI vector</p><pre class="codeinput">p   = PID3Axis;
+
+<span class="comment">% inr, zeta, omega, tauInt, omegaR, tSamp</span>
+<span class="comment">% We set inr to 1 because our control will be angular acceleration</span>
+<span class="comment">% PID3Axis will multiply this to produce a torque</span>
+[p.a, p.b, p.c, p.d] = PIDMIMO( 1, 1, 0.01, 200, 0.1, dT );
+
+p.inertia            = d.inertia;
+p.max_angle          = 0.01;
+p.accel_sat          = [100;100;100];
+p.mode               = 2; <span class="comment">% Attitude quaternion mode</span>
+p.q_target_last      = x(7:10);
+</pre><h2 id="8">Atmosphere model data</h2><pre class="codeinput">d.atm = []; <span class="comment">% Don't use J70</span>
+</pre><h2 id="9">Initialize the plotting array to save time</h2><pre class="codeinput">qECIToBody   = x(7:10);
+bField       = QForm( qECIToBody, BDipole( x(1:3), d.jD0 ) );
+xPlot        = [[x;0;0;0;0;bField;0;0;0;0] zeros(length(x)+11,nSim)];
+</pre><h2 id="10">Initialize the time display</h2><pre class="codeinput">TimeDisplay( <span class="string">'initialize'</span>, <span class="string">'Nanosat Sim'</span>, nSim );
+</pre><img vspace="5" hspace="5" src="NanoSatSimulation_02.png" alt=""> <h2 id="11">Run the simulation</h2><pre class="codeinput">t = 0;
+
+<span class="keyword">for</span> k = 1:nSim
+
+  <span class="comment">% Display the status message</span>
+  TimeDisplay(<span class="string">'update'</span>);
+
+  <span class="comment">% Quaternion</span>
+  qECIToBody   = x(7:10);
+
+  <span class="comment">% Julian date</span>
+  jD       = d.jD0+t/86400;
+
+  <span class="comment">% Magnetic field - the magnetometer output is proportional to this</span>
+  bField 	 = QForm( qECIToBody, BDipole( x(1:3), jD ) );
+
+  <span class="comment">% Control system</span>
+  <span class="comment">% LVLH is local vertical local horizontal and is a rotating frame with</span>
+  <span class="comment">% +z pointing at the earth and +x in the velocity vector</span>
+  p.q_desired_state = QLVLH(x(1:3),x(4:6));
+  [torque, p]       = PID3Axis( qECIToBody, p );
+  d.tRWA            = -torque;
+
+  <span class="comment">% A time step with 4th order Runge-Kutta</span>
+  x	= RK4( @RHSCubeSat, x, dT, t, d );
+
+  <span class="comment">% Get the power</span>
+  [xDot, dist, power] = RHSCubeSat( x, t, d );
+
+  <span class="comment">% Data Rate</span>
+  dR = DataRateOrbit( x(1:3), rGS, linkPower, jD, dLink );
+
+  <span class="comment">% Update plotting and time</span>
+  hRWA         = x(14:16)*d.inertiaRWA;
+  xPlot(:,k+1) = [x;power;torque;bField;hRWA;dR];
+  t            = t + dT;
+
+<span class="keyword">end</span>
+TimeDisplay( <span class="string">'close'</span> );
+
+<span class="comment">% Data to display</span>
+kP = 1:k+1;
+t  = (0:k)*dT;
+</pre><h2 id="12">Graphics</h2><pre class="codeinput">GroundTrack( xPlot( 1: 3,:), t, d.jD0 );
+</pre><img vspace="5" hspace="5" src="NanoSatSimulation_03.png" alt=""> <h2 id="13">Plotting</h2><pre class="codeinput">[t, tL] = TimeLabl( t );
+
+<span class="comment">% Y-axis labels</span>
+yL = [d.states(:)' {<span class="string">'Power (W)'</span>} {<span class="string">'T_x (Nm)'</span>} {<span class="string">'T_y (Nm)'</span>} {<span class="string">'T_z (Nm)'</span>}<span class="keyword">...</span>
+        {<span class="string">'B_x'</span>} {<span class="string">'B_y'</span>} {<span class="string">'B_z'</span>}, {<span class="string">'H_x (Nms)'</span>} {<span class="string">'H_y (Nms)'</span>} {<span class="string">'H_z (Nms)'</span>}<span class="keyword">...</span>
+        {<span class="string">'Data Rate (bps)'</span>}];
+
+Plot2D( t, xPlot( 1: 3,kP), tL, yL(  1: 3), <span class="string">'Nanosat Orbit'</span> );
+Plot2D( t, xPlot( 7:10,kP), tL, yL(  7:10), <span class="string">'Nanosat ECI To Body Quaternion'</span> );
+Plot2D( t, xPlot(11:13,kP), tL, yL( 11:13), <span class="string">'Nanosat Attitude Rate (rad/s)'</span> );
+Plot2D( t, xPlot(14:16,kP), tL, yL( 14:16), <span class="string">'Nanosat Reaction Wheel Rate (rad/s)'</span> );
+Plot2D( t, [xPlot(17,kP)/3600;xPlot(18,kP)], tL, yL( 17:18), <span class="string">'Nanosat Power'</span> );
+Plot2D( t, xPlot(19:21,kP), tL, yL( 19:21), <span class="string">'Nanosat Control Torque'</span> );
+Plot2D( t, xPlot(22:24,kP), tL, yL( 22:24), <span class="string">'Nanosat Magnetic Field'</span> );
+Plot2D( t, xPlot(25:27,kP), tL, yL( 25:27), <span class="string">'Nanosat RWA Momentum'</span> );
+Plot2D( t, xPlot(28,kP), tL, yL{28}, <span class="string">'Nanosat Link'</span> );
+
+<span class="comment">% This creates a plot navigation window</span>
+Figui;
+
+<span class="comment">%--------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="NanoSatSimulation_04.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_05.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_06.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_07.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_08.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_09.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_10.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_11.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_12.png" alt=""> <img vspace="5" hspace="5" src="NanoSatSimulation_13.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Demonstrate NanoSat attitude control reaction wheels.
+% The model includes 3 orthogonal reaction wheels. The satellite is intialized
+% into an ISS orbit. The control law keeps the satellite aligned with LVLH.
+% Power, thermal and link are simulated. We don't run momentum management
+% because it takes days to show that it is working.
+%
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%  See also RHSCubeSat, CubeSatFaces, InertiaCubeSat, LatLonToR, DataRateOrbit,
+%  DrawCubeSatSolarAreas, PIDMIMO, PID3Axis, QForm, BDipole, QLVLH, RK4,
+%  TimeDisplay, GroundTrack, TimeLabl, Plot2D, Figui
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+%%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2020 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 2020.1
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+% In case these were already used in the workspace
+clear g; clear u; clear p; clear d;
+
+%% Constants
+radToDeg        = 180/pi;
+densitySilicon  = 2600;
+densityAl       = 2700; % Aluminum
+densityTungsten = 19300; % For the RWA disk
+
+%% Simulation parameters
+days  = 0.2;
+tEnd  = days*86400; 
+dT    = 1;
+nSim  = ceil(tEnd/dT);
+
+%% NanoSat model
+% Initialize the data structure
+d = RHSCubeSat;
+
+% CubeSats are 1 kg per U
+model = '3U';
+[area,nFace,rFace] = CubeSatFaces( model, 1 );
+d.mass = 3; % kg
+d.inertia = InertiaCubeSat( model, d.mass );
+linkPower = 1;
+rGS       = LatLonToR(33.9191667/radToDeg,-118.4155556/radToDeg);
+dLink     = DataRateOrbit;
+
+% Model data for our 3U satellite
+d.surfData.area = area;
+d.surfData.nFace = nFace;
+d.surfData.rFace = rFace;
+d.surfData.att.type = 'eci';
+
+% Reaction wheel design
+d.kWheels    = 14:16; % indices of wheel states in the state vector
+
+% From the manufacturer
+d.inertiaRWA = 2e-05; % Polar inertia kg-m^2
+
+% Add power system model. Model as a list of areas and normals in the
+% body frame
+d.power.solarCellNormal    = [1 1 -1 -1 0 0 0 0;...
+                              0 0 0 0 1 1 -1 -1;...
+                              0 0 0 0 0 0  0  0];
+d.power.solarCellEff       = 0.295; 
+d.power.effPowerConversion = 0.9;
+d.power.solarCellArea      = 0.1*0.116*ones(1,8);
+d.power.consumption        = 4;
+d.power.batteryCapacity    = 36000; 
+DrawCubeSatSolarAreas(d.power)
+
+%% Initial state vector for an ISS orbit
+x         = d.x0;
+[el, jD0]	= ISSOrbit;
+[r,v]     = El2RV(el);
+x(1:3)    = r;
+x(4:6)    = v;
+
+%% Start Julian date
+d.jD0   = jD0;
+
+%% Design the PID Controller
+% Specify the z body axis for alignment with the chosen ECI vector
+p   = PID3Axis;
+
+% inr, zeta, omega, tauInt, omegaR, tSamp
+% We set inr to 1 because our control will be angular acceleration
+% PID3Axis will multiply this to produce a torque
+[p.a, p.b, p.c, p.d] = PIDMIMO( 1, 1, 0.01, 200, 0.1, dT ); 
+
+p.inertia            = d.inertia;
+p.max_angle          = 0.01;
+p.accel_sat          = [100;100;100];
+p.mode               = 2; % Attitude quaternion mode
+p.q_target_last      = x(7:10);
+
+%% Atmosphere model data
+d.atm = []; % Don't use J70
+
+%% Initialize the plotting array to save time
+qECIToBody   = x(7:10);
+bField       = QForm( qECIToBody, BDipole( x(1:3), d.jD0 ) );
+xPlot        = [[x;0;0;0;0;bField;0;0;0;0] zeros(length(x)+11,nSim)];
+
+%% Initialize the time display
+TimeDisplay( 'initialize', 'Nanosat Sim', nSim );
+
+%% Run the simulation
+t = 0;
+
+for k = 1:nSim
+  
+  % Display the status message
+  TimeDisplay('update');
+    
+  % Quaternion
+  qECIToBody   = x(7:10);
+  
+  % Julian date
+  jD       = d.jD0+t/86400;
+
+  % Magnetic field - the magnetometer output is proportional to this
+  bField 	 = QForm( qECIToBody, BDipole( x(1:3), jD ) );
+
+  % Control system
+  % LVLH is local vertical local horizontal and is a rotating frame with
+  % +z pointing at the earth and +x in the velocity vector
+  p.q_desired_state = QLVLH(x(1:3),x(4:6));
+  [torque, p]       = PID3Axis( qECIToBody, p );
+  d.tRWA            = -torque;
+
+  % A time step with 4th order Runge-Kutta
+  x	= RK4( @RHSCubeSat, x, dT, t, d );
+
+  % Get the power
+  [xDot, dist, power] = RHSCubeSat( x, t, d );
+  
+  % Data Rate
+  dR = DataRateOrbit( x(1:3), rGS, linkPower, jD, dLink );
+
+  % Update plotting and time
+  hRWA         = x(14:16)*d.inertiaRWA;
+  xPlot(:,k+1) = [x;power;torque;bField;hRWA;dR];
+  t            = t + dT;
+
+end
+TimeDisplay( 'close' );
+
+% Data to display
+kP = 1:k+1;
+t  = (0:k)*dT;
+
+%% Graphics
+GroundTrack( xPlot( 1: 3,:), t, d.jD0 );
+
+%% Plotting
+[t, tL] = TimeLabl( t );
+
+% Y-axis labels
+yL = [d.states(:)' {'Power (W)'} {'T_x (Nm)'} {'T_y (Nm)'} {'T_z (Nm)'}...
+        {'B_x'} {'B_y'} {'B_z'}, {'H_x (Nms)'} {'H_y (Nms)'} {'H_z (Nms)'}...
+        {'Data Rate (bps)'}];
+ 
+Plot2D( t, xPlot( 1: 3,kP), tL, yL(  1: 3), 'Nanosat Orbit' );
+Plot2D( t, xPlot( 7:10,kP), tL, yL(  7:10), 'Nanosat ECI To Body Quaternion' );
+Plot2D( t, xPlot(11:13,kP), tL, yL( 11:13), 'Nanosat Attitude Rate (rad/s)' );
+Plot2D( t, xPlot(14:16,kP), tL, yL( 14:16), 'Nanosat Reaction Wheel Rate (rad/s)' );
+Plot2D( t, [xPlot(17,kP)/3600;xPlot(18,kP)], tL, yL( 17:18), 'Nanosat Power' );
+Plot2D( t, xPlot(19:21,kP), tL, yL( 19:21), 'Nanosat Control Torque' );
+Plot2D( t, xPlot(22:24,kP), tL, yL( 22:24), 'Nanosat Magnetic Field' );
+Plot2D( t, xPlot(25:27,kP), tL, yL( 25:27), 'Nanosat RWA Momentum' );
+Plot2D( t, xPlot(28,kP), tL, yL{28}, 'Nanosat Link' );
+
+% This creates a plot navigation window
+Figui;
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2020-05-26 12:41:40 -0400 (Tue, 26 May 2020) $
+% $Revision: 52411 $
+
+##### SOURCE END #####
+--></body></html>

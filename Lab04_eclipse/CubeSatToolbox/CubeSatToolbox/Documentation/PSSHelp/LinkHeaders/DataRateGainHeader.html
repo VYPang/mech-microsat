@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>DataRateGain</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>DataRateGain:</h2>
+<p>Path: Link/LinkUtilities</p>
+<pre>
+% Computes communications sytems data rates
+ This is similar to data rate except that you enter antenna gains.
+
+ Type DataRateGain for a demo
+
+--------------------------------------------------------------------------
+   Form:
+   d  = DataRateGain
+   dR = DataRateGain( power, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   power       (1,:) Power transmit (W)
+   d           (.)   Data structure
+                     .fGHz         (1,1) Frequency (GHz)
+                     .range        (1,1) Range (km)
+                     .gainTransmit	(1,1) Transmit antenna gain (dB)
+                     .gainReceive	(1,1) Receiver antenna gain (dB)
+                     .tempS        (1,1) Receiver noise temperature (deg-K)
+                     .modulation   (1,:) 'BPSK' 'QPSK' 'DE-BPSK' 'DE-QPSK' 'D-BPSK'
+                     .sN           (1,1) Signal to noise ratio
+
+   -------
+   Outputs
+   -------
+   dR            (1,:) Data rate (bps)
+
+--------------------------------------------------------------------------
+   Reference: Bousquet, Maral, "Satellite Communications Systems", 
+              Third Ed., Wiley, 1998. p 130
+--------------------------------------------------------------------------
+  See also ModulationSpectralEfficiency, DataRate
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/StringMatchHeader.html">Common: General/StringMatch</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../LinkHeaders/DBSignalToPowerHeader.html">Link: LinkUtilities/DBSignalToPower</a>
+<a href="../LinkHeaders/FrequencyToWavelengthHeader.html">Link: LinkUtilities/FrequencyToWavelength</a>
+<a href="../LinkHeaders/ModulationSpectralEfficiencyHeader.html">Link: LinkUtilities/ModulationSpectralEfficiency</a>
+<a href="../LinkHeaders/AntennaGainHeader.html">Link: RF/AntennaGain</a>
+</pre>
+<hr><p> <a href="../LinkFunctions.html">Back</a> to the Link Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

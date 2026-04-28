@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>GenericProperties</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GenericProperties:</h2>
+<p>Path: AerospaceUtils/CAD</p>
+<pre>
+% Generates generic properties for CAD components. The types are:
+
+   'thermal'
+      'absorptivity','emissivity','heatGeneratedOn','heatGeneratedStandby',
+      'temperature','surfaceArea','uNormal','thermalMass'
+   'power'
+      'powerStandby', 'powerOn','electricalConversionEfficiency',
+      'powerHeater','powerIsOn'
+   'optical'
+      'sigmaT', 'sigmaA', 'sigmaD', 'sigmaS'
+   'infrared'
+      'sigmaRT', 'sigmaRA', 'sigmaRD', 'sigmaRS'
+   'mass'
+      'mass', 'cM', 'inertia'
+   'aero'
+      'cD'
+   'rF'
+      'flux', 'u', 'r'
+   'magnetic'
+      'dipole'
+   'propulsion'
+      'thrust' 'iSP' 'feedPressure' 'efficiency'
+   'graphics'
+      'faceColor' 'edgeColor' 'specularStrength' 'diffuseStrength' 
+      'ambientStrength'
+      'specularColorReflectance' 'specularExponent'
+
+ You can customize properties by adding property/value pairs.
+ Type GenericProperties to have a list describing the properties printed to
+ the command window.
+--------------------------------------------------------------------------
+   Form:
+   p = GenericProperties( type, varargin )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   type           (1,:)   Type
+
+   -------
+   Outputs
+   -------
+   p              (1,1)  Properties data structure
+   desc            {:}   Descriptions of the properties
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/MessageQueueHeader.html">Common: GUIs/MessageQueue</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>AddMass</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>AddMass:</h2>
+<p>Path: Common/MassProperties</p>
+<pre>
+% Add mass properties. 
+ mB is optional. 
+ mA and/or mB may be arrays of data structures.
+
+ Typing AddMass returns the default data structure.
+--------------------------------------------------------------------------
+   Form:
+   m = AddMass( mA, mB, u )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   mA          (:)    Mass data structure
+                      .mass    (1,1) Mass
+                      .cM      (3,1) Center-of-mass
+                      .inertia (3,3) Inertia matrix about CM
+   mB          (:)    Mass data structure
+                      .mass    (1,1) Mass
+                      .cM      (3,1) Center-of-mass
+                      .inertia (3,3) Inertia matrix about CM
+   u           (1,:)  Units
+   
+   -------
+   Outputs
+   -------
+   m           (:)    Mass data structure
+                      .mass    (1,1) Mass
+                      .cM      (3,1) Center-of-mass
+                      .inertia (3,3) Inertia matrix
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/SkewSqHeader.html">Math: Linear/SkewSq</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

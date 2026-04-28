@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>LoadLunarTopography</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LoadLunarTopography:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Reads in the Clementine data.
+   It will automatically read the file gltm2b.topo.
+   If no output arguments are found it will create a file Topography.txt
+   with the s and c coefficients.
+--------------------------------------------------------------------------
+   Form:
+   [s,c] = LoadLunarTopography( nH )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   nH            (1,1)  Highest harmonic 
+
+   -------
+   Outputs
+   -------
+   s             (:,:)  Normalized sine coefficients
+   c             (:,:)  Normalized cosine coefficients
+
+--------------------------------------------------------------------------
+   Reference: Smith, D. E., Zuber, M. T., Neumann, G. A., "Topography of
+              the Moon from the Clementine lidar", Journal of Geophysical
+              Research, Vol. 102, No. E1, pp. 1591-1611, January 25, 1997.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/FactorlHeader.html">Math: Linear/Factorl</a>
+<a href="../SCHeaders/gltm2bHeader.html">SC: SCData/gltm2b</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

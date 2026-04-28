@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>CubeSatPowerAnalysis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CubeSatPowerAnalysis:</h2>
+<p>Path: CubeSat/Power</p>
+<pre>
+% CubeSat power analysis from batch orbit data. 
+ Simple batch calculation of power. Uses the same ephemeris model as
+ RHSCubeSat.
+
+ The built-in demo simulates a 1U satellite for one orbit.
+------------------------------------------------------------------------
+   Form:
+   [power] = CubeSatPowerAnalysis( d, q, r, jD )
+   CubeSatPowerAnalysis  % demo
+------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d        (.)      Data structure from RHSCubeSat or SolarCellPower
+   q       (4,:)     Quaternion, ECI to body
+   v       (3,:)     Velocity vector
+   jD      (1,:)     Julian dates
+
+   -------
+   Outputs
+   -------
+   power   (1,:)     Power produced by the solar cells
+
+------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/AddFillToPlotsHeader.html">Common: Graphics/AddFillToPlots</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CubeSatHeaders/SolarCellPowerHeader.html">CubeSat: Power/SolarCellPower</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/EclipseHeader.html">SC: Ephem/Eclipse</a>
+<a href="../SCHeaders/SunV1Header.html">SC: Ephem/SunV1</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

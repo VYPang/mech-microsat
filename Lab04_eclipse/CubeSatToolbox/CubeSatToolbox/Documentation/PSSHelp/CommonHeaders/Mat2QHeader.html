@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Mat2Q</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Mat2Q:</h2>
+<p>Path: Common/Quaternion</p>
+<pre>
+% Converts a transformation matrix to a quaternion.
+ Does not check to see that m is orthonormal.
+
+--------------------------------------------------------------------------
+   Form:
+   q = Mat2Q ( m )		
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   m		(3,3)  Orthonormal transformation matrix
+
+   -------
+   Outputs
+   -------
+   q		(4,1)  Equivalent quaternion
+
+--------------------------------------------------------------------------
+  References: Shepperd, S. W., Quaternion from Rotation Matrix,
+              J. Guidance, Vol. 1, No. 3, May-June, 1978, pp. 223-224.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

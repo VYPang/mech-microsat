@@ -1,0 +1,215 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Demonstrate the AttitudeProfile function.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-11-07"><meta name="DC.source" content="AttitudeProfileDemo.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Demonstrate the AttitudeProfile function.</h1><!--introduction--><p>Plots the resulting quaternion and the separation angle from the secondary target.</p><pre>Mode 1:      Body y to Sun     (Body x to Nadir secondary)
+Mode 2:      Body x to Lat/Lon (Body y to Sun secondary)
+Mode 3:      Different Lat/Lon</pre><p>See also AttitudeProfile, ObservationTimeWindows, PlotOrbit, Q2Eul, Plot2D, Date2JD, ObservationTimeWindowsPlot, Period, RVFromKepler</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Orbit and time information</a></li><li><a href="#3">Mode 1:   Body y to Sun     (Body x to Nadir secondary)</a></li><li><a href="#4">Mode 2:   Body x to Lat/Lon (Body y to Sun secondary)</a></li><li><a href="#5">Mode 3:   Body x to Lat/Lon (Body y to Sun secondary)</a></li><li><a href="#6">Compute observation windows for this target</a></li><li><a href="#7">Compute the attitude profile</a></li><li><a href="#8">Plot quaternion and separation angle over time</a></li></ul></div><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2009 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 8.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+
+clear <span class="string">a</span>; clear <span class="string">b</span>; clear <span class="string">c</span>; clear <span class="string">d</span>;
+</pre><h2 id="2">Orbit and time information</h2><pre class="codeinput"><span class="comment">%---------------------------</span>
+d.jD0 = Date2JD;
+d.t = 0:15:86400;
+d.el = [6800,pi/6,pi/3,0,0,0];
+[d.r,d.v] = RVFromKepler( d.el, d.t );
+PlotOrbit(d.r,d.t,d.jD0);
+</pre><img vspace="5" hspace="5" src="AttitudeProfileDemo_01.png" alt=""> <h2 id="3">Mode 1:   Body y to Sun     (Body x to Nadir secondary)</h2><pre class="codeinput"><span class="comment">%---------------------------</span>
+a.type1  = <span class="string">'nadir'</span>;
+a.body1   = [1;0;0];
+a.target1 = [];
+a.type2  = <span class="string">'orbitnormal'</span>;
+a.body2   = [0;1;0];
+a.target2 = [];
+</pre><h2 id="4">Mode 2:   Body x to Lat/Lon (Body y to Sun secondary)</h2><pre class="codeinput"><span class="comment">%---------------------------</span>
+b.type1  = <span class="string">'latlon'</span>;
+b.body1   = [1;0;0];
+b.target1 = [0;90];
+b.type2  = <span class="string">'orbitnormal'</span>;
+b.body2   = [0;1;0];
+b.target2 = [];
+</pre><h2 id="5">Mode 3:   Body x to Lat/Lon (Body y to Sun secondary)</h2><pre class="codeinput"><span class="comment">%---------------------------</span>
+c.type1  = <span class="string">'latlon'</span>;
+c.body1   = [1;0;0];
+c.target1 = [35;-90];
+c.type2  = <span class="string">'orbitnormal'</span>;
+c.body2   = [0;1;0];
+c.target2 = [];
+</pre><h2 id="6">Compute observation windows for this target</h2><pre class="codeinput"><span class="comment">%--------------------------------------------</span>
+fov = pi;
+[track,obs] = ObservationTimeWindows( d.el, [b.target1,c.target1], d.jD0, d.t(end), fov );
+b.window    = obs(1).window;
+c.window    = obs(2).window;
+
+ObservationTimeWindowsPlot(track,obs);
+</pre><img vspace="5" hspace="5" src="AttitudeProfileDemo_02.png" alt=""> <h2 id="7">Compute the attitude profile</h2><pre class="codeinput"><span class="comment">%-----------------------------</span>
+d = AttitudeProfile( d, a, b, c );
+</pre><h2 id="8">Plot quaternion and separation angle over time</h2><pre class="codeinput"><span class="comment">%-----------------------------------------------</span>
+Plot2D(d.t/3600,d.q,<span class="string">'Time (hrs)'</span>,<span class="string">'Quaternion'</span>)
+Plot2D(d.t/3600,d.sep*180/pi,<span class="string">'Time (hrs)'</span>,<span class="string">'Separation Angle (deg)'</span>)
+
+eul = zeros(3,length(d.t));
+<span class="keyword">for</span> k = 1:length(d.t)
+  eul(:,k) = Q2Eul( d.q(:,k) );
+<span class="keyword">end</span>
+Plot2D(d.t/Period(6800),eul*180/pi,<span class="string">'Time (orbits)'</span>,{<span class="string">'Roll'</span>,<span class="string">'Pitch'</span>,<span class="string">'Yaw'</span>},<span class="string">'Euler Angles (deg)'</span>)
+
+
+<span class="comment">%--------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="AttitudeProfileDemo_03.png" alt=""> <img vspace="5" hspace="5" src="AttitudeProfileDemo_04.png" alt=""> <img vspace="5" hspace="5" src="AttitudeProfileDemo_05.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Demonstrate the AttitudeProfile function.
+% Plots the resulting quaternion and the separation angle from the
+% secondary target.
+%
+%  Mode 1:      Body y to Sun     (Body x to Nadir secondary)
+%  Mode 2:      Body x to Lat/Lon (Body y to Sun secondary)
+%  Mode 3:      Different Lat/Lon 
+%
+% See also AttitudeProfile, ObservationTimeWindows, PlotOrbit, Q2Eul, Plot2D,
+% Date2JD, ObservationTimeWindowsPlot, Period, RVFromKepler
+%%
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2009 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 8.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+clear a; clear b; clear c; clear d;
+
+%% Orbit and time information
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.jD0 = Date2JD;
+d.t = 0:15:86400;
+d.el = [6800,pi/6,pi/3,0,0,0];
+[d.r,d.v] = RVFromKepler( d.el, d.t );
+PlotOrbit(d.r,d.t,d.jD0);
+   
+%% Mode 1:   Body y to Sun     (Body x to Nadir secondary)
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+a.type1  = 'nadir';
+a.body1   = [1;0;0];
+a.target1 = [];
+a.type2  = 'orbitnormal';
+a.body2   = [0;1;0];
+a.target2 = [];
+
+%% Mode 2:   Body x to Lat/Lon (Body y to Sun secondary)
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+b.type1  = 'latlon';
+b.body1   = [1;0;0];
+b.target1 = [0;90];
+b.type2  = 'orbitnormal';
+b.body2   = [0;1;0];
+b.target2 = [];
+
+%% Mode 3:   Body x to Lat/Lon (Body y to Sun secondary)
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+c.type1  = 'latlon';
+c.body1   = [1;0;0];
+c.target1 = [35;-90];
+c.type2  = 'orbitnormal';
+c.body2   = [0;1;0];
+c.target2 = [];
+
+%% Compute observation windows for this target
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+fov = pi;
+[track,obs] = ObservationTimeWindows( d.el, [b.target1,c.target1], d.jD0, d.t(end), fov );
+b.window    = obs(1).window;
+c.window    = obs(2).window;
+
+ObservationTimeWindowsPlot(track,obs);
+
+%% Compute the attitude profile
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d = AttitudeProfile( d, a, b, c );
+
+%% Plot quaternion and separation angle over time
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+Plot2D(d.t/3600,d.q,'Time (hrs)','Quaternion')
+Plot2D(d.t/3600,d.sep*180/pi,'Time (hrs)','Separation Angle (deg)')
+
+eul = zeros(3,length(d.t));
+for k = 1:length(d.t)
+  eul(:,k) = Q2Eul( d.q(:,k) );
+end
+Plot2D(d.t/Period(6800),eul*180/pi,'Time (orbits)',{'Roll','Pitch','Yaw'},'Euler Angles (deg)')
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2019-09-07 17:12:12 -0400 (Sat, 07 Sep 2019) $
+% $Revision: 49734 $
+
+##### SOURCE END #####
+--></body></html>

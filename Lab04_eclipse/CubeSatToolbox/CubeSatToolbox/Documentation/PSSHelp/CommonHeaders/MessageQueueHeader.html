@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>MessageQueue</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MessageQueue:</h2>
+<p>Path: Common/GUIs</p>
+<pre>
+% Creates a message queue GUI. Once opened, it stays open. 
+   It accumulates messages from any function that sends messages to the queue.
+
+   Add this to your code whenever you want a to alert the user to an error.
+
+   MessageQueue('add', myFunction ,'The error','error');
+
+   Add this to your code whenever you want a to send the user a message.
+
+   MessageQueue('add', myFunction ,'The message');
+
+   You can turn on a sound notification. Use MessageQueue( 'sound on' ).
+
+--------------------------------------------------------------------------
+   Form:
+   MessageQueue( action, modifier, msg, err )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action          (1,:)   Action to be taken 
+   modifier        (1,:)   Action modifier
+   msg             (1,:)   Message
+   err             (1,:)   If anything entered an error
+
+   -------
+   Outputs
+   -------
+   none
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../ACProHeaders/HelpSystemHeader.html">ACPro: Help/HelpSystem</a>
+<a href="../CommonHeaders/SosumiHeader.html">Common: CommonData/Sosumi</a>
+<a href="../CommonHeaders/CloseFigureHeader.html">Common: General/CloseFigure</a>
+<a href="../CommonHeaders/FSWClockHeader.html">Common: General/FSWClock</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

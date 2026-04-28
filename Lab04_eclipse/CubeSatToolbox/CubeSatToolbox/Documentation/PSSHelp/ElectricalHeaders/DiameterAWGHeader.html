@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>DiameterAWG</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>DiameterAWG:</h2>
+<p>Path: Electrical/Wire</p>
+<pre>
+% Diameter from AWG gauge.
+
+------------------------------------------------------------------------
+   Form:
+       DiameterAWG;
+   d = DiameterAWG( n )
+------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   n          (1,:) AWG gauge 0000 is -3
+
+   -------
+   Outputs
+   -------
+   d          (1,:) Diameter (mm)
+   
+
+------------------------------------------------------------------------
+   Reference:
+   http://en.wikipedia.org/wiki/American_wire_gauge#
+   Table_of_AWG_wire_sizes
+------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+</pre>
+<hr><p> <a href="../ElectricalFunctions.html">Back</a> to the Electrical Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

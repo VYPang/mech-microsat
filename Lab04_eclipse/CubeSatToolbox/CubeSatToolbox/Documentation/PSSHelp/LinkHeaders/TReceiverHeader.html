@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>TReceiver</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>TReceiver:</h2>
+<p>Path: Link/RF</p>
+<pre>
+% Compute the noise temperature of a receiver attached to an antenna. 
+   tA is the ambient temperature of the antenna and tERX is the receiver
+   noise temperature. tF is the feeder noise temperature. This function
+   combines them to compute the noise temperature at the input.
+--------------------------------------------------------------------------
+   Form:
+   tR = TReceiver( tA, lFRX, tF, tERX )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   tA            (1,1)  Antenna temperature (deg-K)
+   lFRX          (1,:)  Feeder loss (dB)
+   tF            (1,1)  Feeder temperature (deg-K)
+   tERX          (1,1)  Receiver temperature (deg-K)
+                        
+   -------
+   Outputs
+   -------
+   tR            (1,1)  Temperature at input (deg-K)
+                        
+--------------------------------------------------------------------------
+   References:	Maral, G. and M. Bousquet. (1998.) Satellite Communications
+               Systems. Wiley. pp. 17-18.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+</pre>
+<hr><p> <a href="../LinkFunctions.html">Back</a> to the Link Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

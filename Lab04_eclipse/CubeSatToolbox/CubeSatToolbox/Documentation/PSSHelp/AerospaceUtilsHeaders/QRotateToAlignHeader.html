@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>QRotateToAlign</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>QRotateToAlign:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Rotate about an axis to align "ua" as close as possible to target "ut"
+--------------------------------------------------------------------------
+   Form:
+   [qRot,ub,rotAngle,sepAngle] = QRotateToAlign( axis, ua, uat);
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   axis       (3,1)  Axis of rotation
+   ua         (3,1)  Vector to align
+   ut         (3,:)  Target vector to be aligned with
+
+   -------
+   Outputs
+   -------
+   qRot       (4,1)  Quaternion that rotates ua to ub about axis
+   ub         (3,1)  Vector achieved after rotation
+   rotAngle   (4,1)  Angular rotation about the axis
+   sepAngle   (4,1)  Separation angle between ub and ut
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/CoordinatesHeader.html">Common: Graphics/Coordinates</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

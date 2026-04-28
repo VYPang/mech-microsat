@@ -1,0 +1,452 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Demonstrate a CubeSat attitude and power system dynamics.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-10-17"><meta name="DC.source" content="CubeSatSimulation.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Demonstrate a CubeSat attitude and power system dynamics.</h1><!--introduction--><p>This simulation includes drag and radiation pressure. The only actuator available for attitude is magnetic torquers, which is modeled as a dipole. Performs an animation at the end which may take a few minutes. The satellite is initialized pointing to the Earth with a rotation equal to orbit rate, to nominally maintain that pointing. The z body axis is pointed towards the Earth (nadir).</p><p>Things to try:   1. Turn surface disturbances off by uncommenting the line setting      d.surfData to empty; notice that the altitude no longer drops.   2. Initialize the battery charge b0 to zero   3. Comment out or change the fixed dipole in the for loop   4. Try a 1U instead of a 3U</p><pre>----------------------------------------------------------------------
+See also AnimQ, QForm, Plot2D, TimeLabl, RK4, Skew, Date2JD,
+InertiaCubeSat, CubeSatAero, RHSCubeSat, CubeSatFaces, BDipole,
+SolarFluxPrediction
+----------------------------------------------------------------------</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Select the CubeSat type</a></li><li><a href="#3">Start with defaults for the RHS</a></li><li><a href="#4">Initial State</a></li><li><a href="#5">Surface model</a></li><li><a href="#6">Power system model</a></li><li><a href="#7">Solar flux</a></li><li><a href="#8">Planet</a></li><li><a href="#9">Initialize control</a></li><li><a href="#10">Time parameters</a></li><li><a href="#11">Initialize the plotting array to save time</a></li><li><a href="#12">Run the simulation</a></li><li><a href="#13">Plotting</a></li><li><a href="#14">Animate the first 800 points</a></li></ul></div><pre class="codeinput"><span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2009 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 8.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+</pre><h2 id="2">Select the CubeSat type</h2><p>The face areas and normals are needed by the aero model.  They are given by the CubeSatFaces function. -------------------------------------------------------------------------</p><pre class="codeinput">cube = <span class="string">'3U'</span>;
+[a,n,r] = CubeSatFaces( cube, 1 );
+</pre><h2 id="3">Start with defaults for the RHS</h2><p>RHSCubeSat will return a default data structure. The defaults are for a 1U CubeSat in orbit around the Earth. These will need to be modified for each simulation. CubeSats are 1 kg per unit (U).  The InertiaCubeSat function computes the inertia of a CubeSat assuming the mass is uniformly distributed throughout the volume.  This is usually a good first approximation.</p><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+d      = RHSCubeSat;
+d.jD0  = Date2JD([2012 4 5 0 0 0]); <span class="comment">% Julian date</span>
+d.mass = 1; <span class="comment">% kg</span>
+d.inertia = InertiaCubeSat( cube, d.mass );
+</pre><h2 id="4">Initial State</h2><p>The state vector is [position;velocity;quaternion;angular velocity; battery state of charge]. We initialize in a circular orbit with the satellite aligned with LVLH: z towards nadir and x along velocity.</p><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+a0 = 6600; <span class="comment">% km</span>
+i0 = 0.2;    <span class="comment">% rad</span>
+el = [a0 i0 0 0 0 0];
+[r0,v0] = El2RV( el );
+q0 = QLVLH(r0,v0);
+w0 = [0;-OrbRate(a0);0]; <span class="comment">% .001</span>
+b0 = 20000;
+x = [r0;v0;q0;w0;b0];
+PltOrbit( el, d.jD0 );
+</pre><img vspace="5" hspace="5" src="CubeSatSimulation_01.png" alt=""> <h2 id="5">Surface model</h2><p>Specify the surface model properties.  Used to calculate the forces on the CubeSat from drag and radiation pressure.</p><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+d.surfData.cD    = 2.7; <span class="comment">% coefficient of drag</span>
+d.surfData.nFace = n;
+d.surfData.rFace = r;
+d.surfData.cM    = [0;0;0];
+d.surfData.area  = a;
+d.surfData.sigma = [1 1 1 1 1 1;zeros(2,6)];
+d.surfData.att.type = <span class="string">'eci'</span>;
+<span class="comment">%d.surfData       = []; % turns off surface disturbances</span>
+d.aeroModel      = @CubeSatAero;
+d.opticalModel   = @CubeSatRadiationPressure;
+d.skewOmegaEarth = Skew([0;0;7.291e-5]);
+</pre><h2 id="6">Power system model</h2><p>Specify solar cells on each face and the battery capacity. The six one's in solarCellArea indicate that this model has a solar cell covering 80% of all six faces of the CubeSat. If you changed one of the one's to a zero, then the model would have one face with no solar cell.</p><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+d.power.solarCellNormal    = n;
+d.power.solarCellEff       = 0.15;
+d.power.effPowerConversion = 0.8;
+d.power.solarCellArea      = 0.8*a.*[1 1 1 1 1 1];
+d.power.consumption        = 0.5;
+d.power.batteryCapacity    = 40000; <span class="comment">% J</span>
+</pre><h2 id="7">Solar flux</h2><p>Get the solar flux predictions for the atmospheric density model.  The atmospheric density model used is Jacchia's 1970 model.  See the function AtmJ70 for more information. To use AtmDens2 instead of AtmJ70, set d.atm to empty (d.atm = []).</p><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+[aP, f, fHat, fHat400] = SolarFluxPrediction( d.jD0, <span class="string">'nominal'</span> );
+d.atm.aP      = aP(1);
+d.atm.f       = f(1);
+d.atm.fHat    = fHat(1);
+d.atm.fHat400 = fHat400(1);
+</pre><h2 id="8">Planet</h2><p>Specify the planet we are orbiting and its radius.</p><pre class="codeinput"><span class="comment">%---------------------------------------------------</span>
+d.planet = <span class="string">'earth'</span>;
+d.rP = 6378.165;
+</pre><h2 id="9">Initialize control</h2><p>This variable will be used in the control loop to specify the control for each timestep. For now, start with zero.</p><pre class="codeinput"><span class="comment">%------------------------------------------</span>
+d.dipole = [0;0;0];
+</pre><h2 id="10">Time parameters</h2><p>Specify the simulation duration and timestep.</p><pre class="codeinput"><span class="comment">%----------------------------------------------</span>
+tic
+orbits = 2;
+tEnd   = orbits*Period(a0);
+dT     = 2; <span class="comment">% sec</span>
+nSim   = floor(tEnd/dT);
+</pre><h2 id="11">Initialize the plotting array to save time</h2><p>Preallocates memory for the plotting variables. -----------------------------------------------</p><pre class="codeinput">xPlot = [x zeros(14,nSim)];
+[xT, dist,power] = RHSCubeSat( x, 0, d );
+dragPlot  = [dist.fAerodyn zeros(3,nSim)];
+radPlot   = [dist.fOptical zeros(3,nSim)];
+tRadPlot   = [dist.tOptical zeros(3,nSim)];
+tAeroPlot = [dist.tAerodyn zeros(3,nSim)];
+tMagPlot  = [dist.tMag zeros(3,nSim)];
+tGGPlot   = [dist.tGG zeros(3,nSim)];
+powerPlot = [power zeros(1,nSim)];
+bPlot     = zeros(3,nSim+1);
+qPlot     = zeros(4,nSim+1);
+</pre><h2 id="12">Run the simulation</h2><pre class="codeinput"><span class="comment">%--------------------</span>
+t = 0;
+h = waitbar(0,<span class="string">'CubeSat Simulation'</span>);
+upF = ceil(nSim/20);
+kW = 1;
+<span class="keyword">for</span> k = 1:nSim
+
+    <span class="comment">% Magnetic field - the magnetometer output is proportional to this</span>
+    <span class="comment">%-----------------------------------------------------------------</span>
+    bField       = BDipole( x(1:3), d.jD0+t/86400 );
+    bBody        = QForm( x(7:10), bField );
+
+    <span class="comment">% Control system placeholder - apply constant dipole</span>
+    <span class="comment">%---------------------------------------------------</span>
+    d.dipole     = [0.001;0;0]; <span class="comment">% Amp-turns m^2</span>
+
+    <span class="comment">% A time step with 4th order Runge-Kutta</span>
+    <span class="comment">%---------------------------------------</span>
+    x = RK4( @RHSCubeSat, x, dT, t, d );
+
+    <span class="comment">% Obtain effect of disturbances and control</span>
+    <span class="comment">%------------------------------------------</span>
+    [xT, dist,power] = RHSCubeSat( x, t, d );
+    dragPlot(:,k+1) = dist.fAerodyn;
+    tAeroPlot(:,k+1) = dist.tAerodyn;
+    radPlot(:,k+1) = dist.fOptical;
+    tRadPlot(:,k+1) = dist.tOptical;
+    tMagPlot(:,k+1) = dist.tMag;
+    tGGPlot(:,k+1) = dist.tGG;
+    powerPlot(:,k+1) = power;
+    bPlot(:,k+1) = bField;
+    qLVLH = QLVLH(x(1:3),x(4:6));
+    qPlot(:,k+1) = QMult(QPose(qLVLH),x(7:10));
+
+    <span class="comment">% Update plotting and time</span>
+    <span class="comment">%-------------------------</span>
+    xPlot(:,k+1) = x;
+    t            = t + dT;
+
+    <span class="keyword">if</span> k/upF &gt;= kW
+      waitbar(k/nSim,h);
+      kW = kW + 1;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+close(h);
+</pre><h2 id="13">Plotting</h2><pre class="codeinput"><span class="comment">%----------</span>
+time    = (0:nSim)*dT;
+[tP, tL] = TimeLabl( time );
+
+<span class="comment">% Y-axis labels</span>
+<span class="comment">%--------------</span>
+yL = {<span class="string">'r_x (km)'</span> <span class="string">'r_y (km)'</span> <span class="string">'r_z (km)'</span> <span class="string">'v_x (km/s)'</span> <span class="string">'v_y (km/s)'</span> <span class="string">'v_z (km/s)'</span><span class="keyword">...</span>
+      <span class="string">'q_s'</span> <span class="string">'q_x'</span> <span class="string">'q_y'</span> <span class="string">'q_z'</span> <span class="string">'\omega_x (rad/s)'</span> <span class="string">'\omega_y (rad/s)'</span> <span class="string">'\omega_z (rad/s)'</span> <span class="string">'b (Wh)'</span>};
+
+GroundTrack( xPlot( 1: 3,:), time, d.jD0 );
+rMag = Mag(xPlot( 1: 3,:));
+Plot2D( tP, rMag-rMag(1), tL, <span class="string">'\Delta h km'</span>, <span class="string">'Change in Altitude'</span> );
+
+Plot2D( tP, xPlot(7:10,:), tL, {yL{ 7:10}}, <span class="string">'CubeSat ECI To Body Quaternion'</span> );
+Plot2D( tP, qPlot, tL, {yL{ 7:10}}, <span class="string">'CubeSat LVLH To Body Quaternion'</span> );
+Plot2D( tP, xPlot(11:13,:), tL, {yL{11:13}}, <span class="string">'CubeSat Attitude Rate (rad/s)'</span> );
+Plot2D( tP, [xPlot(14,:)/3600;powerPlot], tL,  {yL{14},<span class="string">'Power (W)'</span>},  <span class="string">'CubeSat Power System'</span> );
+
+Plot2D( tP, dragPlot*1e3,    tL,  {<span class="string">'F_x (mN)'</span>, <span class="string">'F_y (mN)'</span>, <span class="string">'F_z (mN)'</span>}, <span class="string">'CubeSat Drag Force (mN)'</span> );
+Plot2D( tP, tAeroPlot*1e6,   tL,  {<span class="string">'T_x (uNm)'</span>,<span class="string">'T_y (uNm)'</span>,<span class="string">'T_z (uNm)'</span>},<span class="string">'CubeSat Aerodynamic Torques'</span>)
+Plot2D( tP, tMagPlot*1e6,    tL,  {<span class="string">'T_x (uNm)'</span>,<span class="string">'T_y (uNm)'</span>,<span class="string">'T_z (uNm)'</span>},<span class="string">'CubeSat Magnetic Torques'</span>)
+Plot2D( tP, tGGPlot*1e6,     tL,  {<span class="string">'T_x (uNm)'</span>,<span class="string">'T_y (uNm)'</span>,<span class="string">'T_z (uNm)'</span>},<span class="string">'CubeSat Gravity Gradient Torques'</span>)
+Plot2D( tP, radPlot*1e3,     tL,  {<span class="string">'F_x (mN)'</span>,<span class="string">'F_y (mN)'</span>,<span class="string">'F_z (mN)'</span>},<span class="string">'CubeSat Radiation Force (mN)'</span>)
+Plot2D( tP, tGGPlot*1e6,     tL,  {<span class="string">'T_x (uNm)'</span>,<span class="string">'T_y (uNm)'</span>,<span class="string">'T_z (Nm)'</span>},<span class="string">'CubeSat Radiation Torques'</span>)
+Plot2D( tP, bPlot,       tL,  {<span class="string">'B_x (T)'</span>,<span class="string">'B_y (T)'</span>,<span class="string">'B_z (T)'</span>},<span class="string">'Magnetic Field (ECI Frame)'</span>)
+
+Figui;
+</pre><img vspace="5" hspace="5" src="CubeSatSimulation_02.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_03.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_04.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_05.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_06.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_07.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_08.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_09.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_10.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_11.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_12.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_13.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_14.png" alt=""> <img vspace="5" hspace="5" src="CubeSatSimulation_15.png" alt=""> <h2 id="14">Animate the first 800 points</h2><pre class="codeinput"><span class="comment">%-------------------------------</span>
+AnimQ( qPlot(:,1:800) );
+toc
+
+
+<span class="comment">%--------------------------------------</span>
+</pre><pre class="codeoutput">Elapsed time is 59.591857 seconds.
+</pre><img vspace="5" hspace="5" src="CubeSatSimulation_16.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Demonstrate a CubeSat attitude and power system dynamics.
+% This simulation includes drag and radiation pressure. The only actuator 
+% available for attitude is magnetic torquers, which is modeled as a 
+% dipole. Performs an animation at the end which may take a few minutes.
+% The satellite is initialized pointing to the Earth with a rotation equal
+% to orbit rate, to nominally maintain that pointing. The z body axis is
+% pointed towards the Earth (nadir).
+%
+% Things to try:
+%   1. Turn surface disturbances off by uncommenting the line setting
+%      d.surfData to empty; notice that the altitude no longer drops.
+%   2. Initialize the battery charge b0 to zero
+%   3. Comment out or change the fixed dipole in the for loop
+%   4. Try a 1U instead of a 3U
+%
+%
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%  See also AnimQ, QForm, Plot2D, TimeLabl, RK4, Skew, Date2JD, 
+%  InertiaCubeSat, CubeSatAero, RHSCubeSat, CubeSatFaces, BDipole, 
+%  SolarFluxPrediction
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2009 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 8.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% Select the CubeSat type
+% The face areas and normals are needed by the aero model.  They are given
+% by the CubeSatFaces function.
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+cube = '3U';
+[a,n,r] = CubeSatFaces( cube, 1 );
+
+%% Start with defaults for the RHS
+% RHSCubeSat will return a default data structure. The defaults are for a
+% 1U CubeSat in orbit around the Earth. These will need to be modified for
+% each simulation. CubeSats are 1 kg per unit (U).  The InertiaCubeSat
+% function computes the inertia of a CubeSat assuming the mass is uniformly
+% distributed throughout the volume.  This is usually a good first 
+% approximation.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d      = RHSCubeSat;
+d.jD0  = Date2JD([2012 4 5 0 0 0]); % Julian date
+d.mass = 1; % kg
+d.inertia = InertiaCubeSat( cube, d.mass );
+
+%% Initial State
+% The state vector is [position;velocity;quaternion;angular velocity;
+% battery state of charge]. We initialize in a circular orbit with the
+% satellite aligned with LVLH: z towards nadir and x along velocity.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+a0 = 6600; % km
+i0 = 0.2;    % rad
+el = [a0 i0 0 0 0 0];
+[r0,v0] = El2RV( el );
+q0 = QLVLH(r0,v0);
+w0 = [0;-OrbRate(a0);0]; % .001
+b0 = 20000;
+x = [r0;v0;q0;w0;b0];
+PltOrbit( el, d.jD0 );
+
+%% Surface model
+% Specify the surface model properties.  Used to calculate the forces on
+% the CubeSat from drag and radiation pressure.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d.surfData.cD    = 2.7; % coefficient of drag
+d.surfData.nFace = n;
+d.surfData.rFace = r; 
+d.surfData.cM    = [0;0;0];
+d.surfData.area  = a;
+d.surfData.sigma = [1 1 1 1 1 1;zeros(2,6)];
+d.surfData.att.type = 'eci';
+%d.surfData       = []; % turns off surface disturbances
+d.aeroModel      = @CubeSatAero;
+d.opticalModel   = @CubeSatRadiationPressure;
+d.skewOmegaEarth = Skew([0;0;7.291e-5]);
+
+%% Power system model
+% Specify solar cells on each face and the battery capacity. The six one's in
+% solarCellArea indicate that this model has a solar cell covering 80% of all
+% six faces of the CubeSat. If you changed one of the one's to a zero, then the
+% model would have one face with no solar cell.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d.power.solarCellNormal    = n;
+d.power.solarCellEff       = 0.15;
+d.power.effPowerConversion = 0.8;
+d.power.solarCellArea      = 0.8*a.*[1 1 1 1 1 1];
+d.power.consumption        = 0.5;
+d.power.batteryCapacity    = 40000; % J
+
+%% Solar flux
+% Get the solar flux predictions for the atmospheric density model.  The
+% atmospheric density model used is Jacchia's 1970 model.  See the function 
+% AtmJ70 for more information. To use AtmDens2 instead of AtmJ70, set 
+% d.atm to empty (d.atm = []).
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+[aP, f, fHat, fHat400] = SolarFluxPrediction( d.jD0, 'nominal' );
+d.atm.aP      = aP(1); 
+d.atm.f       = f(1); 
+d.atm.fHat    = fHat(1); 
+d.atm.fHat400 = fHat400(1);
+
+%% Planet
+% Specify the planet we are orbiting and its radius.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.planet = 'earth';
+d.rP = 6378.165;
+
+%% Initialize control
+% This variable will be used in the control loop to specify the control for
+% each timestep. For now, start with zero.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d.dipole = [0;0;0];
+
+%% Time parameters
+% Specify the simulation duration and timestep.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+tic
+orbits = 2;
+tEnd   = orbits*Period(a0); 
+dT     = 2; % sec
+nSim   = floor(tEnd/dT);
+
+%% Initialize the plotting array to save time
+% Preallocates memory for the plotting variables.
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+xPlot = [x zeros(14,nSim)];
+[xT, dist,power] = RHSCubeSat( x, 0, d );
+dragPlot  = [dist.fAerodyn zeros(3,nSim)];
+radPlot   = [dist.fOptical zeros(3,nSim)];
+tRadPlot   = [dist.tOptical zeros(3,nSim)];
+tAeroPlot = [dist.tAerodyn zeros(3,nSim)];
+tMagPlot  = [dist.tMag zeros(3,nSim)];
+tGGPlot   = [dist.tGG zeros(3,nSim)];
+powerPlot = [power zeros(1,nSim)];
+bPlot     = zeros(3,nSim+1);
+qPlot     = zeros(4,nSim+1);
+
+%% Run the simulation
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+t = 0;
+h = waitbar(0,'CubeSat Simulation');
+upF = ceil(nSim/20);
+kW = 1;
+for k = 1:nSim
+    
+    % Magnetic field - the magnetometer output is proportional to this
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    bField       = BDipole( x(1:3), d.jD0+t/86400 );
+    bBody        = QForm( x(7:10), bField );
+        
+    % Control system placeholder - apply constant dipole
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    d.dipole     = [0.001;0;0]; % Amp-turns m^2
+
+    % A time step with 4th order Runge-Kutta
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    x = RK4( @RHSCubeSat, x, dT, t, d );
+    
+    % Obtain effect of disturbances and control
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+    [xT, dist,power] = RHSCubeSat( x, t, d );
+    dragPlot(:,k+1) = dist.fAerodyn;
+    tAeroPlot(:,k+1) = dist.tAerodyn;
+    radPlot(:,k+1) = dist.fOptical;
+    tRadPlot(:,k+1) = dist.tOptical;
+    tMagPlot(:,k+1) = dist.tMag;
+    tGGPlot(:,k+1) = dist.tGG;
+    powerPlot(:,k+1) = power;
+    bPlot(:,k+1) = bField;
+    qLVLH = QLVLH(x(1:3),x(4:6));
+    qPlot(:,k+1) = QMult(QPose(qLVLH),x(7:10));
+    
+    % Update plotting and time
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    xPlot(:,k+1) = x;
+    t            = t + dT;
+    
+    if k/upF >= kW
+      waitbar(k/nSim,h);
+      kW = kW + 1;
+    end
+end
+close(h);
+
+%% Plotting
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+time    = (0:nSim)*dT;
+[tP, tL] = TimeLabl( time );
+
+% Y-axis labels
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+yL = {'r_x (km)' 'r_y (km)' 'r_z (km)' 'v_x (km/s)' 'v_y (km/s)' 'v_z (km/s)'...
+      'q_s' 'q_x' 'q_y' 'q_z' '\omega_x (rad/s)' '\omega_y (rad/s)' '\omega_z (rad/s)' 'b (Wh)'};
+
+GroundTrack( xPlot( 1: 3,:), time, d.jD0 );
+rMag = Mag(xPlot( 1: 3,:));
+Plot2D( tP, rMag-rMag(1), tL, '\Delta h km', 'Change in Altitude' );
+
+Plot2D( tP, xPlot(7:10,:), tL, {yL{ 7:10}}, 'CubeSat ECI To Body Quaternion' );
+Plot2D( tP, qPlot, tL, {yL{ 7:10}}, 'CubeSat LVLH To Body Quaternion' );
+Plot2D( tP, xPlot(11:13,:), tL, {yL{11:13}}, 'CubeSat Attitude Rate (rad/s)' );
+Plot2D( tP, [xPlot(14,:)/3600;powerPlot], tL,  {yL{14},'Power (W)'},  'CubeSat Power System' );
+
+Plot2D( tP, dragPlot*1e3,    tL,  {'F_x (mN)', 'F_y (mN)', 'F_z (mN)'}, 'CubeSat Drag Force (mN)' );
+Plot2D( tP, tAeroPlot*1e6,   tL,  {'T_x (uNm)','T_y (uNm)','T_z (uNm)'},'CubeSat Aerodynamic Torques')
+Plot2D( tP, tMagPlot*1e6,    tL,  {'T_x (uNm)','T_y (uNm)','T_z (uNm)'},'CubeSat Magnetic Torques')
+Plot2D( tP, tGGPlot*1e6,     tL,  {'T_x (uNm)','T_y (uNm)','T_z (uNm)'},'CubeSat Gravity Gradient Torques')
+Plot2D( tP, radPlot*1e3,     tL,  {'F_x (mN)','F_y (mN)','F_z (mN)'},'CubeSat Radiation Force (mN)')
+Plot2D( tP, tGGPlot*1e6,     tL,  {'T_x (uNm)','T_y (uNm)','T_z (Nm)'},'CubeSat Radiation Torques')
+Plot2D( tP, bPlot,       tL,  {'B_x (T)','B_y (T)','B_z (T)'},'Magnetic Field (ECI Frame)')
+
+Figui;
+
+%% Animate the first 800 points
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+AnimQ( qPlot(:,1:800) );
+toc
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2019-09-07 17:12:12 -0400 (Sat, 07 Sep 2019) $
+% $Revision: 49734 $
+
+##### SOURCE END #####
+--></body></html>

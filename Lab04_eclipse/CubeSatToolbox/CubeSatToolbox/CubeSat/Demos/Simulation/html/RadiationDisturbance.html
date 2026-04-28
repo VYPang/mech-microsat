@@ -1,0 +1,208 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Radiation pressure disturbance demo.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-10-17"><meta name="DC.source" content="RadiationDisturbance.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Radiation pressure disturbance demo.</h1><!--introduction--><p>Compute the radiation pressure force and torque for a complete orbit in LEO, assuming an offset from LVLH pointing. The disturbances are calculated both with and without the planetary components (albedo and radiation).</p><p>Things to try:</p><pre class="language-matlab">1. Change <span class="string">the</span> <span class="string">optical</span> <span class="string">coefficients</span>
+2. Different <span class="string">center</span> <span class="string">of</span> <span class="string">mass</span>
+3. Higher <span class="string">or</span> <span class="string">lower</span> <span class="string">orbital</span> <span class="string">altitude.</span>
+</pre><pre>----------------------------------------------------------------------
+See also CubeSatRadiationPressure, Eclipse
+----------------------------------------------------------------------</pre><!--/introduction--><pre class="codeinput"><span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2009, 2014 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 2014.1</span>
+<span class="comment">%   2016.0.1 - Initialize p from CubeSatEnvironment to have correct fields</span>
+<span class="comment">%   including q</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+
+d = CubeSatRadiationPressure;
+
+<span class="comment">% Provide an attitude offset from LVLH</span>
+d.att.type        = <span class="string">'lvlh'</span>;
+d.att.qLVLHToBody = AU2Q( 0.1, -[1;1;1] );
+
+<span class="comment">% Specify some absorption and some reflection. The coefficients are</span>
+<span class="comment">% expressed as [absorbed;specular;diffuse] with one column per face.</span>
+d.sigma = [0.2*ones(1,6);0.8*ones(1,6);zeros(1,6)];
+
+<span class="comment">% Specify a CM offset so we get a torque as well</span>
+d.cM = [0.01;0.01;0.01];
+
+<span class="comment">% Generate a complete orbit</span>
+[r,v,t]         = RVFromKepler([7000 0 0 0 0 0]);
+p               = struct;
+[p.uSun, rSun]  = SunV1(Date2JD([2010 5 5 0 0 0]));
+
+<span class="comment">% compute a second time with planetary disturbances off</span>
+d2 = d;
+d2.planet = 0;
+
+force   = zeros(3,100);
+torque  = zeros(3,100);
+force2  = force;
+torque2 = torque;
+
+<span class="comment">% Use a constant environment except eclipses</span>
+p = CubeSatEnvironment;
+<span class="keyword">for</span> k = 1:100
+  p.v        = v(:,k);
+  p.r        = r(:,k);
+  p.n        = Eclipse( p.r, p.uSun*rSun);
+  [force(:,k),torque(:,k)] = CubeSatRadiationPressure( p, d );
+  [force2(:,k),torque2(:,k)] = CubeSatRadiationPressure( p, d2 );
+<span class="keyword">end</span>
+
+pO = Period(7000);
+Plot2D( t/pO, [force;force2]*1e6, <span class="string">'Orbit'</span>, {<span class="string">'F_x (\mu N)'</span> <span class="string">'F_y(\mu N)'</span> <span class="string">'F_z(\mu N)'</span>},<span class="keyword">...</span>
+  <span class="string">'Cubesat Radiation Pressure Force'</span>,<span class="string">'lin'</span>,{[1 4],[2 5],[3 6]});
+legend(<span class="string">'all'</span>,<span class="string">'solar'</span>)
+Plot2D( t/pO, [torque;torque2]*1e6, <span class="string">'Orbit'</span>, {<span class="string">'T_x (\mu Nm)'</span> <span class="string">'T_y(\mu Nm)'</span> <span class="string">'T_z(\mu Nm)'</span>},<span class="keyword">...</span>
+  <span class="string">'Cubesat Radiation Pressure Torque'</span>,<span class="string">'lin'</span>,{[1 4],[2 5],[3 6]});
+legend(<span class="string">'all'</span>,<span class="string">'solar'</span>)
+
+
+<span class="comment">%--------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="RadiationDisturbance_01.png" alt=""> <img vspace="5" hspace="5" src="RadiationDisturbance_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Radiation pressure disturbance demo.
+% Compute the radiation pressure force and torque for a complete orbit in
+% LEO, assuming an offset from LVLH pointing. The disturbances are calculated
+% both with and without the planetary components (albedo and radiation).
+%
+% Things to try:
+%
+%   1. Change the optical coefficients
+%   2. Different center of mass
+%   3. Higher or lower orbital altitude.
+%
+%
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%  See also CubeSatRadiationPressure, Eclipse
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2009, 2014 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 2014.1
+%   2016.0.1 - Initialize p from CubeSatEnvironment to have correct fields 
+%   including q
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+d = CubeSatRadiationPressure;
+
+% Provide an attitude offset from LVLH
+d.att.type        = 'lvlh';
+d.att.qLVLHToBody = AU2Q( 0.1, -[1;1;1] );
+
+% Specify some absorption and some reflection. The coefficients are
+% expressed as [absorbed;specular;diffuse] with one column per face.
+d.sigma = [0.2*ones(1,6);0.8*ones(1,6);zeros(1,6)];
+
+% Specify a CM offset so we get a torque as well
+d.cM = [0.01;0.01;0.01];
+
+% Generate a complete orbit
+[r,v,t]         = RVFromKepler([7000 0 0 0 0 0]);
+p               = struct;
+[p.uSun, rSun]  = SunV1(Date2JD([2010 5 5 0 0 0]));
+
+% compute a second time with planetary disturbances off
+d2 = d;
+d2.planet = 0;
+
+force   = zeros(3,100);
+torque  = zeros(3,100);
+force2  = force;
+torque2 = torque;
+
+% Use a constant environment except eclipses
+p = CubeSatEnvironment;
+for k = 1:100
+  p.v        = v(:,k);
+  p.r        = r(:,k);
+  p.n        = Eclipse( p.r, p.uSun*rSun);
+  [force(:,k),torque(:,k)] = CubeSatRadiationPressure( p, d );
+  [force2(:,k),torque2(:,k)] = CubeSatRadiationPressure( p, d2 );
+end
+
+pO = Period(7000);
+Plot2D( t/pO, [force;force2]*1e6, 'Orbit', {'F_x (\mu N)' 'F_y(\mu N)' 'F_z(\mu N)'},...
+  'Cubesat Radiation Pressure Force','lin',{[1 4],[2 5],[3 6]});
+legend('all','solar')
+Plot2D( t/pO, [torque;torque2]*1e6, 'Orbit', {'T_x (\mu Nm)' 'T_y(\mu Nm)' 'T_z(\mu Nm)'},...
+  'Cubesat Radiation Pressure Torque','lin',{[1 4],[2 5],[3 6]});
+legend('all','solar')
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2019-09-07 17:12:12 -0400 (Sat, 07 Sep 2019) $
+% $Revision: 49734 $
+
+##### SOURCE END #####
+--></body></html>

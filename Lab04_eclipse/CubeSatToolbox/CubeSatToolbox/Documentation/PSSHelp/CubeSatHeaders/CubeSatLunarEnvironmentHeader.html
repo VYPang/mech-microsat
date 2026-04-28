@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>CubeSatLunarEnvironment</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CubeSatLunarEnvironment:</h2>
+<p>Path: CubeSat/Simulation</p>
+<pre>
+% Lunar environment calculations for the CubeSat dynamical model.
+
+ Computes sun location with SunV1 and accounts for eclipses from the Earth and
+ the Moon via Eclipse. All environment constants including gravity are defined
+ here.
+--------------------------------------------------------------------------
+   Form:
+   e = CubeSatLunarEnvironment             % data structure
+   e = CubeSatLunarEnvironment( x, t, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x        (14,1)    [r;v;q;w;b]
+   t         (1,1)    Time, sec
+   d          (.)     Data structure
+                      .jD0          Julian date of epoch
+                      .surfData (.) optional; empty to skip optical calcs
+                      .gravity  (.) 
+                           .center  Index of gravity center
+
+   -------
+   Outputs
+   -------
+   env        (.)     Environmental data
+                      .r            ECI position (km)
+                      .v            ECI velocity (km/s)
+                      .q            ECI to body quaternion
+                      .mu           Gravitational constant (km3/s2)
+                      .radiusPlanet Radius of the center planet (km)
+                      .rho          Distance from the Moon (km)
+                      .radiation    Planetary radiation W/m2
+                      .albedo       Planet bond albedo fraction
+                      .uSun         Sun unit vector (ECI)
+                      .rSun         Sun distance (km)
+                      .solarFlux    Solar flux at position (W/m2)
+                      .nEcl         Eclipse fraction (source intensity, 0-1)
+                      .accelGrav    Acceleration due to gravity
+                      .rMoon        Moon position
+                      .vMoon        Moon velocity
+ 
+--------------------------------------------------------------------------
+   See also SunV1, Eclipse, AtmDens2, AtmJ70, BDipole
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/QLVLHHeader.html">AerospaceUtils: Coord/QLVLH</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NPlotHeader.html">Common: Graphics/NPlot</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CubeSatHeaders/CubeSatAttitudeHeader.html">CubeSat: Utilities/CubeSatAttitude</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../OrbitHeaders/APlanetHeader.html">Orbit: OrbitMechanics/APlanet</a>
+<a href="../SCHeaders/CEcl2EqHeader.html">SC: Ephem/CEcl2Eq</a>
+<a href="../SCHeaders/EclipseHeader.html">SC: Ephem/Eclipse</a>
+<a href="../SCHeaders/InterpolateStateHeader.html">SC: Ephem/InterpolateState</a>
+<a href="../SCHeaders/MoonRotHeader.html">SC: Ephem/MoonRot</a>
+<a href="../SCHeaders/PlanetPosJPLHeader.html">SC: Ephem/PlanetPosJPL</a>
+<a href="../SCHeaders/bin2000Header.html">SC: SCData/bin2000</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

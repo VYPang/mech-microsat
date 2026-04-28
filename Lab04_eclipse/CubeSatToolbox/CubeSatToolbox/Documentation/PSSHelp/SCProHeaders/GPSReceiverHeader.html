@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>GPSReceiver</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GPSReceiver:</h2>
+<p>Path: SCPro/ProSensors</p>
+<pre>
+% GPS receiver model. Models the GPS constellation. 
+   The satellite locations are determined using GPSSatellite.
+   The model can output a set of default data.
+
+   Failure mode is zero output. The regular output is a structure:
+     .rGPS        (3,n)   Position of GPS satellites in view
+     .vGPS        (3,n)   Velocity of satellites
+     .range       (1,n)   Range to the satellites (km)
+     .rangeRate   (1,n)   Range rate (km/s)
+     .iD          (1,n)   ID of satellites in view
+     .nSatellites (1,1)   Number of satellites in view
+
+   See also GPSReceiverNav.
+--------------------------------------------------------------------------
+   Form:
+   y = GPSReceiver( action, d )
+--------------------------------------------------------------------------
+
+   -------
+   Inputs
+   -------
+   action      (1,:)     'initialize', 'update', 'output', 'set failure', or 
+                         'get default datastructure'
+   d           (1,1)     Depends on the action
+
+   -------
+   Outputs
+   -------
+   y           (1,1)     Depends on the action
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/IntersectPlanetHeader.html">AerospaceUtils: Coord/IntersectPlanet</a>
+<a href="../SCProHeaders/GPSSatelliteHeader.html">SCPro: ProSensors/GPSSatellite</a>
+<a href="../SCProHeaders/RangeMeasurementHeader.html">SCPro: ProSensors/RangeMeasurement</a>
+</pre>
+<hr><p> <a href="../SCProFunctions.html">Back</a> to the SCPro Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

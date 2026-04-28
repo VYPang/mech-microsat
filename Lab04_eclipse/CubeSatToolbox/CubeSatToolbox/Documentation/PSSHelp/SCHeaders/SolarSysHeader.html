@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>SolarSys</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SolarSys:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Computes the position vectors of the planets as a function of time.
+   If no outputs are given will plot the positions of the input planets.
+   If no inputs are given it will compute the vectors for the entire
+   solar system. If T is not input, it will compute a vector of T's
+   long enough to show the complete orbit of the outermost planet.
+   Input data can be obtained from Planets.
+
+   If T is omitted in either form it will generate a T to cover the
+   orbital period of all of the planets. The second form handles the data
+   structure output of Planets which is d.iv, ...
+
+--------------------------------------------------------------------------
+   Form:
+   [rx0, ry0, rz0, vx, vy, vz] = SolarSys( iv, Wv, wv, av, ev, Lv, name, jdref, T )
+   [rx0, ry0, rz0, vx, vy, vz] = SolarSys( d, T )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   iv            (n,2)   Inclination wrt ecliptic plane     (rad)
+   Wv            (n,2)   Longitude of ascending node wrt vernal equinox  (rad)
+   wv            (n,2)   Argument of perhelion      (rad)
+   av            (n,2)   Mean distance (au)
+   ev            (n,2)   Eccentricity
+   Lv            (n,3)   Mean longitude (rad)
+   name          (n,:)   Name of planet
+   jdref         (1,1)   Reference Julian date
+     - OR - 
+   d              (:)    Data structure with above fields
+   T             (1,:)   Julian centuries from J2000.0   (centuries)
+
+   -------
+   Outputs
+   -------
+   rx0           (n,:)   x component,  one row per planet (au)
+   ry0           (n,:)   y component,  one row per planet (au) 
+   rz0           (n,:)   z component,  one row per planet (au) 
+   vx            (n,:)   vx component, one row per planet (km/s) 
+   vy            (n,:)   vy component, one row per planet (km/s) 
+   vz            (n,:)   vz component, one row per planet (km/s)  
+ 
+                    n is the number of planets
+
+--------------------------------------------------------------------------
+   See also: Planets, PlanetPosition
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/TextSHeader.html">Common: Graphics/TextS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../SCHeaders/M2NuHeader.html">SC: BasicOrbit/M2Nu</a>
+<a href="../SCHeaders/PlanetsHeader.html">SC: Ephem/Planets</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,303 @@
+<html>
+<head>
+<STYLE TYPE="text/css">
+td.link{font-family: Cambria; font-size: 12pt;}
+td.bio{font-family: Cambria; font-size: 12pt;}
+td.cl{height: 20; cellpadding: 5; cellspacing: 5;}
+h1{text-align: left;}
+h2{font-family: Cambria; color: #990000;}
+h3{font-family: Cambria; color: #990000; font-size: 18pt; }
+table.cl{font-family: Cambria; background-color: #e1e6f2;
+font-size: 14pt; border: 0; cellpadding: 5; cellspacing: 5;}
+</STYLE>
+<title>CubeSat Functions</title>
+</head>
+<body>
+<div class=page>
+
+<table width="600"><tr><td width="50%"><h1>CubeSat Module</h1></td>
+<td width="50%"><img src="Guides/images/PSSLogo.jpg"></td></tr></table>
+
+<h2>Directory List</h2>
+<a name="top"></a>
+<table border="1" cellpadding="0"><tr><td>
+<table class="cl" width="600">
+<tr><td class="cl" width="33%"><a href="CubeSatFunctions.html#Actuators">Actuators</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#AttitudeControl">AttitudeControl</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Communications">Communications</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CubeSatFunctions.html#Data">Data</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Demos/AttitudeControl">Demos/AttitudeControl</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Demos/Design">Demos/Design</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CubeSatFunctions.html#Demos/MissionPlanning">Demos/MissionPlanning</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Demos/Power">Demos/Power</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Demos/RelativeOrbit">Demos/RelativeOrbit</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CubeSatFunctions.html#Demos/Simulation">Demos/Simulation</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Demos/Thermal">Demos/Thermal</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#MissionPlanning">MissionPlanning</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CubeSatFunctions.html#Power">Power</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#RelativeOrbit">RelativeOrbit</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Simulation">Simulation</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CubeSatFunctions.html#Thermal">Thermal</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Utilities">Utilities</a></td>
+ <td class="cl" width="33%"><a href="CubeSatFunctions.html#Visualization">Visualization</a></td></tr>
+ </table></td></tr></table><br><hr>
+
+<h3><a name="Actuators"></a>Actuators</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatPropulsionHeader.html">CubeSatPropulsion</a> </td>
+<td class="bio"> Returns the force, torque and mass flow for a cold gas system. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="AttitudeControl"></a>AttitudeControl</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/AttitudeControlSimRWAHeader.html">AttitudeControlSimRWA</a> </td>
+<td class="bio"> Simulate a rigid body with 3-axis attitude control. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatDisturbanceAnalysisHeader.html">CubeSatDisturbanceAnalysis</a> </td>
+<td class="bio"> CubeSat disturbance analysis from batch data using RHSCubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/InertiaCubeSatHeader.html">InertiaCubeSat</a> </td>
+<td class="bio"> Compute the inertia of a CubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/InertiaTubeSatHeader.html">InertiaTubeSat</a> </td>
+<td class="bio"> Compute the inertia of a TubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/MagneticControlHeader.html">MagneticControl</a> </td>
+<td class="bio"> Implement instantaneous magnetic control with torquers. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/MomentumUnloadingHeader.html">MomentumUnloading</a> </td>
+<td class="bio"> Compute the torque from a magnetic momentum unloading system. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/ReactionWheelDesignHeader.html">ReactionWheelDesign</a> </td>
+<td class="bio"> Design a reaction wheel to meet input requirements. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Communications"></a>Communications</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/LinkOrbitAnalysisHeader.html">LinkOrbitAnalysis</a> </td>
+<td class="bio"> Link analysis computing bit error probability along an orbit. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Data"></a>Data</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="bio">CubeSat3U.mat - CubeSat CAD model.</td></tr>
+<tr><td class="bio">CubeSatGG.mat - CubeSat CAD model with GG boom.</td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Demos/AttitudeControl"></a>Demos/AttitudeControl</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/DisturbancesDemoHeader.html">DisturbancesDemo</a> </td>
+<td class="bio"> Example CubeSat disturbance analysis </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/DisturbancesSolarWingsHeader.html">DisturbancesSolarWings</a> </td>
+<td class="bio"> CubeSat disturbance analysis with deployable solar panels </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/MagneticControlDemoHeader.html">MagneticControlDemo</a> </td>
+<td class="bio"> Magnetic control demand analysis </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/NanoSatSimulationHeader.html">NanoSatSimulation</a> </td>
+<td class="bio"> Demonstrate NanoSat attitude control reaction wheels. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Demos/Design"></a>Demos/Design</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatTiltedWingsHeader.html">CubeSatTiltedWings</a> </td>
+<td class="bio"> Design a 3U CubeSat with Tilted Wings </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/DesignMagneticTorquerHeader.html">DesignMagneticTorquer</a> </td>
+<td class="bio"> Design an air coil magnetic torquer for a CubeSat. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Demos/MissionPlanning"></a>Demos/MissionPlanning</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/AttitudeProfileDemoHeader.html">AttitudeProfileDemo</a> </td>
+<td class="bio"> Demonstrate the AttitudeProfile function. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/NanoSatNearISSHeader.html">NanoSatNearISS</a> </td>
+<td class="bio"> Show ISS and NanoSat models with AnimateSpacecraft </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/OrbitAndSensorConeAnimationHeader.html">OrbitAndSensorConeAnimation</a> </td>
+<td class="bio"> Demonstrate the playback of multiple orbits and moving sensor cones. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RepeatingGroundTrackDemoHeader.html">RepeatingGroundTrackDemo</a> </td>
+<td class="bio"> Compute and simulate a repeat ground track orbit </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Demos/Power"></a>Demos/Power</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/BatterySizingHeader.html">BatterySizing</a> </td>
+<td class="bio"> Compute the power storage requirements for a CubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatPowerDemoHeader.html">CubeSatPowerDemo</a> </td>
+<td class="bio"> Power computation over several orbits. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Demos/RelativeOrbit"></a>Demos/RelativeOrbit</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/FFSimDemoHeader.html">FFSimDemo</a> </td>
+<td class="bio"> Demonstrate the use of FFSim to analyze disturbance effects. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Demos/Simulation"></a>Demos/Simulation</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatGGStabilizedHeader.html">CubeSatGGStabilized</a> </td>
+<td class="bio"> Demonstrate a CubeSat with gravity gradient stabilization. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatLunarMissionHeader.html">CubeSatLunarMission</a> </td>
+<td class="bio"> Lunar Mission Demo </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatRWASimulationHeader.html">CubeSatRWASimulation</a> </td>
+<td class="bio"> Demonstrate CubeSat attitude and power dynamics with reaction wheels. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatSimulationHeader.html">CubeSatSimulation</a> </td>
+<td class="bio"> Demonstrate a CubeSat attitude and power system dynamics. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/MagneticHysteresisOrbitHeader.html">MagneticHysteresisOrbit</a> </td>
+<td class="bio"> Magnetic hysteresis over multiple orbits. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/MomentumManagementHeader.html">MomentumManagement</a> </td>
+<td class="bio"> Demonstrate simple dipole based momentum management </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RadiationDisturbanceHeader.html">RadiationDisturbance</a> </td>
+<td class="bio"> Radiation pressure disturbance demo. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/SpacecraftWithDampingHeader.html">SpacecraftWithDamping</a> </td>
+<td class="bio"> A spacecraft with rate or hysteresis damping. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/TubeSatSimulationHeader.html">TubeSatSimulation</a> </td>
+<td class="bio"> Demonstrate a TubeSat attitude and power system dynamics. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/TwoSpacecraftOrbitSimulationHeader.html">TwoSpacecraftOrbitSimulation</a> </td>
+<td class="bio"> Demonstrate a 2 satellite CubeSat constellation. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/TwoSpacecraftSimpleOrbitSimulationHeader.html">TwoSpacecraftSimpleOrbitSimulation</a> </td>
+<td class="bio"> Demonstrate a 2 satellite CubeSat constellation </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Demos/Thermal"></a>Demos/Thermal</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatFaceTemperaturesDemoHeader.html">CubeSatFaceTemperaturesDemo</a> </td>
+<td class="bio"> Demonstrate temperatures of faces of a CubeSat </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/IsothermalCubeSatDemoHeader.html">IsothermalCubeSatDemo</a> </td>
+<td class="bio"> Isothermal satellite demo </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="MissionPlanning"></a>MissionPlanning</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/AttitudeProfileHeader.html">AttitudeProfile</a> </td>
+<td class="bio"> Build an attitude profile consisting of multiple overlapping modes. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/FindTimeWindowsHeader.html">FindTimeWindows</a> </td>
+<td class="bio"> Find time windows when elements of vector x are within specified range </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/ObservationTimeWindowsHeader.html">ObservationTimeWindows</a> </td>
+<td class="bio"> Generate a set of observation time windows for each lat/lon target </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/ObservationTimeWindowsPlotHeader.html">ObservationTimeWindowsPlot</a> </td>
+<td class="bio"> Plot ground track and observation windows for a satellite and targets </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/PackageOrbitDataForPlaybackHeader.html">PackageOrbitDataForPlayback</a> </td>
+<td class="bio"> Package orbit data into a structure for use in PlaybackOrbitSim. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/PlaybackOrbitSimHeader.html">PlaybackOrbitSim</a> </td>
+<td class="bio"> Play back an orbit simulation of multiple objects with sensor cones. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RapidSwathHeader.html">RapidSwath</a> </td>
+<td class="bio"> Compute the intersection curve between a sensor cone and spherical planet. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RepeatGroundTrackHeader.html">RepeatGroundTrack</a> </td>
+<td class="bio"> Design a repeat ground-track orbit. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Power"></a>Power</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatPowerAnalysisHeader.html">CubeSatPowerAnalysis</a> </td>
+<td class="bio"> CubeSat power analysis from batch orbit data. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/SolarCellPowerHeader.html">SolarCellPower</a> </td>
+<td class="bio"> Compute the power for a solar power system. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="RelativeOrbit"></a>RelativeOrbit</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/FFSimHeader.html">FFSim</a> </td>
+<td class="bio"> Formation flying simulation for circular orbits. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/FFSimPlotterHeader.html">FFSimPlotter</a> </td>
+<td class="bio"> Plot the results from "FFSim". Finishes by setting up an animation. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Simulation"></a>Simulation</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CADToSimParametersHeader.html">CADToSimParameters</a> </td>
+<td class="bio"> Convert CAD model to CubeSat arrays. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatAeroHeader.html">CubeSatAero</a> </td>
+<td class="bio"> Aerodynamic model for a CubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatEnvironmentHeader.html">CubeSatEnvironment</a> </td>
+<td class="bio"> Environment calculations for the CubeSat dynamical model. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatLunarEnvironmentHeader.html">CubeSatLunarEnvironment</a> </td>
+<td class="bio"> Lunar environment calculations for the CubeSat dynamical model. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatRadiationPressureHeader.html">CubeSatRadiationPressure</a> </td>
+<td class="bio"> Radiation pressure model for a CubeSat around the Earth. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/FOrbitMultiSpacecraftHeader.html">FOrbitMultiSpacecraft</a> </td>
+<td class="bio"> Multispacecraft orbit model designed to work with ode113. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RHSCubeSatHeader.html">RHSCubeSat</a> </td>
+<td class="bio"> Right-hand-side for a CubeSat orbit and attitude dynamical model. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RHSLunarMissionHeader.html">RHSLunarMission</a> </td>
+<td class="bio"> Right hand side for orbit and attitude dynamics for a lunar mission simulation. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RHSMomentumHeader.html">RHSMomentum</a> </td>
+<td class="bio"> RHS for momentum in the inertial frame. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/TubeSatDefaultDataStructureHeader.html">TubeSatDefaultDataStructure</a> </td>
+<td class="bio"> Default data structure for TubeSat model. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Thermal"></a>Thermal</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/AddThermalConductivityHeader.html">AddThermalConductivity</a> </td>
+<td class="bio"> Add a thermally conductive path between cubesat faces </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/IsothermalCubeSatSimHeader.html">IsothermalCubeSatSim</a> </td>
+<td class="bio"> An isothermal CubeSat simulation using Euler integration. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/RHSIsothermalCubeSatHeader.html">RHSIsothermalCubeSat</a> </td>
+<td class="bio"> An isothermal CubeSat model dynamical right-hand-side. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Utilities"></a>Utilities</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatAttitudeHeader.html">CubeSatAttitude</a> </td>
+<td class="bio"> Returns the CubeSat attitude quaternion from ECI to body. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatFacesHeader.html">CubeSatFaces</a> </td>
+<td class="bio"> Returns the faces along each axis of a linear CubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/CubeSatModelHeader.html">CubeSatModel</a> </td>
+<td class="bio"> Generate vertices and faces for a CubeSat model. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/LatLonPlotHeader.html">LatLonPlot</a> </td>
+<td class="bio"> Plot latitude vs. longitude nicely </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/LoadOBJModelHeader.html">LoadOBJModel</a> </td>
+<td class="bio"> Load a Wavefront OBJ file. The file can have an associated .mtl file. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/TubeSatFacesHeader.html">TubeSatFaces</a> </td>
+<td class="bio"> Returns the faces along each axis of a cylindrical TubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/TubeSatModelHeader.html">TubeSatModel</a> </td>
+<td class="bio"> Generate vertices and faces for a TubeSat model. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/WrapSegmentsHeader.html">WrapSegments</a> </td>
+<td class="bio"> Separate a wrapped vector into a series of segments in cells. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Visualization"></a>Visualization</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CubeSatHeaders/DrawCubeSatHeader.html">DrawCubeSat</a> </td>
+<td class="bio"> Draw a CubeSat with surface normals. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/DrawCubeSatSolarAreasHeader.html">DrawCubeSatSolarAreas</a> </td>
+<td class="bio"> Visualize the solar cell area for the CubeSat. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/DrawSpacecraftInOrbitHeader.html">DrawSpacecraftInOrbit</a> </td>
+<td class="bio"> Draw the Earth, CubeSat model, orbit, sensor cone(s), and GPS </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/DrawSpacecraftStructHeader.html">DrawSpacecraftStruct</a> </td>
+<td class="bio"> Create the structure needed by DrawSpacecraftInOrbit </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/GroundTrackHeader.html">GroundTrack</a> </td>
+<td class="bio"> Plot an orbit track. Converts the inertial positions to planet-fixed. </td></tr>
+<tr><td class="link" width="200"><a href="CubeSatHeaders/PlotOrbitHeader.html">PlotOrbit</a> </td>
+<td class="bio"> Plot the state in 3D with an Earth map. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+<p> SVN Revision: 52464 </p><hr>
+<p> <a href="cst_api.php">Back</a> to API main page</p></div></body></html>

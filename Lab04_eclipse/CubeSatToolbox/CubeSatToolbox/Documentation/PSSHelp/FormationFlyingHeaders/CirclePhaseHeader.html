@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>CirclePhase</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CirclePhase:</h2>
+<p>Path: FormationFlying/Coord</p>
+<pre>
+% Compute the desired phase on the circle from the desired phase on the ellipse.
+--------------------------------------------------------------------------
+   Form:
+   alpha0 = CirclePhase( beta0 );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   beta0            (1)      desired phase angle at equator crossing   [rad]
+
+   -------
+   Outputs
+   -------
+   alpha0           (1)     phase angle on circle such that
+                               the y-component of the circle
+                               is equal to that of the ellipse        [rad]
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/WrapPhaseHeader.html">Math: Trigonometry/WrapPhase</a>
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

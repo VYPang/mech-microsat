@@ -3,6 +3,9 @@
 venv/
 env/
 
+# Output
+final_proj/output/
+
 # Python
 __pycache__/
 *.py[cod]

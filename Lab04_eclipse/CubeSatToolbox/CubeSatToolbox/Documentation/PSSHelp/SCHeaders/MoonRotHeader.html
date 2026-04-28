@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>MoonRot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MoonRot:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Computes the matrix that transforms from ECI to selenographic axes.
+   mean is the default type.
+
+   Type MoonRot for a demo.
+
+--------------------------------------------------------------------------
+   Form:
+   [g, omega] = MoonRot( jD, type )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jD      (1,1) Julian Date
+   type    (1,4) 'mean' or 'true'
+
+   -------
+   Outputs
+   -------
+   g       (3,3) ECI To Selenographic
+   omega   (3,1) ECI Polar rotation vector
+
+--------------------------------------------------------------------------
+   References:   Escobal, P. R., Methods of Orbit Determination, Krieger, 
+                 pp. 413-416.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

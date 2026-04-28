@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>ColorSpread</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ColorSpread:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% Produce a set of 3-element RGB colors that spread across the colormap.
+ If a map is not specified it will grab the default figure color map.
+--------------------------------------------------------------------------
+   Form:
+   colors = ColorSpread( n, map )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   n             (1,1)    Number of colors to produce
+   map           (:,3)    Colormap, optional
+
+   -------
+   Outputs
+   -------
+   colors        (n,3)    n rows of colors
+
+--------------------------------------------------------------------------
+   See also AssignColors
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

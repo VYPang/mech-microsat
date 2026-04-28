@@ -1,0 +1,364 @@
+<html>
+<head>
+<STYLE TYPE="text/css">
+td.link{font-family: Cambria; font-size: 12pt;}
+td.bio{font-family: Cambria; font-size: 12pt;}
+td.cl{height: 20; cellpadding: 5; cellspacing: 5;}
+h1{text-align: left;}
+h2{font-family: Cambria; color: #990000;}
+h3{font-family: Cambria; color: #990000; font-size: 18pt; }
+table.cl{font-family: Cambria; background-color: #e1e6f2;
+font-size: 14pt; border: 0; cellpadding: 5; cellspacing: 5;}
+</STYLE>
+<title>Common Functions</title>
+</head>
+<body>
+<div class=page>
+
+<table width="600"><tr><td width="50%"><h1>Common Module</h1></td>
+<td width="50%"><img src="Guides/images/PSSLogo.jpg"></td></tr></table>
+
+<h2>Directory List</h2>
+<a name="top"></a>
+<table border="1" cellpadding="0"><tr><td>
+<table class="cl" width="600">
+<tr><td class="cl" width="33%"><a href="CommonFunctions.html#CommonData">CommonData</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#ComponentModels">ComponentModels</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#Control">Control</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CommonFunctions.html#Database">Database</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#FileUtils">FileUtils</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#GUIs">GUIs</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CommonFunctions.html#General">General</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#Graphics">Graphics</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#MassProperties">MassProperties</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CommonFunctions.html#Materials">Materials</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#Plugins">Plugins</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#Quaternion">Quaternion</a></td></tr>
+ <tr><td class="cl" width="33%"><a href="CommonFunctions.html#Time">Time</a></td>
+ <td class="cl" width="33%"><a href="CommonFunctions.html#Transform">Transform</a></td>
+ <td width="33%"></td></tr>
+</table></td></tr></table><br><hr>
+
+<h3><a name="CommonData"></a>CommonData</h3>
+<table border="0" cellpadding="2" width="100%">
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="ComponentModels"></a>ComponentModels</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/BoxHeader.html">Box</a> </td>
+<td class="bio"> Generate a box centered at the origin. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ConeHeader.html">Cone</a> </td>
+<td class="bio"> Compute the vertices for a cone. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/FrustrumHeader.html">Frustrum</a> </td>
+<td class="bio"> Generate a frustrum of a cone. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/GeomPatchHeader.html">GeomPatch</a> </td>
+<td class="bio"> Get vertices for surfaces of revolution, ellipsoids and cylinders </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/TriangleHeader.html">Triangle</a> </td>
+<td class="bio"> Generate a solid triangle. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Control"></a>Control</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/C2DZOHHeader.html">C2DZOH</a> </td>
+<td class="bio"> Create a discrete time system using a zero order hold. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/C2DelZOHHeader.html">C2DelZOH</a> </td>
+<td class="bio"> Create a discrete time systems using the delta operator. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/FRespHeader.html">FResp</a> </td>
+<td class="bio"> Compute the frequency response of the system given a, b, c and d. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/GNDHeader.html">GND</a> </td>
+<td class="bio"> Compute the frequency response given a numerator/denominator pair. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/GSSHeader.html">GSS</a> </td>
+<td class="bio"> Compute the multivariable frequency response of the system. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ND2SSHeader.html">ND2SS</a> </td>
+<td class="bio"> Creates state-space model from numerator and denominator polynomials. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/PIDMIMOHeader.html">PIDMIMO</a> </td>
+<td class="bio"> Produces a state space n degree of freedom PID controller. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/S2DampHeader.html">S2Damp</a> </td>
+<td class="bio"> Eigenvalues to damping and natural frequency. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/SS2NDHeader.html">SS2ND</a> </td>
+<td class="bio"> Converts from state space to numerator denominator form. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/SizeABCDHeader.html">SizeABCD</a> </td>
+<td class="bio"> Checks the dimensions of the set a,b,c,d for consistency. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/TrnsZeroHeader.html">TrnsZero</a> </td>
+<td class="bio"> Computes the transmission zeros of a plant </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/WPZHeader.html">WPZ</a> </td>
+<td class="bio"> Frequency vector with complex poles and zeros. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/WResonHeader.html">WReson</a> </td>
+<td class="bio"> Creates a frequency vector with points around resonances. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ZFrespHeader.html">ZFresp</a> </td>
+<td class="bio"> Generates the frequency response for a digital filter. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Database"></a>Database</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/ConstantHeader.html">Constant</a> </td>
+<td class="bio"> Outputs the value of a constant or opens a GUI for searching. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="FileUtils"></a>FileUtils</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/FindDirectoryHeader.html">FindDirectory</a> </td>
+<td class="bio"> Returns the path to a directory. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="GUIs"></a>GUIs</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/FiguiHeader.html">Figui</a> </td>
+<td class="bio"> User-interface to manage figure windows. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/LegendFigHeader.html">LegendFig</a> </td>
+<td class="bio"> Produce a new figure with just a legend of colors and names. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/MessageQueueHeader.html">MessageQueue</a> </td>
+<td class="bio"> Creates a message queue GUI. Once opened, it stays open. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/TimeCntrlHeader.html">TimeCntrl</a> </td>
+<td class="bio"> Perform actions specified by the time display. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ODETimeDisplayHeader.html">ODETimeDisplay</a> </td>
+<td class="bio"> Displays an estimate of time to go, compatible with ode113. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/TimeDisplayHeader.html">TimeDisplay</a> </td>
+<td class="bio"> Displays an estimate of time to go. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="General"></a>General</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/CellToMatHeader.html">CellToMat</a> </td>
+<td class="bio"> Converts a cell array to a matrix. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/CloseFigureHeader.html">CloseFigure</a> </td>
+<td class="bio"> Close a figure </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ColumnSizeCellArrayHeader.html">ColumnSizeCellArray</a> </td>
+<td class="bio"> Outputs the size of each column of a cell array. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/CreateTableHeader.html">CreateTable</a> </td>
+<td class="bio"> Creates a table from x for displaying to the command line. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/DeBlankAllHeader.html">DeBlankAll</a> </td>
+<td class="bio"> Delete all blanks </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/DeBlankLTHeader.html">DeBlankLT</a> </td>
+<td class="bio"> Delete leading and trailing blanks. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/DeleteCellHeader.html">DeleteCell</a> </td>
+<td class="bio"> Delete a cell element of a one dimensional cell array. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/DispWithTitleHeader.html">DispWithTitle</a> </td>
+<td class="bio"> Display a variable with a title. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/EditScrollHeader.html">EditScroll</a> </td>
+<td class="bio"> Implement a scrollable edit window </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/FSWClockHeader.html">FSWClock</a> </td>
+<td class="bio"> This routine implements the flight software clock. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/GetCurrentGUIObjectHeader.html">GetCurrentGUIObject</a> </td>
+<td class="bio"> Gets the last uicontrol that was hit. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/GetListStringHeader.html">GetListString</a> </td>
+<td class="bio"> Get an element from a list uicontrol. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/GetNewTagHeader.html">GetNewTag</a> </td>
+<td class="bio"> Get a new tag to uniquely identify a figure. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/HasOptimizationToolboxHeader.html">HasOptimizationToolbox</a> </td>
+<td class="bio"> Returns 1 if a licensed optimization toolbox is in your path </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/IsValidFieldHeader.html">IsValidField</a> </td>
+<td class="bio"> Determine if a field exists and is not empty. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/IsVersionAfterHeader.html">IsVersionAfter</a> </td>
+<td class="bio"> Checks to see if the version of MATLAB is after n </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/LatexScientificNotationHeader.html">LatexScientificNotation</a> </td>
+<td class="bio"> Converts a number into a string using latex notation. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ListCasesHeader.html">ListCases</a> </td>
+<td class="bio"> List the switch cases that are included in a given file. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/MatToCellHeader.html">MatToCell</a> </td>
+<td class="bio"> Converts a string matrix to a cell array. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ProcessTagHeader.html">ProcessTag</a> </td>
+<td class="bio"> Code used to process tags for sensors and actuators. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/SaveStructureHeader.html">SaveStructure</a> </td>
+<td class="bio"> Save a structure in a file. You will be able to read it in by typing </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/StrMtchHeader.html">StrMtch</a> </td>
+<td class="bio"> In a matrix with each row a string finds the first matching string. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/StringMatchHeader.html">StringMatch</a> </td>
+<td class="bio"> Finds which elements of sA match s </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/StringToTokensHeader.html">StringToTokens</a> </td>
+<td class="bio"> Converts a string to a list of tokens. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/StructToTextHeader.html">StructToText</a> </td>
+<td class="bio"> Write data structure to a text file or command line display. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/WatermarkHeader.html">Watermark</a> </td>
+<td class="bio"> Add a watermark to a figure. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Graphics"></a>Graphics</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/AddFillToPlotsHeader.html">AddFillToPlots</a> </td>
+<td class="bio"> Find mode changes in data and draw as filled sections on existing plots. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/AddViewHeader.html">AddView</a> </td>
+<td class="bio"> Add view accelerators to a figure. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/AddZoomHeader.html">AddZoom</a> </td>
+<td class="bio"> Add zoom-in (CTRL+I) and zoom-out (CTRL+O) accelerators to a figure. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/AxesCartHeader.html">AxesCart</a> </td>
+<td class="bio"> Draw axes on the current plot with X, Y, Z, text labels. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Axis3DHeader.html">Axis3D</a> </td>
+<td class="bio"> Adjust 3D axes properties. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/CameraControlsHeader.html">CameraControls</a> </td>
+<td class="bio"> This function creates a GUI for manipulating the camera view. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ColorSpreadHeader.html">ColorSpread</a> </td>
+<td class="bio"> Produce a set of 3-element RGB colors that spread across the colormap. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/CoordinatesHeader.html">Coordinates</a> </td>
+<td class="bio"> Creates a figure with x,y,z coordinates at the origin. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/DrawVerticesHeader.html">DrawVertices</a> </td>
+<td class="bio"> Draw and object from vertices in a figure window using patch. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/EllipsdHeader.html">Ellipsd</a> </td>
+<td class="bio"> Generates an ellipsoid using the equation </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/LabelLineHeader.html">LabelLine</a> </td>
+<td class="bio"> Labels a line. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/LogLimitHeader.html">LogLimit</a> </td>
+<td class="bio"> Given a frequency vector, find the logarithm of the frequency </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/MapHeader.html">Map</a> </td>
+<td class="bio"> Draws a 2 or 3 dimensional map of a planet. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Mesh2Header.html">Mesh2</a> </td>
+<td class="bio"> Draws mesh plots with axis labels. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/NPlotHeader.html">NPlot</a> </td>
+<td class="bio"> NPlot generates a plot on which the ylabels are character strings. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/NewFigHeader.html">NewFig</a> </td>
+<td class="bio"> Creates a new figure. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Plot2DHeader.html">Plot2D</a> </td>
+<td class="bio"> Easily build a versatile 2D plot page consisting of any number of plots. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Plot3DHeader.html">Plot3D</a> </td>
+<td class="bio"> Create a 3-dimensional plot. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/PltStyleHeader.html">PltStyle</a> </td>
+<td class="bio"> Edit this to globally change the plot styles for the plot labels </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/SliderBarHeader.html">SliderBar</a> </td>
+<td class="bio"> Create a slider in a new figure with continuous calls to callback. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/SortFigsHeader.html">SortFigs</a> </td>
+<td class="bio"> Sort figure windows by cascading them. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/TextSHeader.html">TextS</a> </td>
+<td class="bio"> Prints labels on a graph using text with toolbox style settings. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/TimeLablHeader.html">TimeLabl</a> </td>
+<td class="bio"> Generates a time label given the maximum value of t and rescales t. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/TitleSHeader.html">TitleS</a> </td>
+<td class="bio"> Creates a title using the toolbox style settings. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/XLabelSHeader.html">XLabelS</a> </td>
+<td class="bio"> Creates an xlabel using the toolbox style settings </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/YLabelSHeader.html">YLabelS</a> </td>
+<td class="bio"> Creates a ylabel using the toolbox style settings </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/ZLabelSHeader.html">ZLabelS</a> </td>
+<td class="bio"> Creates a zlabel using the toolbox style settings </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="MassProperties"></a>MassProperties</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/AddMassHeader.html">AddMass</a> </td>
+<td class="bio"> Add mass properties. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/IC623X3Header.html">IC623X3</a> </td>
+<td class="bio"> Convert an inertia matrix from a 1x6 to a 3x3 format. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/InertiasHeader.html">Inertias</a> </td>
+<td class="bio"> Computes inertias of common objects about their c.m. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/MassStructureHeader.html">MassStructure</a> </td>
+<td class="bio"> Create a mass data structure. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/VolumesHeader.html">Volumes</a> </td>
+<td class="bio"> Computes volumes of common objects about their c.m. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Materials"></a>Materials</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/GasPropertiesHeader.html">GasProperties</a> </td>
+<td class="bio"> Returns gas properties. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Plugins"></a>Plugins</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/HierarchicalListPlugInHeader.html">HierarchicalListPlugIn</a> </td>
+<td class="bio"> Create and manages a hierarchical list. Each element of the list is </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Quaternion"></a>Quaternion</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/AU2QHeader.html">AU2Q</a> </td>
+<td class="bio"> Convert an angle and a unit vector to a quaternion. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/AnimQHeader.html">AnimQ</a> </td>
+<td class="bio"> Animate the evolution of a quaternion over time. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Mat2QHeader.html">Mat2Q</a> </td>
+<td class="bio"> Converts a transformation matrix to a quaternion. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Q2AUHeader.html">Q2AU</a> </td>
+<td class="bio"> Convert a quaternion to an angle and a unit vector. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Q2EulHeader.html">Q2Eul</a> </td>
+<td class="bio"> Converts a quaternion to 3-2-1 Euler angles. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Q2MatHeader.html">Q2Mat</a> </td>
+<td class="bio"> Converts a quaternion to a transformation matrix. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/QFormHeader.html">QForm</a> </td>
+<td class="bio"> Transforms a vector in the direction of the quaternion. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/QMultHeader.html">QMult</a> </td>
+<td class="bio"> Multiply two quaternions. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/QPoseHeader.html">QPose</a> </td>
+<td class="bio"> Transpose of a quaternion. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/QRandHeader.html">QRand</a> </td>
+<td class="bio"> Generates a random quaternion. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/QTFormHeader.html">QTForm</a> </td>
+<td class="bio"> Transforms a vector opposite the direction of the quaternion. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/QUnitHeader.html">QUnit</a> </td>
+<td class="bio"> Unitizes a quaternion. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/QZeroHeader.html">QZero</a> </td>
+<td class="bio"> Outputs the zero quaternion, [1;0;0;0] </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/U2QHeader.html">U2Q</a> </td>
+<td class="bio"> Finds the quaternion that aligns a unit vector with a second vector. </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Time"></a>Time</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/DTAToDTSHeader.html">DTAToDTS</a> </td>
+<td class="bio"> Converts the date time array to the date time structure </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/DTSToDTAHeader.html">DTSToDTA</a> </td>
+<td class="bio"> Converts the date time structure to the date time array </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Date2DNHeader.html">Date2DN</a> </td>
+<td class="bio"> Compute the day number from the date. Uses the format from clock. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Date2JDHeader.html">Date2JD</a> </td>
+<td class="bio"> Compute the Julian Date from the date. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/JD2000Header.html">JD2000</a> </td>
+<td class="bio"> Returns the Julian Date for J2000.0 0d 0h UT </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/JD2ArrayHeader.html">JD2Array</a> </td>
+<td class="bio"> Compute an array of Julian dates from an epoch. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/JD2DNHeader.html">JD2DN</a> </td>
+<td class="bio"> Compute the day number from Julian date. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/JD2DateHeader.html">JD2Date</a> </td>
+<td class="bio"> Compute the calendar date from the Julian date. Uses the format </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/JD2THeader.html">JD2T</a> </td>
+<td class="bio"> Converts Julian days to centuries from J2000.0 </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/JDToDateStringHeader.html">JDToDateString</a> </td>
+<td class="bio"> Convert Julian Date to the form '04/20/2000 00:00:00' </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/JDToMidnightHeader.html">JDToMidnight</a> </td>
+<td class="bio"> Converts a Julian date to the nearest midnight. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/SecToStringHeader.html">SecToString</a> </td>
+<td class="bio"> Convert seconds to days hours/min/seconds and produces a string. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/T2JDHeader.html">T2JD</a> </td>
+<td class="bio"> Converts Julian centuries from J2000.0 to days </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+
+<h3><a name="Transform"></a>Transform</h3>
+<table border="0" cellpadding="2" width="100%">
+<tr><td class="link" width="200"><a href="CommonHeaders/AltitudeHeader.html">Altitude</a> </td>
+<td class="bio"> Computes the altitude above an ellipsoidal planet. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Eul2QHeader.html">Eul2Q</a> </td>
+<td class="bio"> Converts 3-2-1 Euler angles to a quaternion </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/Mat2EulHeader.html">Mat2Eul</a> </td>
+<td class="bio"> Converts an orthonormal transformation matrix into 3-2-1 Euler angles. </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/RPhiTheta2CartHeader.html">RPhiTheta2Cart</a> </td>
+<td class="bio"> Computes the transformation matrix from an r, phi, theta frame </td></tr>
+<tr><td class="link" width="200"><a href="CommonHeaders/RotMatHeader.html">RotMat</a> </td>
+<td class="bio"> Generates a rotation matrix that transforms in the opposite direction </td></tr>
+</table>
+<br><a href="#top">Back To Top</a><br>
+<hr>
+<p> SVN Revision: 52464 </p><hr>
+<p> <a href="cst_api.php">Back</a> to API main page</p></div></body></html>

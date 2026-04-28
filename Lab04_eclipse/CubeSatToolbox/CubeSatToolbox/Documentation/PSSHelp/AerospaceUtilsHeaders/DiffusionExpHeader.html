@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>DiffusionExp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>DiffusionExp:</h2>
+<p>Path: AerospaceUtils/AtmosphericCalculations</p>
+<pre>
+% Computes the diffusion exponent.
+--------------------------------------------------------------------------
+   Form:
+   x = DiffusionExp( z, tX, t90, tE )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   z          (1,1)   Height
+   tX         (1,1)   Inflection point temperature (deg-K at altitude = 125 km)
+   t90        (1,1)   Assumed temperature at 90km altitude (deg-K)
+   tE         (1,1)   Exospheric temperature (deg-K) 
+   
+   -------
+   Outputs
+   -------
+   x          (1,1)   Diffusion Exponent
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

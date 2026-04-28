@@ -99,6 +99,7 @@ Source: public Busek BIT-3 product page.
 | System dry mass | 1.40 kg with gimbal |
 | Delta-V statement | up to 2.39 km/s for a 14 kg CubeSat |
 | Propellant note | iodine-compatible RF ion system |
+| Volume | 1.6 U |
 
 Inputs available directly to the formulation:
 
@@ -189,12 +190,15 @@ If the midpoint rule is used for ranged specs, the first fixed-thruster model ca
 | `F_thr` | 0.7 mN |
 | `P_thr` | 50 W |
 | `Isp_thr` | 2400 s |
-| `M_prop_sys` | 1.7 kg total wet package, pending final bookkeeping convention |
+| `M_prop_sys` | approximately 1.296 kg inferred hardware mass |
 | `V_prop_sys` | 1.5U |
 | `I_tot_max` | 9500 N s |
+| `M_prop,max` | approximately 0.404 kg inferred propellant capacity |
 
-Open bookkeeping item:
+Current bookkeeping convention:
 
-- Because the published NPT30 mass is total wet mass, the project must decide whether the mission propellant mass computed from the rocket equation is already embedded in the 1.7 kg package, or whether the 1.7 kg figure should be decomposed into hardware mass plus carried propellant for optimizer consistency.
+- The published 1.7 kg wet package mass is decomposed into an inferred hardware mass and an inferred propellant-capacity term for optimizer bookkeeping consistency.
+- Mission propellant required by the rocket equation is carried explicitly in the total wet mass budget.
+- The gradual change in total spacecraft mass during the mission is neglected in the first formulation because the required station-keeping propellant is extremely small relative to total wet mass.
 
-Until a better split is available, that 1.7 kg number should be treated explicitly as a simplifying assumption rather than as a precise dry-mass value.
+This inferred hardware split should still be treated as a modeling assumption rather than as a vendor-certified dry-mass value.

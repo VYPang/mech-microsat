@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>AGravity</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>AGravity:</h2>
+<p>Path: Orbit/OrbitMechanics</p>
+<pre>
+% Compute the gravitational acceleration in spherical coordinates. 
+ Acceleration vectors are a [ a(r), a(lambda), a(theta) ].
+ The coefficients should be unnormalized. If they are not the function will
+ throw a warning and unnormalize them.
+
+   [s, c, j, mu, a] = LoadGEM( 1 )
+
+   for k = 1:kMax
+     [a, aS, aZ, aT] = AGravity( nZ, nT, r, lambda, theta, s, c, j, mu, a );
+   end
+
+   than
+
+   for k = 1:kMax
+     [a, aS, aZ, aT] = AGravity( nZ, nT, r, lambda, theta );
+   end
+
+--------------------------------------------------------------------------
+   Form:
+   [aG, aS, aZ, aT] = AGravity( nZ, nT, r, lambda, theta, d )
+   [aG, aS, aZ, aT] = AGravity( nZ, nT, r, lambda, theta, s, c, j, mu, a )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   nZ                   Highest zonal harmonic (m = 0) (empty gives the max #) 
+   nT                   Highest sectorial and tesseral harmonic (empty gives the max #) 
+   r                    Radius
+   lambda               Equatorial angle
+   theta                Angle from pole
+   d            (.)     Gravity model struct
+      -or-
+   s           (:,:)    S terms
+   c           (:,:)    C terms
+   j              (:)   m = 0 terms
+   mu                   Spherical gravitational potential
+   a                    Earth radius
+
+   -------
+   Outputs
+   -------
+   aG           (3,1)   Total gravitational acceleration km/sec^2
+   aS           (3,1)   Spherical term                   km/sec^2
+   aZ           (3,1)   Zonal term                       km/sec^2
+   aT           (3,1)   Tesseral term                    km/sec^2
+
+--------------------------------------------------------------------------
+   See also AGravityC, PDAL, SCHarm
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Mesh2Header.html">Common: Graphics/Mesh2</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/PDALHeader.html">Math: Analysis/PDAL</a>
+<a href="../MathHeaders/SCHarmHeader.html">Math: Analysis/SCHarm</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/FactorlHeader.html">Math: Linear/Factorl</a>
+<a href="../OrbitHeaders/LoadGEMHeader.html">Orbit: GravityModels/LoadGEM</a>
+<a href="../OrbitHeaders/NormalizationMatrixHeader.html">Orbit: GravityModels/NormalizationMatrix</a>
+<a href="../OrbitHeaders/UnnormalizeGravityHeader.html">Orbit: GravityModels/UnnormalizeGravity</a>
+<a href="../SCHeaders/GEMT1Header.html">SC: SCMat/GEMT1</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

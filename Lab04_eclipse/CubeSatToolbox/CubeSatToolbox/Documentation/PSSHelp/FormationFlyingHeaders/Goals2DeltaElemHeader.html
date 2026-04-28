@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Goals2DeltaElem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Goals2DeltaElem:</h2>
+<p>Path: FormationFlying/Transformation</p>
+<pre>
+% Computes the desired orbital element differences, given the formation flying 
+   "goals" and the measured orbital elements.
+
+   Since version 7.
+--------------------------------------------------------------------------
+   Form:
+   dEl = Goals2DeltaElem( el0, goals, J2 );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   el0             (1,6)     Measured orbital elements (Alfriend format) [a,theta,i,q1,q2,W]
+   goals            (.)      Geometric goals data structure with following fields:
+     - y0          (1,:)        along-track offset                             [km]
+     - aE          (1,:)        semi-major axis of relative ellipse            [km]
+     - beta0       (1,:)        angle on ellipse at perigee                   [rad]
+     - zInc        (1,:)        cross-track amplitude due to inclination diff  [km]
+     - zLan        (1,:)        cross-track amplitude due to right ascen diff  [km]
+   J2               (1)      Size of the J2 perturbation (default 0)
+
+   -------
+   Outputs
+   -------
+   dEl   (:,6)     desired orbital element differences
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../FormationFlyingHeaders/Goals2HillsHeader.html">FormationFlying: Transformation/Goals2Hills</a>
+<a href="../FormationFlyingHeaders/Hills2DeltaElemHeader.html">FormationFlying: Transformation/Hills2DeltaElem</a>
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

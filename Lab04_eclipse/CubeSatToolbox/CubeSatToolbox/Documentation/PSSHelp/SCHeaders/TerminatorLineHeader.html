@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>TerminatorLine</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>TerminatorLine:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Compute the terminator line on the Earth that defines day/night. 
+
+   Since version 8.
+--------------------------------------------------------------------------
+   Form:
+   [termLat,long] = Terminator( jD );
+   [termLat,long] = Terminator( jD, n );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jD          (1,1) Julian date
+   n           (1,1) Number of points to use for the line. Optional.
+
+   -------
+   Outputs
+   -------
+   termLat     (1,n) Terminal latitudes (deg)
+   long        (1,n) Longitude from -180 to 180 (deg)
+   sunLatLon   (2,1) Latitude and longitude of normal vector to sun (deg)
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/CoordinateTransformHeader.html">AerospaceUtils: Coord/CoordinateTransform</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2DateHeader.html">Common: Time/JD2Date</a>
+<a href="../CommonHeaders/JDToDateStringHeader.html">Common: Time/JDToDateString</a>
+<a href="../SCHeaders/SunV1Header.html">SC: Ephem/SunV1</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

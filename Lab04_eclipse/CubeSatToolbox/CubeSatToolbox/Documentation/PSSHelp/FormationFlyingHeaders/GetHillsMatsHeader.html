@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>GetHillsMats</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GetHillsMats:</h2>
+<p>Path: FormationFlying/Coord</p>
+<pre>
+% Get Hills transformation matrices
+ This function takes the position and velocity of a satellite in the ECI
+ frame, and returns the A and Adot matrices used for transformation to the
+ Hills frame. They are used in the following equations:
+
+   rH = A*(r1-r0);
+   vH = A*(v1-v0) + Adot*(r1-r0);
+
+--------------------------------------------------------------------------
+   Form:
+   [A, Adot] = GetHillsMats( r0, v0 )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r0      (3,1)   Position ECI frame
+   v0      (3,1)   Velocity ECI frame
+
+   -------
+   Outputs
+   -------
+   A       (3,3)   Rotation matrix (position)
+   Adot	(3,3)   Rotation matrix (velocity)
+                   Equal to -Cross( OrbRate(Mag(r0), A )
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+<a href="../SCHeaders/RV2ElHeader.html">SC: BasicOrbit/RV2El</a>
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

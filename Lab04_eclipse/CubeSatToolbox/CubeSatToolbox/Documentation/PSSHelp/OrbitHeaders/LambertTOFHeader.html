@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>LambertTOF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LambertTOF:</h2>
+<p>Path: Orbit/OrbitMechanics</p>
+<pre>
+% Solves the Lambert time of flight problem using Battin's method.
+
+   Type LambertTOF for a demo
+
+--------------------------------------------------------------------------
+   Form:
+   [vT, a, p, tol] = LambertTOF( r1, r2, dT, orbitType, mu, tol, maxIter )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   r1            (3,1)   Initial position vector
+   r2            (3,1)   Final position vector
+   dT            (1,1)   Time between position 2 and 1 (s)
+   orbitType     (1,:)   'direct' (1) or 'retrograde' (-1)*
+   mu            (1,1)   Gravitational parameter*
+   tol           (1,1)   Desired tolerance [1e-10]*
+   maxIter       (1,1)   Maximum number of iterations [20]*
+                           * optional
+
+   -------
+   Outputs
+   -------
+   vT            (3,2)    Transfer velocity at beginning and end of 
+                          the transfer ellipse
+   a             (1,1)    Semi-major axis of the trajectory
+   p             (1,1)    The parameter for the orbit
+   tol           (1,1)    Achieved tolerance
+
+--------------------------------------------------------------------------
+   Reference:	Battin, R. H. "An Introduction to the Mathematics and Methods
+               of Astrodynamics", AIAA Education Series.
+               Vallado, D. A. Fundamentals of Astrodynamics and Applications.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

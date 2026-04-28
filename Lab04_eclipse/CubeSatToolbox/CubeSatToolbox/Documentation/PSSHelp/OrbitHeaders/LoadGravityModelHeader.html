@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>LoadGravityModel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LoadGravityModel:</h2>
+<p>Path: Orbit/GravityModels</p>
+<pre>
+% Load a spherical harmonic gravity model (.geo) from GSFC/U. of Texas at Austin.
+ The coefficients returned from this file are normalized by default. Pass true
+ for the last argument to unnormalize them.
+
+ This routine works with GEMT1, JGM2 and JGM3. JGM3 is the most accurate
+ earth gravitational model currently available. JGM2 is used by Vallado
+ in his book. GEMT1 is also available within the toolbox by typing
+ LoadGEM. The gravity files all have the suffix '.geo'.
+
+ NOTE
+ ----
+ All these models are publicly available, however, the proper
+ authorizations to obtain the GEM-*, JGM-1, and JGM-2 models
+ should be directed to NASA/GSFC (Steve Klosko, internet:
+ klosko@ccmail.stx.com (Steve Klosko)).  The request for other models
+ should be directed to UT/CSR (shum@csr.utexas.edu).
+
+--------------------------------------------------------------------------
+   Form:
+   gravityModel = LoadGravityModel( action, fileName, normalized )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action          (1,:) 'get url' or 'load file'
+   fileName        (1,:) fileName
+   isNormalized    (1,1) flag whether to output normalized (default) or not
+
+   -------
+   Outputs
+   -------
+   gravityModel    (1,1) Data structure
+                         .name (1,:) Model name
+                         .mu   (1,1) Gravitational constant (km^3/sec^2)
+                         .a    (1,1) Model earth radius (km)
+                         .c    (n,n) Cosine coefficients
+                         .s    (n,n) Sine coefficients
+                         .j    (1,n) Zonal harmonics
+                         .isNormalized (1,1)   Boolean
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/FactorlHeader.html">Math: Linear/Factorl</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

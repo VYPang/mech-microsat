@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>SLR</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SLR:</h2>
+<p>Path: Orbit/OrbitCoord</p>
+<pre>
+% Computes the semi-latus rectum.
+
+--------------------------------------------------------------------------
+   Form:
+   p = SLR( e, a )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   e                     Eccentricity
+   a                     Semi major axis (or perigee radius for parabola)
+
+   -------
+   Outputs
+   -------
+   p                     Semi-latus rectum
+
+--------------------------------------------------------------------------
+   References:   Bates, R.B. Fundamentals of Astrodynamics, pp. 28,34.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Mesh2Header.html">Common: Graphics/Mesh2</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

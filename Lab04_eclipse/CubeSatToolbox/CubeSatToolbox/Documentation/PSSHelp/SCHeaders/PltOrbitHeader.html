@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>PltOrbit</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PltOrbit:</h2>
+<p>Path: SC/Visualization</p>
+<pre>
+% Plots one orbit and the sun vector looking down on the ECI Plane.
+   The input is a set of Kepler elements and a Julian date. It also plots 
+   the line of nodes and the line between apogee and perigee, and, 
+   optionally, a spin axis located at the beginning of the orbit.
+
+   Specify a planet name to use SunVectorECI instead of SunV1.
+
+   Has two built-in demos, one for an Earth orbit and one for Mars.
+
+--------------------------------------------------------------------------
+   Form:
+   h = PltOrbit( el, jD, uSpin, planet )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   el            (1,6)   Orbital elements [a i W w e M]
+   jD            (1,1)   Julian date
+   uSpin         (3,1)   Spin axis (optional)
+   planet        (1,:)   Planet name (optional)
+
+   -------
+   Outputs           
+   -------
+   h             (1,1)   Figure handle
+
+--------------------------------------------------------------------------
+   See also: SunV1, SunVectorECI, PlotPlanet, AxesCart, Axis3D
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/ConstantHeader.html">Common: Database/Constant</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/AxesCartHeader.html">Common: Graphics/AxesCart</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/El2RVHeader.html">SC: BasicOrbit/El2RV</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/SunV1Header.html">SC: Ephem/SunV1</a>
+<a href="../SCHeaders/SunVectorECIHeader.html">SC: Ephem/SunVectorECI</a>
+<a href="../SCHeaders/PlotPlanetHeader.html">SC: Visualization/PlotPlanet</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

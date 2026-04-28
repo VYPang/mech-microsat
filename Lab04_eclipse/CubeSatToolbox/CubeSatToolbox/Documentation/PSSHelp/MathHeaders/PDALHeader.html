@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>PDAL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PDAL:</h2>
+<p>Path: Math/Analysis</p>
+<pre>
+% Generates Associated Legendre Functions of the first kind and derivatives
+   
+ The first index is n and the second is m
+ Input is limited to -1?x?1
+
+--------------------------------------------------------------------------
+   Form:
+   [p, pD] = PDAL( nMax, mMax, x, xD )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   nMax               Max value of first index
+   mMax               Max value of second index
+   x                  Argument
+   xD                 Derivative of the argument
+
+   -------
+   Outputs
+   -------
+   p                  associated Legendre functions
+   pD                 derivative of the associated Legendre functions
+
+--------------------------------------------------------------------------
+   References: Spiegel, M.,R., Mathematical Handbook, McGraw-Hill
+                pp 146-150 
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../MathFunctions.html">Back</a> to the Math Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

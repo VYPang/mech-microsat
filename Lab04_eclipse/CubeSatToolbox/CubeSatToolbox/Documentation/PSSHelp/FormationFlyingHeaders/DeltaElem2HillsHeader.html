@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>DeltaElem2Hills</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>DeltaElem2Hills:</h2>
+<p>Path: FormationFlying/Transformation</p>
+<pre>
+% Computes the Hills frame state from orbital element differences and 
+   reference orbital elements.
+--------------------------------------------------------------------------
+   Usage:
+   [xH,m] = DeltaElem2Hills( el0, dEl, J2 );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   el0           (1,6)  reference orbital elements:    [a,th,i,q1,q2,W]
+   dEl           (:,6)  orbital element differences:   [a,th,i,q1,q2,W]
+   J2             (1)   size of the J2 perturbation
+
+   -------
+   Outputs
+   -------
+   xH            (6,:)  relative position and velocity in Hills frame [km; km/s]
+   m             (6,6)  transformation matrix 
+   
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../FormationFlyingHeaders/Hills2DeltaElemHeader.html">FormationFlying: Transformation/Hills2DeltaElem</a>
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

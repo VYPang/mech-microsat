@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Watermark</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Watermark:</h2>
+<p>Path: Common/General</p>
+<pre>
+% Add a watermark to a figure. 
+ This function creates two axes, one for the image and one for the text. 
+ Calling it BEFORE plotting can cause unexpected results. It will reset 
+ the current axes after adding the watermark. The default position is
+ the lower left corner, (2,2).
+
+ Leaving out the color input will cause the logo to use the color of the
+ figure for the background. You can set a default color to a persistent
+ variable using the second form; clear the function to reset it.
+--------------------------------------------------------------------------
+   Form:
+   Watermark( string, fig, pos, color  )
+   Watermark( color ), set a temporary background color
+   Watermark( false ), turn watermarks off
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   string     (1,:) Name, i.e. product name
+   fig        (1,1) Figure hangle
+   pos        (1,2) Coordinates, (left, bottom)
+   color      (3,1) Background color, [R G B]
+
+   -------
+   Outputs
+   -------
+   none
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

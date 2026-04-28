@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>IC623X3</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>IC623X3:</h2>
+<p>Path: Common/MassProperties</p>
+<pre>
+% Convert an inertia matrix from a 1x6 to a 3x3 format.
+ The original form  is 
+
+ [Ixx Iyy Izz Ixy Ixz Iyz]
+
+ to 
+
+ [Ixx Ixy Ixz
+ Ixy Iyy Iyz
+ Ixz Iyz Izz]
+
+--------------------------------------------------------------------------
+   Form:
+   y = IC623X3( x )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x           (1,6)     [Ixx Iyy Izz Ixy Ixz Iyz]
+
+   -------
+   Outputs
+   -------
+   y           (3,3)     Inertia matrix
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

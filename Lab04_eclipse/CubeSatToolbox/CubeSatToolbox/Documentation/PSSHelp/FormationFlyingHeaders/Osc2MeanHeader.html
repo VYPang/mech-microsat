@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>Osc2Mean</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Osc2Mean:</h2>
+<p>Path: FormationFlying/Transformation</p>
+<pre>
+% Transforms osculating orbital elements to mean orbital elements.
+
+--------------------------------------------------------------------------
+   Form:
+   el_mean = Osc2Mean(el_osc,J2);
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   el_osc           (1,6)    osculating orbital elements
+   J2               (1,1)    Magnitude of J2 term
+
+   -------
+   Outputs
+   -------
+   el_mean          (1,6)    mean orbital elements
+
+--------------------------------------------------------------------------
+  References:  Terry Alfriend, Texas A&M University
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

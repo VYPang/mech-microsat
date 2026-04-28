@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>RSHMoon</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RSHMoon:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Generates a topographic map of the moon using spherical harmonics. 
+
+   Type RSHMoon for a demo.
+
+   This uses Clementine data. The highest harmonic is 72. 
+
+   If s and c are not entered it will load the lunar surface coefficients
+   each time is called. You can load the coefficients yourself using
+
+     [s,c] = LoadLunarTopography( nH );
+
+   Since version 2.
+--------------------------------------------------------------------------
+   Form:
+   [r, lambda, theta] = RSHMoon( nH, lambda, theta, s, c )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   nH            (1,1)  Highest harmonic 
+   lambda        (j)    Equatorial angle
+   theta         (i)    Angle from pole
+   s             (:,:)  Normalized sine coefficients
+   c             (:,:)  Normalized cosine coefficients
+
+   -------
+   Outputs
+   -------
+   r             (i,j)  Radius
+   lambda        (j)    Equatorial angle
+   theta         (i)    Angle from pole
+
+--------------------------------------------------------------------------
+   Reference: Smith, D. E., Zuber, M. T., Neumann, G. A., "Topography of the
+              Moon from the Clementine lidar", Journal of Geophysical
+              Research, Vol. 102, No. E1, pp. 1591-1611, January 25, 1997.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Mesh2Header.html">Common: Graphics/Mesh2</a>
+<a href="../MathHeaders/PALHeader.html">Math: Analysis/PAL</a>
+<a href="../MathHeaders/SCHarmHeader.html">Math: Analysis/SCHarm</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../SCHeaders/LoadLunarTopographyHeader.html">SC: Ephem/LoadLunarTopography</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

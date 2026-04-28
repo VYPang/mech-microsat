@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>ENUToECEF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ENUToECEF:</h2>
+<p>Path: Orbit/OrbitCoord</p>
+<pre>
+% Compute the transformation matrix that rotates ENU to ECEF coordinates.
+   ENU is East-North-Up. Assumes spherical Earth.
+
+   Since version 8.
+--------------------------------------------------------------------------
+   Form:
+   T = ENUToECEF( lat, lon )
+   T = ENUToECEF( r )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   lat         (1,1)   Latitude (rad)
+   lon         (1,1)   Longitude (rad)
+         OR
+   r           (3,1)   Earth fixed position  
+
+   -------
+   Outputs
+   -------
+   T           (3,3)   ENU to ECEF rotation matrix
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

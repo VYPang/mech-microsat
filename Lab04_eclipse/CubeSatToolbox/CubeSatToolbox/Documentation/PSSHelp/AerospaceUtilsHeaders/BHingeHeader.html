@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>BHinge</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>BHinge:</h2>
+<p>Path: AerospaceUtils/CAD</p>
+<pre>
+% Compute a transformation matrix from a bHinge data structure.
+ There are four possiblities: 
+
+   1) You can just input a transformation matrix by entering only the b field. 
+   2) You can input a quaternion by just entering the q field. This supercedes
+      a b field.
+   3) You can input an angle and axis of rotation (1=x,2=y,3=z).
+      If no axis is specified, the rotation will be about the positive z-axis.
+      This supercedes a quaternion.
+   4) If you enter the angle field and the b field, the output transformation 
+      matrix will be the total rotation first through the angle about 
+      the specified axis followed by rotation through the initial b matrix. 
+      If no axis is specified, the rotation will be about the positive z-axis.
+
+ They are executed in 
+--------------------------------------------------------------------------
+   Form:
+   b = BHinge( bHinge )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+
+   bHinge  (.)
+                 .b     (3,3) Transformation matrix
+                 .q     (4,1) Quaternion
+                 .angle (1,1) Angle of rotation (radians)
+                 .axis  (1,1) Axis of rotation 1=x, 2=y, 3=z (default)
+                               Positive integer means transform from
+                               unrotated to rotated, negative means reverse
+                               or
+                        (3,1) Axis of rotation - see AUToQ
+
+   -------
+   Outputs
+   -------
+   b            (3,3)  Rotation matrix
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/IsValidFieldHeader.html">Common: General/IsValidField</a>
+<a href="../CommonHeaders/AU2QHeader.html">Common: Quaternion/AU2Q</a>
+<a href="../CommonHeaders/Q2MatHeader.html">Common: Quaternion/Q2Mat</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

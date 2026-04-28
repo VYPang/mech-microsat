@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>FOrbCart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>FOrbCart:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Computes the right-hand-side of the orbit equations about a mass point.
+   Only the first input is required.
+--------------------------------------------------------------------------
+   Form:
+   xDot = FOrbCart( x, t, a, mu )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x            (6,1)     The state vector [r;v]
+   t            (1,1)     Time (unused)
+   a            (3,1)     External acceleration (default is zero)
+   mu           (1,1)     Gravitational parameter (default is Earth)
+
+   -------
+   Outputs
+   -------
+   xDot         (6,1)     The derivative of the state vector
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

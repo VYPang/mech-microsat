@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>StructToText</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>StructToText:</h2>
+<p>Path: Common/General</p>
+<pre>
+% Write data structure to a text file or command line display. 
+ The fields will be printed in order with the space-separated data starting
+ on the next line, as in:
+
+     mass:
+     1.0
+
+ Matrices are prepended with the size in rows and columns.
+
+     az (1,8):
+     0 0.785398 1.5708 2.35619 3.14159 3.92699 4.71239 5.49779 
+
+ Small column vectors will be displayed as a transpose to save vertical
+ space. This function gracefully displays function handles, cell arrays,
+ strings, and matrices. For all other object types, disp is called.
+
+ Passing in a 1 for textFileName will print the text to the command
+ line, and this is the default behavior if no file name or fid is entered.
+-------------------------------------------------------------------------------
+   Form:
+   StructToText( data, textFileName )
+   StructToText( data, fid )
+-------------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   data             (.)   Data structure
+   textFileName     (:)   Name of text file to write to, or fid
+
+   -------
+   Outputs
+   -------
+   none
+
+-------------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

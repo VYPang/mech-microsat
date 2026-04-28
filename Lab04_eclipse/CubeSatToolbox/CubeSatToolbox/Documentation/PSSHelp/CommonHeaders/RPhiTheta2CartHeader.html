@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>RPhiTheta2Cart</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RPhiTheta2Cart:</h2>
+<p>Path: Common/Transform</p>
+<pre>
+% Computes the transformation matrix from an r, phi, theta frame
+   to a standard cartesian frame. In an RPT frame, r is the radial
+   direction, phi is 'east', and theta is in the direction of
+   co-elevation. When theta is zero the r vector is in the xy-plane.
+--------------------------------------------------------------------------
+   Form: 
+   cRPT2Cart = RPhiTheta2Cart(r)
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   position    (3,1)  Position in cartesian coordinates. 
+
+   -------
+   Outputs
+   -------
+   cRPT2Cart   (3,3)  The transformation matrix
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

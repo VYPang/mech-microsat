@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="generator" content="MATLAB 7.10">
+<meta name="date" content="2014-07-01">
+<meta name="m-file" content="Version2014">
+<title>CubeSat Release Notes</title>
+<style type="text/css">
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+</style>
+</head>
+<body>
+<div class="content">
+<h1></h1>
+<!--INTRODUCTION-->
+<p>
+<table width="600" border="0"><tr>
+<td width=50%><font size="5" color="990000"><b>Release Notes</b></font></td>
+<td width=50%><img src="images/PSSLogo.jpg"></td>
+</tr></table>
+<br></p>
+<!--CONTENTS-->
+<h2>Contents</h2>
+<div><ul>
+<li><a href="#1">Magnetic Damping</a></li>
+<li><a href="#2">Ground Tracks</a></li>
+<li><a href="#5">Change List</a></li>
+</ul></div>
+
+<h2>Magnetic Damping<a name="1"></a></h2>
+<p>CubeSats have caused a renewed interested in magnetic control of satellites, and passive hysteresis damping in particular. This technology was invented in the 1960’s before active computer control became practical.</p>
+<p>Modeling actual hysteresis rods on a satellite is not trivial, and generally requires empirical data on the properties of the damper rods. Our newest CubeSat functions accurately simulate damping using rods in any orbit. Combinations of permanent magnets and damping rods can be modeled and simulated to demonstrate the performance of magnetic control systems.  
+Since the rods produce only a small amount of damping per orbit, simulations lasting several days are required to see significant damping – in some passive satellites, the total time allotted for stabilization is two months! The toolbox includes a magnetic hystersis analysis demo and a demo that allows you to compare ideal damping with actual hysteresis rods. 
+</p>
+<p><center>
+<img width=350 src="images/MagneticHysteresisOrbit.png">
+<img width=350 src="images/SpacecraftWithDamping.png">
+</center></p>
+
+<h2>Ground Tracks<a name="2"></a></h2>
+<p>The ground track visualization can automatically convert ECI coordinates to Earth-Fixed using ECIToEF.m.</p>
+<p><center>
+<img width=500 src="images/GroundTrack.png">
+</center></p>
+
+<h2>Change List<a name="5"></a></h2>
+
+<h3>Version 2020.1</h3>
+<a href='../CubeSatHeaders/CubeSatLunarEnvironmentHeader.html'> CubeSat/Simulation/CubeSatLunarEnvironment.m</a><br>
+<a href='../CubeSatHeaders/RHSLunarMission.html'> CubeSat/Simulation/RHSLunarMission.m</a><br>
+<a href='../CubeSatHeaders/CubeSatLunarMission.html'> CubeSat/Demos/Simulation/CubeSatLunarMission.m</a><br>
+<a href='../CubeSatHeaders/NanoSatSimulationHeader.html'> CubeSat/Demos/AttitudeControl/NanoSatSimulation.m</a><br>
+<a href='../CubeSatHeaders/NanoSatNearISSHeader.html'> CubeSat/Demos/MissionPlanning/NanoSatNearISS.m</a><br>
+<a href='../CubeSatHeaders/CubeSatPowerDemoHeader.html'> CubeSat/Demos/Power/CubeSatPowerDemo.m</a><br>
+
+<h3>Version 2019.1</h3>
+<a href='../CubeSatHeaders/CubeSatFaceTemperaturesDemoHeader.html'> CubeSat/Demos/Thermal/CubeSatFaceTemperaturesDemo.m</a><br>
+<a href='../CubeSatHeaders/AddThermalConductivityHeader.html'> CubeSat/Thermal/AddThermalConductivity.m</a><br>
+
+<h3>Version 2018.1</h3>
+<a href='../CubeSatHeaders/DisturbancesDemoHeader.html'> CubeSat/Demos/AttitudeControl/DisturbancesDemo.m</a><br>
+<a href='../CubeSatHeaders/DisturbancesSolarWingsHeader.html'> CubeSat/Demos/AttitudeControl/DisturbancesSolarWings.m</a><br>
+<a href='../CubeSatHeaders/CubeSatTiltedWingsHeader.html'> CubeSat/Demos/Design/CubeSatTiltedWings.m</a><br>
+<a href='../CubeSatHeaders/CubeSatPowerAnalysisHeader.html'> CubeSat/Power/CubeSatPowerAnalysis.m</a><br>
+<a href='../CubeSatHeaders/DrawSpacecraftStructHeader.html'> CubeSat/Visualization/DrawSpacecraftStruct.m</a><br>
+
+<h3>Version 2016.1</h3>
+<p>The following files were added to CubeSat for 2016.1.</p>
+<a href='../CubeSatHeaders/DrawCubeSatHeader.html'>CubeSat/Visualization/DrawCubeSat.m</a><br>
+<a href='../CubeSatHeaders/DrawCubeSatSolarAreasHeader.html'>CubeSat/Visualization/DrawCubeSatSolarAreas.m</a><br>
+<a href='../CubeSatHeaders/CubeSatEnvironmentHeader.html'>CubeSat/Simulation/CubeSatEnvironment.m</a><br>
+<a href='../CubeSatHeaders/FOrbitMultiSpacecraftHeader.html'>CubeSat/Simulation/FOrbitMultiSpacecraft.m</a><br>
+
+<p>The LunarCube Add-On module for CubeSat was introduced in 2016.1. This provides tools for planning and simulating
+ the maneuvers to put a spacecraft into a lunar transfer orbit and then perform a lunar orbit insertion. It includes
+lunar orbit visualization including planet terrain, the JPL planetary ephemerides model, a lunar spherical harmonic model, 
+and the maneuver planning functions. The lunar targeting function requires the MathWorks' Optimization Toolbox.</p>
+
+<h3>Version 2015.1</h3>
+<p>The following is a list of functions which have been added to Version 2015.1.</p>
+<p>
+<a href='../CubeSatHeaders/RepeatingGroundTrackDemoHeader.html'>CubeSat/Demos/MissionPlanning/RepeatingGroundTrackDemo.m</a><br>
+</p>
+
+<p>The functions new to Version 2014.1.</p>
+<a href='../CubeSatHeaders/InertiaTubeSatHeader.html'>CubeSat/AttitudeControl/InertiaTubeSat.m</a><br>
+<a href='../CubeSatHeaders/MagneticHysteresisOrbitHeader.html'>CubeSat/Demos/Simulation/MagneticHysteresisOrbit.m</a><br>
+<a href='../CubeSatHeaders/RadiationDisturbanceHeader.html'>CubeSat/Demos/Simulation/RadiationDisturbance.m</a><br>
+<a href='../CubeSatHeaders/SpacecraftWithDampingHeader.html'>CubeSat/Demos/Simulation/SpacecraftWithDamping.m</a><br>
+<a href='../CubeSatHeaders/TubeSatSimulationHeader.html'>CubeSat/Demos/Simulation/TubeSatSimulation.m</a><br>
+<a href='../CubeSatHeaders/IsothermalCubeSatDemoHeader.html'>CubeSat/Demos/Thermal/IsothermalCubeSatDemo.m</a><br>
+<a href='../CubeSatHeaders/TubeSatDefaultDataStructureHeader.html'>CubeSat/Simulation/TubeSatDefaultDataStructure.m</a><br>
+<a href='../CubeSatHeaders/IsothermalCubeSatSimHeader.html'>CubeSat/Thermal/IsothermalCubeSatSim.m</a><br>
+<a href='../CubeSatHeaders/RHSIsothermalCubeSatHeader.html'>CubeSat/Thermal/RHSIsothermalCubeSat.m</a><br>
+<a href='../CubeSatHeaders/TubeSatFacesHeader.html'>CubeSat/Utilities/TubeSatFaces.m</a><br>
+<a href='../CubeSatHeaders/TubeSatModelHeader.html'>CubeSat/Utilities/TubeSatModel.m</a><br>
+<a href='../CubeSatHeaders/GroundTrackHeader.html'>CubeSat/Visualization/GroundTrack.m</a><br>
+
+
+</div></body>
+</html>

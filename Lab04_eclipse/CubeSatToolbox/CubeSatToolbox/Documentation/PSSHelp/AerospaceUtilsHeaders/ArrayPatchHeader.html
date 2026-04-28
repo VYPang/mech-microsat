@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>ArrayPatch</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ArrayPatch:</h2>
+<p>Path: AerospaceUtils/ComponentModels</p>
+<pre>
+% Get vertices and faces for solar array CAD models.
+ Two sets are created, one for the front and one for the back. The array is
+ nominally in the xz-plane. Its center is at x = 0 and it goes from z = 0 to z
+ = length. The cell face normal is +Y. 
+
+ If there are no outputs the function will draw the components in a figure.
+--------------------------------------------------------------------------
+   Form:
+   [mFront, mBack] = ArrayPatch( d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d                 Data structure
+                     d.nZ          Number of segments along z
+                     d.nX          Number of segments along x
+                     d.z           Dimension of each panel in z
+                     d.x           Dimension of each panel in x
+                     d.theta(d.nX) Angle between panels along z. Sign determines
+                                   the sign of the first panel.
+                                   One element is required for each nX
+                                   If omitted will be set to zero.
+                     d.accordion   If true don't alternate angles
+                     d.dirZ        If entered gives the direction for z
+
+   -------
+   Outputs
+   -------
+   mFront            struct( 'v', 'f' )
+   mBack             struct( 'v', 'f' )
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

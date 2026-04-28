@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>StarCameraModel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>StarCameraModel:</h2>
+<p>Path: AerospaceUtils/ComponentModels</p>
+<pre>
+% Get CAD vertices and faces for various star cameras.
+ This also outputs mass and power data for the models.
+
+ Type StarCameraModel for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [v, f, d] = StarCameraModel( type, uBoresight )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   type              Type, 'astro 5' (default), 'ct633', 'ons'
+   uBoresight        Unit vector for the boresight
+
+   -------
+   Outputs
+   -------
+   v                 Vertices
+   f                 Faces
+   d                 Data
+                     .mass
+                     .power
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../ACProHeaders/HelpSystemHeader.html">ACPro: Help/HelpSystem</a>
+<a href="../AerospaceUtilsHeaders/GenericPropertiesHeader.html">AerospaceUtils: CAD/GenericProperties</a>
+<a href="../CommonHeaders/SosumiHeader.html">Common: CommonData/Sosumi</a>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/BoxHeader.html">Common: ComponentModels/Box</a>
+<a href="../CommonHeaders/FrustrumHeader.html">Common: ComponentModels/Frustrum</a>
+<a href="../CommonHeaders/MessageQueueHeader.html">Common: GUIs/MessageQueue</a>
+<a href="../CommonHeaders/CloseFigureHeader.html">Common: General/CloseFigure</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/FSWClockHeader.html">Common: General/FSWClock</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/DrawVerticesHeader.html">Common: Graphics/DrawVertices</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/IC623X3Header.html">Common: MassProperties/IC623X3</a>
+<a href="../CommonHeaders/InertiasHeader.html">Common: MassProperties/Inertias</a>
+<a href="../CommonHeaders/Q2MatHeader.html">Common: Quaternion/Q2Mat</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+<a href="../CommonHeaders/U2QHeader.html">Common: Quaternion/U2Q</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../MathHeaders/PerpendicularHeader.html">Math: Geometry/Perpendicular</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

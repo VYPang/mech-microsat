@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>SliderBar</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SliderBar:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% Create a slider in a new figure with continuous calls to callback.
+ Can optionally put the slider into an existing figure. Type SliderBar for a
+ demo.
+--------------------------------------------------------------------------
+   Form:
+   SliderBar( valMin, valMax, val0, callback, name, position, fig )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   valMin      (1,1)   Minimum value for slider bar
+   valMax      (1,1)   Maximum value for slider bar
+   val0        (1,1)   Initial value of slider
+   callback            Callback function, 1 var. Example: @(x) disp(sin(x))
+   name        (1,:)   String name for figure (optional)
+   position    (1,4)   Position information. 
+                         * If a new figure is created, this input defines 
+                         the position of the new figure in pixels on the
+                         screen. OR...
+                       	* If an existing figure is specified, this input
+                       	defines the position of the slider within the
+                       	given figure window. 
+   fig         (1,1)   Figure handle. Optional. Supply this input to put
+                       the slider inside this figure, rather than creating
+                       a new figure.
+
+   -------
+   Outputs
+   -------
+   u           (1,1)   Handle to the slider object.
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>CameraControls</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CameraControls:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% This function creates a GUI for manipulating the camera view.
+
+ Initialize by supplying an axis handle. If no input is provided it will
+ point to the current axis (gca).
+
+ This GUI does not provide direct control over the camera target.
+ Set the camera target of axes "h" to vector "v" with this command:
+   set(h,'cameratarget',v)
+ 
+ Move in/out changes the distance from the camera to the target.
+ Zoom in/out changes the view angle of the camera.
+ Adjust azimuth and elevation to change the orientation of the camera
+   while keeping the distance constant.
+
+ The azimuth and elevation angles are defined in a local xyz coordinate
+ frame. 
+
+   x: along the direction of the camera target vector. 
+   y: cross product of z and x, completes right-handed system
+   z: cross product of x and the supplied forward vector
+
+ Note that the "forward" vector is not an axis property, and so it must 
+ be supplied directly to the CameraControls GUI.
+--------------------------------------------------------------------------
+   USAGE:
+
+     % Initialize and use current axes (gca)
+     tag = CameraControls;
+
+     % Initialize with specified axes
+     tag = CameraControls( axisHandle );    
+
+     % Set the forward vector
+     CameraControls( 'set forward vector', tag, forwardVector );
+
+     % Update the view
+           CameraControls( 'update', tag );
+
+     % Update the view with a new forward vector
+     CameraControls( 'update', tag, forwardVector );    
+--------------------------------------------------------------------------
+ 
+   ------ 
+   Inputs 
+   ------ 
+   axisHandle      (1,1)   Handle to the axes for controlling the camera
+ 
+   ------- 
+   Outputs 
+   ------- 
+   tag             (1,:)   Tag to the GUI.
+  
+--------------------------------------------------------------------------
+ See also:  AnimationGUI
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/GetNewTagHeader.html">Common: General/GetNewTag</a>
+<a href="../CommonHeaders/RotMatHeader.html">Common: Transform/RotMat</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

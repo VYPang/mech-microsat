@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>OpticalSurfaceProperties</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>OpticalSurfaceProperties:</h2>
+<p>Path: SC/Disturbances</p>
+<pre>
+%   Returns optical surface properties for selected materials.
+   s is a cell array of strings. It returns a cell array of data
+   structures. For example
+
+   struct( 'sigmaT', 0, 'sigmaA', 0.00, 'sigmaD', 0.71 , 'sigmaS', 0.29 )
+
+   Available materials are found by typing OpticalSurfaceProperties
+
+   Since version 10.
+--------------------------------------------------------------------------
+   Form:
+   p = OpticalSurfaceProperties( s )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   s                 {:} Cell array of materials
+
+   -------
+   Outputs
+   -------
+   p                 (:) Data structure array
+                         .sigmaT (1,1) Transmitted
+                         .sigmaA (1,1) Absorbed
+                         .sigmaD (1,1) Diffuse reflection
+                         .sigmaS (1,1) Specular reflection
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/GenericPropertiesHeader.html">AerospaceUtils: CAD/GenericProperties</a>
+<a href="../CommonHeaders/ListCasesHeader.html">Common: General/ListCases</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

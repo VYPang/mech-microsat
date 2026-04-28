@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>RVOrbGen</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RVOrbGen:</h2>
+<p>Path: Orbit/OrbitMechanics</p>
+<pre>
+% Generate an orbit by propagating Keplerian elements. 
+ The orbit may have any eccentricity, including parabolic or hyperbolic.
+
+ If t is not entered it generate one orbit. If there are no arguments it
+ will plot the orbit. Enter rPlanet to draw a planet sphere. If the sun 
+ vector is entered as well the planet sphere will be illuminated.
+--------------------------------------------------------------------------
+   Form:
+   [r, v, t] = RVOrbGen( el, t, uSun, mu, rPlanet, tol )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   elI        (1,6) Elements vector [a,i,W,w,e,M] or structure
+   t          (1,:) Time vector (sec)
+   uSun       (3,1) Sun vector*
+   mu         (1,1) Gravitational parameter
+   rPlanet    (1,1) Planet radius*
+   tol        (1,1) Orbit propagation tolerance (1e-8)
+                    * inputs for plotting purposes only
+
+   -------
+   Outputs
+   -------
+   r          (3,:) Position vectors for times t
+   v          (3,:) Velocity vectors for times t
+   t          (1,:) Times at which r and v are calculated
+
+
+--------------------------------------------------------------------------
+   See also RVFromKepler
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/Mesh2Header.html">Common: Graphics/Mesh2</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../OrbitHeaders/SLRHeader.html">Orbit: OrbitCoord/SLR</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/M2EHeader.html">SC: BasicOrbit/M2E</a>
+<a href="../SCHeaders/M2EAppHeader.html">SC: BasicOrbit/M2EApp</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/M2EHyHeader.html">SC: BasicOrbit/M2EHy</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

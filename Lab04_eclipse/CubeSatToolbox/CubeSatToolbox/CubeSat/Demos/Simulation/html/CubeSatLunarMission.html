@@ -1,0 +1,486 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Lunar Mission Demo</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-07-13"><meta name="DC.source" content="CubeSatLunarMission.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Lunar Mission Demo</h1><!--introduction--><p>Simulate a mission from Earth orbit to lunar orbit. The spacecraft has 3 orthogonal reaction wheels and a single delta-v thruster. The mission plan does not perform the lunar insertion burn.</p><p>It uses the default values from RHSLunarMission for a 6U CubeSat. The dimensions are 30 x 20 x 10 cm.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Constants</a></li><li><a href="#3">User inputs</a></li><li><a href="#4">Control setup</a></li><li><a href="#5">Initialize the simulation model</a></li><li><a href="#6">Run the simulation</a></li><li><a href="#7">Plot the results</a></li></ul></div><pre class="codeinput"><span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2016 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+<span class="comment">%   Since 2016.1</span>
+<span class="comment">%   2020.1 Fixed the lunar insertion burn and the lunar orbit plotting</span>
+<span class="comment">%--------------------------------------------------------------------------</span>
+</pre><h2 id="2">Constants</h2><pre class="codeinput">rMoon                       = 1738;
+dayToSec                    = 86400;
+</pre><h2 id="3">User inputs</h2><pre class="codeinput">dateEncounter               = [2016 5 10 1 30 0]; <span class="comment">% "Encounter" is passing into lunar sphere of influence</span>
+dT                          = 2;    <span class="comment">% integration time step seconds</span>
+el0                         = [7000 0 0 0 0];
+rLunarOrbit                 = 3000; <span class="comment">% km</span>
+incLunarOrbit               = 1;
+surfaceMagnificationFactor  = 10;   <span class="comment">% For lunar terrain display</span>
+timeAdded                   = 36000; <span class="comment">% sec added simulation time after intercept</span>
+useSphericalHarmonics       = 0;
+</pre><h2 id="4">Control setup</h2><pre class="codeinput"><span class="comment">% Find transfer orbit to the moon</span>
+jDEncounter   = Date2JD( dateEncounter );
+InterpolateState([],[],<span class="string">'bin2000.405'</span>);
+<span class="keyword">if</span>( HasOptimizationToolbox )
+  [x0,el,~,jD0,jDP] = LunarTargeting( jDEncounter, el0, rLunarOrbit, incLunarOrbit, [], true );
+<span class="keyword">else</span>
+  disp(<span class="string">'LunarMission: Optimization toolbox not installed; using hard-coded values.'</span>)
+  x0  = [-2.8408    6.3976         0   -0.0034    0.0099    0.0018]'*1e3;
+  el  = [-5.2588    0.0010    0.0001    0.0041    0.0016    0.0088]*1e3;
+  jD0 = 2.457514449298204e+06;
+<span class="keyword">end</span>
+
+tEnd      = (jDP-jD0)*dayToSec + timeAdded;
+
+<span class="comment">% Get the default data structure</span>
+dC        = LunarMissionControl;
+
+dC.dT     = dT;
+dC        = LunarMissionControl(<span class="string">'initialize'</span>,jD0,dC);
+dRHS      = RHSLunarMission;
+
+<span class="keyword">if</span>( useSphericalHarmonics )
+  dRHS.sphHarmMoon    = LoadSGM150( <span class="string">'SGM150.geo'</span> ); <span class="comment">%#ok&lt;*UNRCH&gt;</span>
+  dRHS.sphHarmMoon.nN = 3;
+  dRHS.sphHarmMoon.nM = 3;
+<span class="keyword">end</span>
+
+<span class="comment">% Set up the control data structure</span>
+dC.mass   = struct(<span class="string">'mass'</span>,dRHS.mass,<span class="string">'inertia'</span>,dRHS.inertia,<span class="string">'cM'</span>,dRHS.surfData.cM);
+dC.rWA    = dRHS.rWA;
+
+<span class="comment">% This command list is for an lunar orbit insertion</span>
+cList     = { jDP-1e3/dayToSec,<span class="keyword">...</span>
+                  <span class="string">'lunar orbit insertion prepare'</span>,<span class="keyword">...</span>
+                  struct(<span class="string">'thrust'</span>,20,<span class="string">'massInitial'</span>,6, <span class="string">'uE'</span>, 290*9.806,<span class="string">'body_vector'</span>,[1;0;0],<span class="string">'hLunarOrbit'</span>,200);<span class="keyword">...</span>
+                  +2,<span class="keyword">...</span>
+                  <span class="string">'align for lunar insertion'</span>,<span class="keyword">...</span>
+                  [];<span class="keyword">...</span>
+                  +1e3,<span class="keyword">...</span>
+                  <span class="string">'start main engine'</span>,<span class="keyword">...</span>
+                  struct(<span class="string">'iD'</span>,1,<span class="string">'thrust'</span>,20)};
+
+<span class="comment">% Initial state setup</span>
+qECIToBody                  = [1;0;0;0];
+omega                       = [0;0;0];  <span class="comment">% rad/s</span>
+omegaRWA                    = [0;0;0];  <span class="comment">% rad/s</span>
+accelBias                   = [0;0;0];  <span class="comment">% km/s^2</span>
+gyroBias                    = [0;0;0];  <span class="comment">% rad/s</span>
+massFuel                    = 3;        <span class="comment">% kg</span>
+</pre><pre class="codeoutput">Your initial point x0 is not between bounds lb and ub; FMINCON
+shifted x0 to strictly satisfy the bounds.
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+    0       5    1.055884e+01    4.365e+04    3.794e-03
+    1      12    1.056376e+01    4.004e+04    4.917e-03    4.157e-01
+    2      18    1.057372e+01    3.388e+04    1.746e-02    5.230e-01
+    3      23    1.058152e+01    2.375e+04    2.752e-02    5.975e-01
+    4      28    1.057247e+01    1.086e+03    4.815e-02    4.485e-01
+    5      34    1.057308e+01    8.566e+02    4.113e-02    7.109e-02
+    6      39    1.057413e+01    4.417e+02    5.429e-02    3.161e-01
+    7      44    1.057504e+01    1.233e+02    5.532e-02    2.619e-01
+    8      50    1.057980e+01    9.027e+01    6.054e-02    5.583e-01
+    9      57    1.058453e+01    6.990e+01    6.460e-02    2.839e-01
+   10      62    1.058210e+01    2.599e+01    2.468e-02    1.284e-01
+   11      68    1.057692e+01    7.241e+00    9.757e-03    4.175e-01
+   12      81    1.057558e+01    1.662e+00    3.650e-03    1.657e-01
+   13      94    1.057461e+01    1.502e+00    2.497e-03    1.579e-01
+   14     107    1.057423e+01    2.608e-01    2.066e-03    7.406e-02
+   15     120    1.057392e+01    2.451e-01    1.753e-03    7.221e-02
+   16     131    1.057366e+01    2.351e-01    1.471e-03    7.035e-02
+   17     142    1.057345e+01    2.232e-01    1.217e-03    6.854e-02
+   18     153    1.057327e+01    2.096e-01    9.918e-04    6.696e-02
+   19     164    1.057314e+01    1.947e-01    7.936e-04    6.594e-02
+   20     175    1.057303e+01    1.785e-01    6.224e-04    6.599e-02
+   21     186    1.057295e+01    1.611e-01    4.784e-04    6.781e-02
+   22     197    1.057289e+01    1.423e-01    3.614e-04    7.195e-02
+   23     208    1.057285e+01    1.222e-01    2.711e-04    7.839e-02
+   24     223    1.057282e+01    3.347e-02    2.056e-04    4.077e-02
+   25     236    1.057281e+01    3.136e-02    1.487e-04    4.251e-02
+   26     247    1.057279e+01    2.940e-02    9.999e-05    4.487e-02
+
+Optimization completed: The relative first-order optimality measure, 9.999374e-05,
+is less than options.OptimalityTolerance = 1.000000e-04, and the relative maximum constraint
+violation, 6.735951e-07, is less than options.ConstraintTolerance = 1.000000e-04.
+
+Hyperbolic Lunar Elements
+Radius of perilune      3000.03 km
+Semi major axis        -5313.26 km 
+Inclination               57.30 deg
+Longitude                  6.40 deg
+Perigee                  235.11 deg
+Eccentricity               1.56 
+Mean anomaly             496.50 deg
+Start JD               2457514.4732 day
+Transfer Time                4.0893 days
+</pre><img vspace="5" hspace="5" src="CubeSatLunarMission_01.png" alt=""> <h2 id="5">Initialize the simulation model</h2><pre class="codeinput"><span class="comment">% Initialize JPL Ephemerides to include the Sun, Earth and Moon</span>
+PlanetPosJPL( <span class="string">'initialize'</span>, [0 3 10] );
+
+nSim          = ceil(tEnd/dT);
+dRHS.jD0      = jD0;
+x             = [x0;qECIToBody;omega;massFuel;dRHS.power.batteryCapacity;<span class="keyword">...</span>
+                  accelBias;gyroBias;omegaRWA];
+
+<span class="comment">% This initializes the state and auxiliary output names</span>
+RHSLunarMission( x );
+</pre><h2 id="6">Run the simulation</h2><pre class="codeinput">t       = 0;
+xP      = zeros(length(x),nSim);
+[~, p]	= RHSLunarMission( x, t, dRHS );
+pP      = zeros(length(p.auxNames),nSim);
+
+<span class="comment">% Globals for the time tracking GUI</span>
+<span class="keyword">global</span> simulationAction
+simulationAction = <span class="string">' '</span>;
+
+<span class="keyword">for</span> k = 1:nSim
+
+  <span class="comment">% Plot storage</span>
+  [~, p]      = RHSLunarMission( x, t, dRHS );
+  q = x(7:10);
+  xP(:,k)     = x;
+  pP(:,k)     = p.aux;
+
+  <span class="comment">% The controller</span>
+  jD          = jD0 + t/dayToSec;
+  dC.rMoon    = pP(21:23,k);
+  dC.vMoon    = pP(24:26,k);
+  [dC, dRHS]	= LunarMissionControl( <span class="string">'update'</span>, jD, dC, dRHS, x, cList );
+
+  <span class="comment">% Propagate</span>
+  x           = RK4(@RHSLunarMission,x,dT,t,dRHS);
+  t           = t + dT;
+
+  <span class="keyword">switch</span> simulationAction
+    <span class="keyword">case</span> <span class="string">'pause'</span>
+      pause
+      simulationAction = <span class="string">' '</span>;
+    <span class="keyword">case</span> <span class="string">'stop'</span>
+      LunarMissionControl( <span class="string">'terminate'</span> );
+      <span class="keyword">return</span>;
+    <span class="keyword">case</span> <span class="string">'plot'</span>
+      <span class="keyword">break</span>;
+  <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+LunarMissionControl( <span class="string">'terminate'</span> );
+</pre><pre class="codeoutput">jD  2457519.03193 lunar orbit insertion prepare
+jD  2457519.03195 align for lunar insertion
+jD  2457519.04352 start main engine
+</pre><h2 id="7">Plot the results</h2><pre class="codeinput"><span class="keyword">if</span> k&lt;nSim
+  xP = xP(:,1:k);
+  pP = pP(:,1:k);
+  nSim = k;
+<span class="keyword">end</span>
+tS      = (0:nSim-1)*dT;
+jD      = jD0 + t/dayToSec; <span class="comment">% in days</span>
+
+[t,tL]	= TimeLabl(tS);
+
+<span class="comment">% Plot the states</span>
+k = 1:3;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'Position'</span>);          k = 4:6;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'Velocity'</span>);          k = 7:10;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'Quaternion'</span>);        k = 11:13;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'Angular Velocity'</span>);  k = 14:15;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'Fuel and Battery'</span>);  k = 16:18;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'IMU Accel Bias'</span>);    k = 19:21;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'IMU Gyro Bias'</span>);     k = 22:24;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),<span class="string">'Reaction Wheel Rates'</span>);
+
+<span class="comment">% Plot the auxiliary outputs</span>
+k = 4:6;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),<span class="string">'Thruster Force'</span>);        k = k+3;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),<span class="string">'Solar Torque'</span>);        k = 10:12;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),<span class="string">'Solar Force'</span>);         k = 13:14;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),<span class="string">'Power'</span>);               k = 21:23;
+
+dR = xP(1:3,:) - pP(k,:);
+dV = Mag(xP(4:6,:) - pP(24:26,:));
+h  = Mag(dR) - rMoon;
+yL = {<span class="string">'x (km)'</span>, <span class="string">'y (km)'</span>, <span class="string">'z (km)'</span>, <span class="string">'h (km)'</span> <span class="string">'|v| (km/s)'</span>};
+Plot2D(t,[dR;h;dV],tL,yL,<span class="string">'Moon Relative Position'</span>);
+
+<span class="comment">% Plot the trajectory for the Earth/Moon transfer</span>
+EarthMoon( xP(1:3,:), jD, [1, 1], pP(21:23,:) );
+
+<span class="comment">% Display from encounter time</span>
+jD    = jD0 + tS/dayToSec;
+kB = find(jD&gt;jDEncounter);
+
+k = kB(1):nSim;
+
+dR    = dR(:,k);
+jD    = jD(1,k);
+uSun  = SunV1(jD(1));
+
+PlotLunarOrbit( dR, jD, uSun, pP(4:6,k), surfaceMagnificationFactor );
+Figui;
+
+
+<span class="comment">%--------------------------------------</span>
+</pre><pre class="codeoutput">ans =
+   126
+</pre><img vspace="5" hspace="5" src="CubeSatLunarMission_02.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_03.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_04.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_05.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_06.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_07.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_08.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_09.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_10.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_11.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_12.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_13.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_14.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_15.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_16.png" alt=""> <img vspace="5" hspace="5" src="CubeSatLunarMission_17.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Lunar Mission Demo
+% Simulate a mission from Earth orbit to lunar orbit.
+% The spacecraft has 3 orthogonal reaction wheels and a single delta-v
+% thruster.
+% The mission plan does not perform the lunar insertion burn.
+%
+% It uses the default values from RHSLunarMission for a 6U CubeSat.
+% The dimensions are 30 x 20 x 10 cm.
+
+%%
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2016 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since 2016.1
+%   2020.1 Fixed the lunar insertion burn and the lunar orbit plotting
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% Constants
+rMoon                       = 1738;
+dayToSec                    = 86400;
+
+%% User inputs
+dateEncounter               = [2016 5 10 1 30 0]; % "Encounter" is passing into lunar sphere of influence
+dT                          = 2;    % integration time step seconds
+el0                         = [7000 0 0 0 0];
+rLunarOrbit                 = 3000; % km 
+incLunarOrbit               = 1;
+surfaceMagnificationFactor  = 10;   % For lunar terrain display
+timeAdded                   = 36000; % sec added simulation time after intercept
+useSphericalHarmonics       = 0;
+
+%% Control setup
+
+% Find transfer orbit to the moon
+jDEncounter   = Date2JD( dateEncounter );
+InterpolateState([],[],'bin2000.405');
+if( HasOptimizationToolbox )
+  [x0,el,~,jD0,jDP] = LunarTargeting( jDEncounter, el0, rLunarOrbit, incLunarOrbit, [], true );
+else
+  disp('LunarMission: Optimization toolbox not installed; using hard-coded values.')
+  x0  = [-2.8408    6.3976         0   -0.0034    0.0099    0.0018]'*1e3;
+  el  = [-5.2588    0.0010    0.0001    0.0041    0.0016    0.0088]*1e3;
+  jD0 = 2.457514449298204e+06;
+end
+
+tEnd      = (jDP-jD0)*dayToSec + timeAdded;
+
+% Get the default data structure
+dC        = LunarMissionControl;
+
+dC.dT     = dT;
+dC        = LunarMissionControl('initialize',jD0,dC);
+dRHS      = RHSLunarMission;
+
+if( useSphericalHarmonics )
+  dRHS.sphHarmMoon    = LoadSGM150( 'SGM150.geo' ); %#ok<*UNRCH>
+  dRHS.sphHarmMoon.nN = 3;
+  dRHS.sphHarmMoon.nM = 3;
+end
+
+% Set up the control data structure
+dC.mass   = struct('mass',dRHS.mass,'inertia',dRHS.inertia,'cM',dRHS.surfData.cM);
+dC.rWA    = dRHS.rWA;
+
+% This command list is for an lunar orbit insertion
+cList     = { jDP-1e3/dayToSec,...
+                  'lunar orbit insertion prepare',...
+                  struct('thrust',20,'massInitial',6, 'uE', 290*9.806,'body_vector',[1;0;0],'hLunarOrbit',200);...
+                  +2,...
+                  'align for lunar insertion',...
+                  [];...
+                  +1e3,...
+                  'start main engine',...
+                  struct('iD',1,'thrust',20)};
+
+% Initial state setup
+qECIToBody                  = [1;0;0;0];
+omega                       = [0;0;0];  % rad/s
+omegaRWA                    = [0;0;0];  % rad/s
+accelBias                   = [0;0;0];  % km/s^2
+gyroBias                    = [0;0;0];  % rad/s
+massFuel                    = 3;        % kg
+
+%% Initialize the simulation model
+
+% Initialize JPL Ephemerides to include the Sun, Earth and Moon
+PlanetPosJPL( 'initialize', [0 3 10] );
+
+nSim          = ceil(tEnd/dT);
+dRHS.jD0      = jD0;
+x             = [x0;qECIToBody;omega;massFuel;dRHS.power.batteryCapacity;...
+                  accelBias;gyroBias;omegaRWA];
+                
+% This initializes the state and auxiliary output names
+RHSLunarMission( x );
+
+%% Run the simulation
+t       = 0;
+xP      = zeros(length(x),nSim);
+[~, p]	= RHSLunarMission( x, t, dRHS );
+pP      = zeros(length(p.auxNames),nSim);
+
+% Globals for the time tracking GUI
+global simulationAction
+simulationAction = ' ';
+
+for k = 1:nSim
+  
+  % Plot storage
+  [~, p]      = RHSLunarMission( x, t, dRHS );
+  q = x(7:10);
+  xP(:,k)     = x;
+  pP(:,k)     = p.aux;
+  
+  % The controller
+  jD          = jD0 + t/dayToSec;
+  dC.rMoon    = pP(21:23,k);
+  dC.vMoon    = pP(24:26,k);
+  [dC, dRHS]	= LunarMissionControl( 'update', jD, dC, dRHS, x, cList );
+ 
+  % Propagate
+  x           = RK4(@RHSLunarMission,x,dT,t,dRHS);
+  t           = t + dT;
+  
+  switch simulationAction
+    case 'pause'
+      pause
+      simulationAction = ' ';
+    case 'stop'
+      LunarMissionControl( 'terminate' );
+      return;
+    case 'plot'
+      break;
+  end
+  
+end
+LunarMissionControl( 'terminate' );
+
+%% Plot the results
+if k<nSim
+  xP = xP(:,1:k);
+  pP = pP(:,1:k);
+  nSim = k;
+end
+tS      = (0:nSim-1)*dT;
+jD      = jD0 + t/dayToSec; % in days
+
+[t,tL]	= TimeLabl(tS);
+
+% Plot the states
+k = 1:3;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'Position');          k = 4:6;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'Velocity');          k = 7:10;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'Quaternion');        k = 11:13;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'Angular Velocity');  k = 14:15;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'Fuel and Battery');  k = 16:18;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'IMU Accel Bias');    k = 19:21;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'IMU Gyro Bias');     k = 22:24;
+Plot2D(t,xP(k,:),tL,p.stateNames(k),'Reaction Wheel Rates');
+
+% Plot the auxiliary outputs
+k = 4:6;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),'Thruster Force');        k = k+3;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),'Solar Torque');        k = 10:12;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),'Solar Force');         k = 13:14;
+Plot2D(t,pP(k,:),tL,p.auxNames(k),'Power');               k = 21:23;
+
+dR = xP(1:3,:) - pP(k,:);
+dV = Mag(xP(4:6,:) - pP(24:26,:));
+h  = Mag(dR) - rMoon;
+yL = {'x (km)', 'y (km)', 'z (km)', 'h (km)' '|v| (km/s)'};
+Plot2D(t,[dR;h;dV],tL,yL,'Moon Relative Position'); 
+
+% Plot the trajectory for the Earth/Moon transfer
+EarthMoon( xP(1:3,:), jD, [1, 1], pP(21:23,:) );
+
+% Display from encounter time
+jD    = jD0 + tS/dayToSec;
+kB = find(jD>jDEncounter);
+
+k = kB(1):nSim;
+
+dR    = dR(:,k);
+jD    = jD(1,k);
+uSun  = SunV1(jD(1));
+
+PlotLunarOrbit( dR, jD, uSun, pP(4:6,k), surfaceMagnificationFactor );
+Figui;
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2020-07-13 15:07:55 -0400 (Mon, 13 Jul 2020) $
+% $Revision: 53042 $
+##### SOURCE END #####
+--></body></html>

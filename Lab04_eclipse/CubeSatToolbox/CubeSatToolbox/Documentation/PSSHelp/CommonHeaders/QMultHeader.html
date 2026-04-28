@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>QMult</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>QMult:</h2>
+<p>Path: Common/Quaternion</p>
+<pre>
+% Multiply two quaternions.
+ Q2 transforms from A to B and Q1 transforms from B to C
+ so Q3 transforms from A to C. If only one argument is input
+ it produces the 4x4 matrix equivalent:
+ q3 = Q2*q1;
+
+--------------------------------------------------------------------------
+   Form:
+   Q3 = QMult( Q2 ,Q1 )	
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   Q2              (4,1)  Quaternion from a to b
+   Q1              (4,1)  Quaternion from b to c
+
+   -------
+   Outputs
+   -------
+   Q3              (4,1)  Quaternion from a to c or 4x4 version of q
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

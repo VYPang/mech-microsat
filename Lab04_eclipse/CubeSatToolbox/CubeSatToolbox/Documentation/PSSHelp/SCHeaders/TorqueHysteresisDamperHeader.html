@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>TorqueHysteresisDamper</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>TorqueHysteresisDamper:</h2>
+<p>Path: SC/MagneticControl</p>
+<pre>
+% Torque from a hysteresis damper.
+
+   See MagneticHysteresis.
+
+   Since version 10.
+--------------------------------------------------------------------------
+   Form:
+   t = TorqueHysteresisDamper( u, b, v, bE )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   u                  (3,1) Damper unit vector in the body frame
+   b                  (1,1) Damper axial flux density (T)
+   v                  (1,1) Volume of damper (m^3)
+   bE                 (3,1) Earth's magnetic field in the body frame (T)
+
+   -------
+   Outputs
+   -------
+   t                  (3,1) Torque
+
+--------------------------------------------------------------------------
+   Reference: Kumar R., Mazanek, D. and Heck, M., "Simulation and Shuttle
+              Hitchhiker Validation of Passive Satellite
+              Aerostabilization," Journal of Spacecraft and 
+              Rockets, Vol. 32, No. 5, September-October 1995.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

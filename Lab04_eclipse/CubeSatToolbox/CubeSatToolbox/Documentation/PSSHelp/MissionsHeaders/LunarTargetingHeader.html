@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>LunarTargeting</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>LunarTargeting:</h2>
+<p>Path: Missions/LunarMission</p>
+<pre>
+% Generate transfer orbit elements for a lunar mission.
+
+ Uses the JPL Ephemerides for the Earth and moon. The target is the
+ perilune altitude of the hyperbolic passage of the moon. The function
+ propagates the resulting trajectory using ode113. It propagates to the
+ target point. You can specify radius of perilune and orbit inclination.
+
+ This function uses Lambert to target a point on the Earth/Moon interface.
+ The point is where the hyperbolic passage of the moon starts. This 
+ justifies the single body Lambert solution.
+
+ The spacecraft starts in any Earth orbit.
+
+ Requires fmincon in the optimization toolbox. See fmincon for the
+ definition of the argument opts.
+
+ Type LunarTargeting for a demo.
+
+--------------------------------------------------------------------------
+   Form:
+   [x0,eL,v,jD0] = LunarTargeting( date, a0, rP, inc, fIf, opts )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   date    (1,:)  Date [yy mm dd hh mm ss] or Julian date
+                  of lunar encounter. "Encounter": When spacecraft reaches
+                  earth/moon interface.
+   el0     (1,5)  Initial keplerian orbital elements [a,i,W,w,e] in km and
+                  radians 
+   rP      (1,1)  Desired perilune distance (km)
+   inc     (1,1)  Desired Lunar orbit inclination (rad)
+   fIf     (1,1)  The Earth/Moon gravitational interface point from the
+                  moon
+   simJDP  (1,1)  Logical. If false, jDP is computed from Keplerian lunar
+                  elements. If true, jDP is computed more accurately via
+                  simulation. Default: False
+   opts    (.)    Optimization tolerance data structure
+
+   -------
+   Outputs
+   -------
+   x0      (1,6)  Initial state [r,v] in km and km/s
+   elL     (6,1)  Final lunar keplerian orbital elements [a,i,W,w,e,M] in
+                  km and radians 
+   v       (3,2)  Initial and interface velocity in km/s
+   jD0     (1,1)  Start Julian date
+   jDP     (1,1)  Julian date of perilune
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+<a href="../CommonHeaders/HasOptimizationToolboxHeader.html">Common: General/HasOptimizationToolbox</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/Mesh2Header.html">Common: Graphics/Mesh2</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/Plot3DHeader.html">Common: Graphics/Plot3D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2000Header.html">Common: Time/JD2000</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+<a href="../MathHeaders/CosDHeader.html">Math: Trigonometry/CosD</a>
+<a href="../MathHeaders/SinDHeader.html">Math: Trigonometry/SinD</a>
+<a href="../OrbitHeaders/RPRA2AEHeader.html">Orbit: OrbitCoord/RPRA2AE</a>
+<a href="../OrbitHeaders/SLRHeader.html">Orbit: OrbitCoord/SLR</a>
+<a href="../OrbitHeaders/APlanetHeader.html">Orbit: OrbitMechanics/APlanet</a>
+<a href="../OrbitHeaders/LambertTOFHeader.html">Orbit: OrbitMechanics/LambertTOF</a>
+<a href="../OrbitHeaders/RVOrbGenHeader.html">Orbit: OrbitMechanics/RVOrbGen</a>
+<a href="../OrbitHeaders/EarthMoonHeader.html">Orbit: Visualization/EarthMoon</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/E2MHeader.html">SC: BasicOrbit/E2M</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/El2RVHeader.html">SC: BasicOrbit/El2RV</a>
+<a href="../SCHeaders/M2EHeader.html">SC: BasicOrbit/M2E</a>
+<a href="../SCHeaders/M2EAppHeader.html">SC: BasicOrbit/M2EApp</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/M2EHyHeader.html">SC: BasicOrbit/M2EHy</a>
+<a href="../SCHeaders/M2NuHeader.html">SC: BasicOrbit/M2Nu</a>
+<a href="../SCHeaders/M2NuPbHeader.html">SC: BasicOrbit/M2NuPb</a>
+<a href="../SCHeaders/Nu2EHeader.html">SC: BasicOrbit/Nu2E</a>
+<a href="../SCHeaders/Nu2MHeader.html">SC: BasicOrbit/Nu2M</a>
+<a href="../SCHeaders/PeriodHeader.html">SC: BasicOrbit/Period</a>
+<a href="../SCHeaders/RV2ElHeader.html">SC: BasicOrbit/RV2El</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/CEcl2EqHeader.html">SC: Ephem/CEcl2Eq</a>
+<a href="../SCHeaders/InterpolateStateHeader.html">SC: Ephem/InterpolateState</a>
+<a href="../SCHeaders/MoonElHeader.html">SC: Ephem/MoonEl</a>
+<a href="../SCHeaders/MoonV1Header.html">SC: Ephem/MoonV1</a>
+<a href="../SCHeaders/PlanetPosJPLHeader.html">SC: Ephem/PlanetPosJPL</a>
+<a href="../SCHeaders/bin2000Header.html">SC: SCData/bin2000</a>
+</pre>
+<hr><p> <a href="../MissionsFunctions.html">Back</a> to the Missions Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

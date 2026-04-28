@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Date2DN</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Date2DN:</h2>
+<p>Path: Common/Time</p>
+<pre>
+% Compute the day number from the date. Uses the format from clock. 
+ If no inputs are given it will compute the day number for the instant
+ of the function call.
+
+--------------------------------------------------------------------------
+   Form:
+   dn = Date2DN( datetime )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   datetime     (1,6) [year month day hour minute seconds]
+
+   -------
+   Outputs
+   -------
+   dn           (1,1) Day number
+
+--------------------------------------------------------------------------
+   References: Montenbruck, O., T.Pfleger, Astronomy on the Personal
+               Computer, Springer-Verlag, Berlin, 1991, p. 12.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,383 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Demonstrate a CubeSat with gravity gradient stabilization.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-10-17"><meta name="DC.source" content="CubeSatGGStabilized.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Demonstrate a CubeSat with gravity gradient stabilization.</h1><!--introduction--><pre>The gravity gradient boom is along the Z axis in the body frame, and
+produces restoring torques around X and Y.
+----------------------------------------------------------------------
+See also AnimQ, QForm, Plot2D, TimeLabl, RK4, Skew, Date2JD,
+RHSCubeSat, BDipole
+------------------------------------------------------------------------</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">CubeSat model</a></li><li><a href="#3">Start with defaults for the RHS</a></li><li><a href="#4">Initial state vector for a circular orbit</a></li><li><a href="#5">Start Julian date</a></li><li><a href="#6">Remove aero model.</a></li><li><a href="#7">Add power system model</a></li><li><a href="#8">Initialize control</a></li><li><a href="#9">Simulation duration</a></li><li><a href="#10">Time step</a></li><li><a href="#11">Initialize the plotting aray to save time</a></li><li><a href="#12">Run the simulation</a></li><li><a href="#13">Plotting</a></li><li><a href="#14">Y-axis labels</a></li><li><a href="#15">Plotting</a></li></ul></div><pre class="codeinput"><span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2009 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 10.</span>
+<span class="comment">%  2016.0.1 - Fix velocity calulation to use VOrbit since mu is no longer in</span>
+<span class="comment">%  RHS structure</span>
+<span class="comment">%  2017.1 - Fix mass properties calculation to use AddMass</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+</pre><h2 id="2">CubeSat model</h2><pre class="codeinput"><span class="comment">%-------------</span>
+model = <span class="string">'1U'</span>;
+</pre><h2 id="3">Start with defaults for the RHS</h2><pre class="codeinput"><span class="comment">%---------------------------------</span>
+d    = RHSCubeSat;
+</pre><h2 id="4">Initial state vector for a circular orbit</h2><pre class="codeinput"><span class="comment">%------------------------------------------</span>
+a    = 7000; <span class="comment">% km</span>
+v    = VOrbit(a);
+pOrb = Period(a);
+
+<span class="comment">% State is [position;velocity;quaternion;angular velocity; battery charge]</span>
+<span class="comment">% CubeSats are about 1 kg per U</span>
+<span class="comment">%-------------------------------------------------------------------------</span>
+r0 = [a;0;0];
+v0 = [0;v;0];
+q  = QLVLH( r0, v0 );
+<span class="comment">% Orbit rate is what we expect in the stable system. Introduce some offset</span>
+<span class="comment">% to reveal the libration frequency.</span>
+w  = [0;-0.9*OrbRate(a);0];
+b  = 0;
+x  = [r0; v0; q; w; b];
+</pre><h2 id="5">Start Julian date</h2><pre class="codeinput"><span class="comment">%------------------</span>
+d.jD0  = Date2JD([2012 4 5 0 0 0]);
+d.rP   = 6378.165;
+
+<span class="comment">% Mass properties</span>
+<span class="comment">%----------------</span>
+<span class="comment">% The true inertia will be somewhat assymmetric. Always start with a</span>
+<span class="comment">% symmetric inertia for code testing. Try switching between the simplified</span>
+<span class="comment">% and true inertias.</span>
+<span class="comment">% For modeling the gravity gradient boom, put a mass of 0.1 kg 50 cm from</span>
+<span class="comment">% the CM of the spacecraft.</span>
+mSat = 0.85;
+Isat = InertiaCubeSat( model, mSat );
+rCM  = [0;0;0];
+sat  = MassStructure(mSat, Isat, [0;0;0] );
+mGG  = 0.1;
+rGG  = [0;0;0.5];
+Iboom = -mGG*SkewSq( rGG ); <span class="comment">% point mass inertia</span>
+boom  = MassStructure(mGG, Iboom, rGG );
+mass = AddMass( [sat boom] );
+d.inertia = mass.inertia;
+<span class="comment">%d.inertia = diag([0.03 0.03 0.001]); % symmetric</span>
+d.mass = mass.mass;
+s = LibrationFrequency( d.inertia, OrbRate(a) );
+<span class="comment">% Libration frequencies are around 1.7-2X orbit rate</span>
+</pre><h2 id="6">Remove aero model.</h2><p>The drag is very small at this altitude and the simulation is much faster without these calculations.</p><pre class="codeinput"><span class="comment">%-------------------</span>
+d.aeroData = [];
+</pre><h2 id="7">Add power system model</h2><pre class="codeinput"><span class="comment">%-----------------------</span>
+d.power.solarCellNormal    = [1 -1;0 0;0 0];
+d.power.solarCellEff       = 0.15;
+d.power.effPowerConversion = 0.8;
+d.power.solarCellArea      = 0.1*0.05*[1 1];
+d.power.consumption        = 0.5;
+d.power.batteryCapacity    = 100;
+</pre><h2 id="8">Initialize control</h2><pre class="codeinput"><span class="comment">%-------------------</span>
+d.dipole = [0;0;0];
+</pre><h2 id="9">Simulation duration</h2><pre class="codeinput"><span class="comment">%--------------------</span>
+orbits = 4;
+tEnd   = pOrb*orbits;
+</pre><h2 id="10">Time step</h2><pre class="codeinput"><span class="comment">%----------</span>
+dT    = 120;
+nSim  = floor(tEnd/dT);
+</pre><h2 id="11">Initialize the plotting aray to save time</h2><pre class="codeinput"><span class="comment">%------------------------------------------</span>
+xPlot = [x zeros(14,nSim)];
+[xT, distur, tGG] = RHSCubeSat( x, 0, d );
+dragPlot  = [distur.fAerodyn zeros(3,nSim)];
+tAeroPlot = [distur.tAerodyn zeros(3,nSim)];
+tMagPlot  = [distur.tMag zeros(3,nSim)];
+tGGPlot   = [distur.tGG zeros(3,nSim)];
+qLPlot    = zeros(4,nSim);
+</pre><h2 id="12">Run the simulation</h2><pre class="codeinput"><span class="comment">%-------------------</span>
+t = 0;
+h = waitbar(0,<span class="string">'CubeSat Simulation'</span>);
+<span class="keyword">for</span> k = 1:nSim
+
+    <span class="comment">% Magnetic field - the magnetometer output is proportional to this</span>
+    <span class="comment">%-----------------------------------------------------------------</span>
+    bField = QForm( x(7:10), BDipole( x(1:3), d.jD0+t/86400 ) );
+
+    <span class="comment">% Control system placeholder</span>
+    <span class="comment">%---------------------------</span>
+    <span class="comment">% dipole from air-core torquers</span>
+    d.dipole = [0.0;0;0]; <span class="comment">% Amp-turns m^2</span>
+
+    <span class="comment">% A time step with 4th order Runge-Kutta</span>
+    <span class="comment">%---------------------------------------</span>
+    x = RK4( @RHSCubeSat, x, dT, t, d );
+
+    <span class="comment">% Obtain effect of drag and control</span>
+    <span class="comment">%----------------------------------</span>
+    [xT, dist] = RHSCubeSat( x, t, d );
+    dragPlot(:,k+1) = dist.fAerodyn;
+    tAeroPlot(:,k+1) = dist.tAerodyn;
+    tMagPlot(:,k+1) = dist.tMag;
+    tGGPlot(:,k+1) = dist.tGG;
+
+    <span class="comment">% Update plotting and time</span>
+    <span class="comment">%-------------------------</span>
+    qLVLHToBody = QMult( QPose(QLVLH(x(1:3),x(4:6))), x(7:10) );
+    qLPlot(:,k) = qLVLHToBody;
+    xPlot(:,k+1) = x;
+    t            = t + dT;
+
+    waitbar(k/nSim,h);
+<span class="keyword">end</span>
+close(h);
+</pre><h2 id="13">Plotting</h2><pre class="codeinput"><span class="comment">%---------</span>
+t = (0:nSim)*dT;
+</pre><h2 id="14">Y-axis labels</h2><pre class="codeinput"><span class="comment">%--------------</span>
+yL = {<span class="string">'r_x (km)'</span> <span class="string">'r_y (km)'</span> <span class="string">'r_z (km)'</span> <span class="string">'v_x (km/s)'</span> <span class="string">'v_y (km/s)'</span> <span class="string">'v_z (km/s)'</span><span class="keyword">...</span>
+      <span class="string">'q_s'</span> <span class="string">'q_x'</span> <span class="string">'q_y'</span> <span class="string">'q_z'</span> <span class="string">'\omega_x (rad/s)'</span> <span class="string">'\omega_y (rad/s)'</span> <span class="string">'\omega_z (rad/s)'</span> <span class="string">'b (J)'</span>};
+</pre><h2 id="15">Plotting</h2><pre class="codeinput"><span class="comment">%----------</span>
+Plot2D( t/pOrb, xPlot( 1: 3,:), <span class="string">'Orbits'</span>, yL( 1: 3), <span class="string">'CubeSat Orbit'</span> );
+Plot2D( t/pOrb, xPlot( 7:10,:), <span class="string">'Orbits'</span>, yL( 7:10), <span class="string">'CubeSat ECI To Body Quaternion'</span> );
+Plot2D( t/pOrb, xPlot(11:13,:), <span class="string">'Orbits'</span>, yL(11:13), <span class="string">'CubeSat Attitude Rate (rad/s)'</span> );
+Plot2D( t/pOrb, tGGPlot,     <span class="string">'Orbits'</span>,  {<span class="string">'T_x (Nm)'</span>,<span class="string">'T_y (Nm)'</span>,<span class="string">'T_z (Nm)'</span>},<span class="string">'CubeSat Gravity Gradient Torques'</span>)
+Plot2D( t/pOrb, xPlot(   14,:), <span class="string">'Orbits'</span>,  yL{14},     <span class="string">'CubeSat Battery'</span> );
+Plot2D( t/pOrb, tMagPlot,    <span class="string">'Orbits'</span>,  {<span class="string">'T_x (Nm)'</span>,<span class="string">'T_y (Nm)'</span>,<span class="string">'T_z (Nm)'</span>},<span class="string">'CubeSat Magnetic Torques'</span>)
+
+AnimQ( qLPlot );
+
+
+<span class="comment">%--------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="CubeSatGGStabilized_01.png" alt=""> <img vspace="5" hspace="5" src="CubeSatGGStabilized_02.png" alt=""> <img vspace="5" hspace="5" src="CubeSatGGStabilized_03.png" alt=""> <img vspace="5" hspace="5" src="CubeSatGGStabilized_04.png" alt=""> <img vspace="5" hspace="5" src="CubeSatGGStabilized_05.png" alt=""> <img vspace="5" hspace="5" src="CubeSatGGStabilized_06.png" alt=""> <img vspace="5" hspace="5" src="CubeSatGGStabilized_07.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Demonstrate a CubeSat with gravity gradient stabilization.
+%  The gravity gradient boom is along the Z axis in the body frame, and
+%  produces restoring torques around X and Y. 
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%  See also AnimQ, QForm, Plot2D, TimeLabl, RK4, Skew, Date2JD, 
+%  RHSCubeSat, BDipole
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2009 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 10.
+%  2016.0.1 - Fix velocity calulation to use VOrbit since mu is no longer in 
+%  RHS structure
+%  2017.1 - Fix mass properties calculation to use AddMass
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+%% CubeSat model
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+model = '1U';
+
+%% Start with defaults for the RHS
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d    = RHSCubeSat;
+
+%% Initial state vector for a circular orbit
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+a    = 7000; % km
+v    = VOrbit(a);
+pOrb = Period(a);
+
+% State is [position;velocity;quaternion;angular velocity; battery charge]
+% CubeSats are about 1 kg per U
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+r0 = [a;0;0];
+v0 = [0;v;0];
+q  = QLVLH( r0, v0 );
+% Orbit rate is what we expect in the stable system. Introduce some offset
+% to reveal the libration frequency.
+w  = [0;-0.9*OrbRate(a);0];
+b  = 0;
+x  = [r0; v0; q; w; b];
+
+%% Start Julian date
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d.jD0  = Date2JD([2012 4 5 0 0 0]);
+d.rP   = 6378.165;
+
+% Mass properties
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% The true inertia will be somewhat assymmetric. Always start with a
+% symmetric inertia for code testing. Try switching between the simplified
+% and true inertias.
+% For modeling the gravity gradient boom, put a mass of 0.1 kg 50 cm from 
+% the CM of the spacecraft.
+mSat = 0.85;
+Isat = InertiaCubeSat( model, mSat );
+rCM  = [0;0;0];
+sat  = MassStructure(mSat, Isat, [0;0;0] );
+mGG  = 0.1;
+rGG  = [0;0;0.5];
+Iboom = -mGG*SkewSq( rGG ); % point mass inertia
+boom  = MassStructure(mGG, Iboom, rGG );
+mass = AddMass( [sat boom] );
+d.inertia = mass.inertia;
+%d.inertia = diag([0.03 0.03 0.001]); % symmetric
+d.mass = mass.mass;
+s = LibrationFrequency( d.inertia, OrbRate(a) );
+% Libration frequencies are around 1.7-2X orbit rate
+
+%% Remove aero model. 
+% The drag is very small at this altitude and the simulation is much faster
+% without these calculations.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.aeroData = [];
+
+%% Add power system model
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.power.solarCellNormal    = [1 -1;0 0;0 0];
+d.power.solarCellEff       = 0.15;
+d.power.effPowerConversion = 0.8;
+d.power.solarCellArea      = 0.1*0.05*[1 1];
+d.power.consumption        = 0.5;
+d.power.batteryCapacity    = 100;
+
+%% Initialize control
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.dipole = [0;0;0];
+
+%% Simulation duration
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+orbits = 4;
+tEnd   = pOrb*orbits; 
+
+%% Time step
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+dT    = 120;
+nSim  = floor(tEnd/dT);
+
+%% Initialize the plotting aray to save time
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+xPlot = [x zeros(14,nSim)];
+[xT, distur, tGG] = RHSCubeSat( x, 0, d );
+dragPlot  = [distur.fAerodyn zeros(3,nSim)];
+tAeroPlot = [distur.tAerodyn zeros(3,nSim)];
+tMagPlot  = [distur.tMag zeros(3,nSim)];
+tGGPlot   = [distur.tGG zeros(3,nSim)];
+qLPlot    = zeros(4,nSim);
+
+%% Run the simulation
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+t = 0;
+h = waitbar(0,'CubeSat Simulation');
+for k = 1:nSim
+    
+    % Magnetic field - the magnetometer output is proportional to this
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    bField = QForm( x(7:10), BDipole( x(1:3), d.jD0+t/86400 ) );
+        
+    % Control system placeholder
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    % dipole from air-core torquers
+    d.dipole = [0.0;0;0]; % Amp-turns m^2
+
+    % A time step with 4th order Runge-Kutta
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    x = RK4( @RHSCubeSat, x, dT, t, d );
+    
+    % Obtain effect of drag and control
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+    [xT, dist] = RHSCubeSat( x, t, d );
+    dragPlot(:,k+1) = dist.fAerodyn;
+    tAeroPlot(:,k+1) = dist.tAerodyn;
+    tMagPlot(:,k+1) = dist.tMag;
+    tGGPlot(:,k+1) = dist.tGG;
+
+    % Update plotting and time
+    %REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+    qLVLHToBody = QMult( QPose(QLVLH(x(1:3),x(4:6))), x(7:10) );
+    qLPlot(:,k) = qLVLHToBody;
+    xPlot(:,k+1) = x;
+    t            = t + dT;
+    
+    waitbar(k/nSim,h);
+end
+close(h);
+
+%% Plotting
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+t = (0:nSim)*dT;
+
+%% Y-axis labels
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+yL = {'r_x (km)' 'r_y (km)' 'r_z (km)' 'v_x (km/s)' 'v_y (km/s)' 'v_z (km/s)'...
+      'q_s' 'q_x' 'q_y' 'q_z' '\omega_x (rad/s)' '\omega_y (rad/s)' '\omega_z (rad/s)' 'b (J)'};
+ 
+%% Plotting
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+Plot2D( t/pOrb, xPlot( 1: 3,:), 'Orbits', yL( 1: 3), 'CubeSat Orbit' );
+Plot2D( t/pOrb, xPlot( 7:10,:), 'Orbits', yL( 7:10), 'CubeSat ECI To Body Quaternion' );
+Plot2D( t/pOrb, xPlot(11:13,:), 'Orbits', yL(11:13), 'CubeSat Attitude Rate (rad/s)' );
+Plot2D( t/pOrb, tGGPlot,     'Orbits',  {'T_x (Nm)','T_y (Nm)','T_z (Nm)'},'CubeSat Gravity Gradient Torques')
+Plot2D( t/pOrb, xPlot(   14,:), 'Orbits',  yL{14},     'CubeSat Battery' );
+Plot2D( t/pOrb, tMagPlot,    'Orbits',  {'T_x (Nm)','T_y (Nm)','T_z (Nm)'},'CubeSat Magnetic Torques')
+
+AnimQ( qLPlot );
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2019-09-07 17:12:12 -0400 (Sat, 07 Sep 2019) $
+% $Revision: 49734 $
+
+##### SOURCE END #####
+--></body></html>

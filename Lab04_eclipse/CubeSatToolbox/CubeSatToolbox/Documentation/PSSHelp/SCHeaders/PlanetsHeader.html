@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>Planets</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Planets:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Simplified planet ephemerides from the almanac.
+   Has functions for the orbital elements of the planets in the 
+   heliocentric frame. The elements are row vectors as follows:
+
+   a = [   a1 a0] semi-major axis
+   e = [   e1 e0] eccentricity
+   i = [   i1 i0] inclination
+   W = [   W1 W0] longitude of the ascending node
+   w = [   w1 w0] argument of perigee
+   L = [L2 L1 L0] mean longitude: L2 is revolutions per century
+
+   where
+
+   x = b1*T + b0 where T is Julian Centuries from J2000.0
+
+   and bi is a coefficient. Output of the angular quantities is
+   either in degrees or radians.
+
+   If one output is specified it will be a data structure containing
+   the planet information.
+
+   Type Planets for a demo. See SolarSys for computing planet locations.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   Planets;               % demo
+   planetList = Planets;  % list of planets
+   [name, a, e, i, W, w, L, jDRef, mu, m, radius] = Planets( units, k )
+   d = Planets( units, k )  % output a data structure array
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   units           (1,3) Angular units ('deg' or 'rad')
+   k         (1,1) or {} Planet IDs, if not input get all nine;
+                         can be a cell array
+
+   -------
+   Outputs
+   -------
+   name            (n,:) Name of planet
+   a               (n,2) Mean distance (au)
+   e               (n,2) Eccentricity
+   i               (n,2) Inclination wrt ecliptic plane (units)
+   W               (n,2) Longitude of ascending node wrt vernal equinox (units)
+   w               (n,2) Argument of perhelion (units)
+   L               (n,3) Mean longitude (units)
+   jDRef           (1,1) Reference Julian date
+   mu              (n,2) Gravitational parameter (km^3/s^2)
+   m               (n,1) Mass  (kg)
+   radius          (n,1) Radius (km)
+     - OR -
+   d                (:)  Data structure array with above fields
+ 
+                    n is the number of planets
+
+--------------------------------------------------------------------------
+ References:  Seidelmann, P. K., ed., Explanatory Supplement to the Astronomical
+              Almanac, University Science Books, 1992.
+              Table 5.8.1. p. 316.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../SCHeaders/SolarSysHeader.html">SC: Ephem/SolarSys</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

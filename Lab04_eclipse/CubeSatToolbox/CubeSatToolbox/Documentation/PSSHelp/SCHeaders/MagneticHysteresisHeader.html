@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>MagneticHysteresis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>MagneticHysteresis:</h2>
+<p>Path: SC/MagneticControl</p>
+<pre>
+% Right hand side for a dynamical model of magnetic hysteresis.
+
+   Unlike Flatley we use a tanh function. Tellinen gives the slope
+   fractions for the increasing and decreasing curves.
+
+--------------------------------------------------------------------------
+   Form:
+   bDot = MagneticHysteresis( b, t, h, hDot, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   b                  (1,1) Magnetic flux density (T)
+   t                  (1,1) Time - unused
+   h                  (1,1) Magnetic field (A/m)
+   hDot               (1,1) Magnetic field time derivative (A/m/s)
+   d                  (1,1) Data structure
+                            .bS (1,1) Saturation flux density (T)
+                            .hC (1,1) Coercive force (A/m)
+                            .bR (1,1) Remnance (T)
+
+   -------
+   Outputs
+   -------
+   bDot               (1,1) Derivative of the flux density.
+   
+--------------------------------------------------------------------------
+   Reference: Flatley, T. W. and Henretty, D. A., "A Magnetic Hysteresis
+              Model," N95-27081.
+              Kumar R., Mazanek, D. and Heck, M., "Simulation and Shuttle
+              Hitchhiker Validation of Passive Satellite
+              Aerostabilization," Journal of Spacecraft and 
+              Rockets, Vol. 32, No. 5, September-October 1995.
+              J. Tellinen, "A Simple Scalar Model for Magnetic
+              Hysteresis", IEEE Transactions on Magnetics, vol. 24, no. 4,
+              pp.2200-2206, July 1998.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TimeLablHeader.html">Common: Graphics/TimeLabl</a>
+<a href="../MathHeaders/RK4Header.html">Math: Integration/RK4</a>
+<a href="../SCHeaders/BFromHHysteresisHeader.html">SC: MagneticControl/BFromHHysteresis</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

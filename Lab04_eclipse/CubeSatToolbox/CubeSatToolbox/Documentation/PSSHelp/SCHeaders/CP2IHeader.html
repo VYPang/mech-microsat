@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>CP2I</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CP2I:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Transformation matrix from the perifocal frame to the inertial frame.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   c = CP2I( i, L, w )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   i               (3,1) Inclination (rad)
+   L               (3,1) Longitude of the ascending node (rad)
+   w               (3,1) Argument of perigee (rad)
+
+   -------
+   Outputs
+   -------
+   c               (3,3) Transformation matrix
+
+--------------------------------------------------------------------------
+   References: Bate, Roger R., Fundamentals of Astrodynamics, Dover 
+               Publications, Inc., New York, 1971, pp. 82-83.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>BFromHHysteresis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>BFromHHysteresis:</h2>
+<p>Path: SC/MagneticControl</p>
+<pre>
+% Flux density from the magnetic field due to hysteresis.
+
+   Unlike Flatley, we use a tanh curve for the hysteresis boundaries.
+
+   Since version 10.
+--------------------------------------------------------------------------
+   Form:
+   b = BFromHHysteresis( h, hDot, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   h                  (1,:) Magnetic field in each bar
+   hDot               (1,:) Magnetic field rate in each bar
+   d                  (1,1) Data structure
+                            .bS (1,1) Saturation flux density 
+                            .hC (1,1) Coercive force
+                            .bR (1,1) Remnance
+
+   -------
+   Outputs
+   -------
+   b                  (1,:) Flux density
+   
+
+--------------------------------------------------------------------------
+   Reference: Flatley, T. W. and Henretty, D. A., "A Magnetic Hysteresis
+              Model."
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

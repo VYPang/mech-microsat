@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>QAlign</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>QAlign:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Rotate about a body axis to align a body vector with an inertial vector.
+
+ 1. Begin with an initial quaternion
+
+ 2. Rotate about a body-frame axis to align a body-frame vector with an 
+   inertial target vector
+
+ 3. Return the new quaternion
+
+ Will generate a plot if no outputs are requested.
+--------------------------------------------------------------------------
+   Form:
+   [q,rotAngle,sepAngle] = QAlign( q0, uBAxis, uBVec, uITarget );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   q0          (4,:) Beginning inertial to body quaternion
+   uBAxis      (3,1) Body-frame axis to rotate about
+   uBVec       (3,1) Body-frame vector to align
+   uITarget    (3,:) Inertial-frame vector to point at
+
+   -------
+   Outputs
+   -------
+   q           (4,:) Resulting Inertial-to-Body quaternion after rotation
+   rotAngle    (1,:) Angle of rotation [rad]
+   sepAngle    (1,:) Separation angle between body vector and target [rad]
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/QRotateToAlignHeader.html">AerospaceUtils: Coord/QRotateToAlign</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/QFormHeader.html">Common: Quaternion/QForm</a>
+<a href="../CommonHeaders/QMultHeader.html">Common: Quaternion/QMult</a>
+<a href="../CommonHeaders/QPoseHeader.html">Common: Quaternion/QPose</a>
+<a href="../CommonHeaders/QTFormHeader.html">Common: Quaternion/QTForm</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

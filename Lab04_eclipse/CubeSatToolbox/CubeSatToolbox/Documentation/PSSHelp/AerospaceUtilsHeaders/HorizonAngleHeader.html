@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>HorizonAngle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>HorizonAngle:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Angle between the horizon and a vector from rG to rS. 
+ Angles below the  horizon are zero. Assumes the planet is a sphere.
+
+ Type HorizonAngle for a demo.
+--------------------------------------------------------------------------
+   Form:
+   angle = HorizonAngle( rG, rS )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   rG             (3,1)  Position vector on ground
+   rS             (3,:)  Position vector in space
+
+   -------
+   Outputs
+   -------
+   angle          (1,:)  Horizon angle (rad)
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>RepeatGroundTrack</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RepeatGroundTrack:</h2>
+<p>Path: CubeSat/MissionPlanning</p>
+<pre>
+% Design a repeat ground-track orbit.
+ Determines the semi-major axis values closest to the desired ratio of
+ orbits / days. Utilizes the J2 drift to model the satellite orbit rate.
+--------------------------------------------------------------------------
+  Usage:
+  g = RepeatGroundTrack( 'input' );   
+  d = RepeatGroundTrack( g );   
+  d = RepeatGroundTrack( g, 1 );   % generates a plot
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   g       (.)   Data structure with fields
+                    .P0   Desired number of orbits (integer)
+                    .Q0   Desired number of days over which P0 orbits occur
+                    .inc  Orbit inclination (rad)
+                    .ecc  Orbit eccentricity
+                    .da   Range of semi-major axis values to consider (km)
+                    .PMax Maximum number of orbits to consider
+                    .QMax Maximum number of days to consider
+   doplot  (1)   Flag to create plot. Default 0.
+
+   -------
+   Outputs  
+   -------
+   d       (.)   Data structure with fields
+                    .P    Closest number of orbits to meet ratio (integer)
+                    .Q    Closest number of days to meet ratio (integer)
+                    .a0   Initial semi major axis guess
+                    .a    Closest semi major axis values to meet ratio
+                    .dLon Longitude drift per orbit
+                    .days Number of days per repeat
+                    .anomalisticPeriod   Anomalistic period (sec)
+                    .nodalPeriod         Nodal period (sec)
+
+   doplot (1,1)  Plotting flag. Set to 1 to create a plot.
+
+--------------------------------------------------------------------------
+   Reference: Vallado, "Fundamentals of Astrodynamics and Applications",
+   Second Edition. Sec. 11.4.2, Repeat-Groundtrack orbits.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>RHSMomentum</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RHSMomentum:</h2>
+<p>Path: CubeSat/Simulation</p>
+<pre>
+% RHS for momentum in the inertial frame.
+ dh/dt = torque
+
+--------------------------------------------------------------------------
+   Form:
+   hDot = RHSMomentum( h, t, torque )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   h            (3,1)     Angular momentum
+   t            (1,1)     Time (unused)
+   torque       (3,1)     Torque vector
+
+   -------
+   Outputs
+   -------
+   hDot         (4,1)     Momentum derivative
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

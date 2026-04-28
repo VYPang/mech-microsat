@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Ellipsd</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Ellipsd:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% Generates an ellipsoid using the equation
+
+     2     2     2
+    x     y     z
+   --- + --- + ---  = 1
+     2     2     2
+    a     b     c
+
+ Generates three n-by-n matrices so that surf(x,y,z) produces a
+ unit sphere.
+--------------------------------------------------------------------------
+   Form:
+   [x, y, z] = Ellipsd( a, b, c, n )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a                     x-axis coefficient
+   b                     y-axis coefficient
+   c                     z-axis coefficient
+   n                     Number of facets
+
+   -------
+   Outputs
+   -------
+   x         (n,n)       x matrix
+   y         (n,n)       y matrix
+   z         (n,n)       z matrix
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

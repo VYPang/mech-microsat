@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Goals2Hills</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Goals2Hills:</h2>
+<p>Path: FormationFlying/Transformation</p>
+<pre>
+%  Compute a Hills state from geometric goals
+ Computes the desired relative position and velocity in Hills frame, given the
+ formation flying geometric "goals" and the reference orbital elements.
+--------------------------------------------------------------------------
+   Form:
+   xH = Goals2Hills( el0, goals )
+   xH = Goals2Hills( n, theta, goals )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   el0             (1,6)     Reference orbital elements (Alfriend format) [a,th,i,q1,q2,W]
+     -or-
+   n                (1)      Mean orbit rate [rad/sec]
+   theta            (1)      True latitude   [rad]
+
+   goals            (.)      Geometric goals data structure with following fields:
+     - y0          (1,:)        along-track offset                             [km]
+     - aE          (1,:)        semi-major axis of relative ellipse            [km]
+     - beta        (1,:)        angle on ellipse at perigee                   [rad]
+     - zInc        (1,:)        cross-track amplitude due to inclination diff  [km]
+     - zLan        (1,:)        cross-track amplitude due to right ascen diff  [km]
+
+   -------
+   Outputs
+   -------
+   xH              (6,:)     Hills frame position and velocity  
+                                [km; km; km; km/s; km/s; km/s]
+                                [ x;  y;  z;   Vx;   Vy;   Vz]
+
+--------------------------------------------------------------------------
+	  References:     Mueller, J. and M. Brito,"A Distributed Flight Software Design 
+                    for Satellite Formation Flying Control," presented at the AIAA 
+                    Space 2003 Conference, Long Beach, CA, September 2003.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../FormationFlyingHeaders/CirclePhaseHeader.html">FormationFlying: Coord/CirclePhase</a>
+<a href="../SCHeaders/OrbRateHeader.html">SC: BasicOrbit/OrbRate</a>
+</pre>
+<hr><p> <a href="../FormationFlyingFunctions.html">Back</a> to the FormationFlying Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

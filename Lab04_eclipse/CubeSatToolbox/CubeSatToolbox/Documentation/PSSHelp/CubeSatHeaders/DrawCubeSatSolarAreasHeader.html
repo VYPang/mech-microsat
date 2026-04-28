@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>DrawCubeSatSolarAreas</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>DrawCubeSatSolarAreas:</h2>
+<p>Path: CubeSat/Visualization</p>
+<pre>
+% Visualize the solar cell area for the CubeSat.
+ Plots the solar cell areas and normals from the power substructure.
+ You may pass in the full RHS data structure or the power substructure.
+--------------------------------------------------------------------------
+   Form:
+   h = DrawCubeSatSolarAreas( d )
+   DrawCubeSatSolarAreas;          % Demo
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d      (.)     Model data structure from RHSCubeSat
+                  .power  (.)  Power data, see also SolarCellPower 
+                      .solarCellArea    (1,:) Total cell area (m^2)
+                      .solarCellNormal  (3,:) Unit normal vector to the cell face
+
+   -------
+   Outputs
+   -------
+   h     (1,1)   Figure handle
+
+--------------------------------------------------------------------------
+   See also SolarCellPower, RHSCubeSat
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CubeSatHeaders/SolarCellPowerHeader.html">CubeSat: Power/SolarCellPower</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

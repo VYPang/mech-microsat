@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>E2Nu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>E2Nu:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Computes the true anomaly from the eccentric or hyperbolic anomaly.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   nu = E2Nu( e, E )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   e             (1,:)   Eccentricity
+   E             (1,:)   Eccentric or Hyperbolic anomaly
+
+   -------
+   Outputs
+   -------
+   nu            (1,:)   True anomaly
+
+--------------------------------------------------------------------------
+   References:   Bate, R. R., Fundamentals of Astrodynamics. pp. 20-40.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

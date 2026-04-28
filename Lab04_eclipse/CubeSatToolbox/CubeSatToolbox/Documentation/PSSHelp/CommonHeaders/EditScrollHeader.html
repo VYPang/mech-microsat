@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>EditScroll</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>EditScroll:</h2>
+<p>Path: Common/General</p>
+<pre>
+% Implement a scrollable edit window
+   tag = EditScroll( 'initialize', text, hFig, [10 10 200 100] )
+--------------------------------------------------------------------------
+   Form:
+   x = EditScroll( action, modifier, hFig, position )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   action    (1,:)    Action to perform
+   modifier  (1,:)    Modifier to the action
+   hFig      (1,1)    Figure handle
+   position  (1,4)    [left, bottom, width, height]
+
+   -------
+   Outputs
+   -------
+   x         (:,:)    The text
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

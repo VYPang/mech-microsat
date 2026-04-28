@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>CEcl2Eq</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>CEcl2Eq:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Transformation matrix from ecliptic to Earth equatorial planes.
+   This is a single rotation about the x-axis. If the jd is not input it will 
+   use the mean obliquity for J2000.0. 
+
+--------------------------------------------------------------------------
+   Form:
+   c = CEcl2Eq( jD )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jD            (1,1)    Julian date
+
+   -------
+   Outputs
+   -------
+   c             (3,3)    Transformation matrix from the ecliptic plane
+                          to the equatorial plane
+
+--------------------------------------------------------------------------
+   References: Montenbruck, O., T.Pfleger, Astronomy on the Personal
+               Computer, Springer-Verlag, Berlin, 1991, p. 15.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

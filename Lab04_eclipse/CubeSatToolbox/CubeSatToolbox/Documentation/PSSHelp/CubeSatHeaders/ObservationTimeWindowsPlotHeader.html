@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>ObservationTimeWindowsPlot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ObservationTimeWindowsPlot:</h2>
+<p>Path: CubeSat/MissionPlanning</p>
+<pre>
+% Plot ground track and observation windows for a satellite and targets
+--------------------------------------------------------------------------
+   Usage:
+   ObservationTimeWindowsPlot( track, obs )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   track       (.)	Data structure with time, lat and lon vectors.
+   obs         (.)	Data structure array with fields:
+                 	.target:    (2,1)    Lat and lon coordinates of target
+                 	.boundary:  (2,:)    Lat/lon boundary around target
+                 	.nObs:      (1,1)    Number of observations of this target
+                   .window:    (nObs,2) Each row is start/stop time of window    
+                 	.time:      {1,nObs} Each entry is a (1,T) time vector
+                 	.path:      {1,nObs} Each entry is a (2,T) lat/lon vector
+
+   -------
+   Outputs
+   -------
+   none
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/DeBlankLTHeader.html">Common: General/DeBlankLT</a>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/EllipsdHeader.html">Common: Graphics/Ellipsd</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CubeSatHeaders/LatLonPlotHeader.html">CubeSat: Utilities/LatLonPlot</a>
+<a href="../CubeSatHeaders/WrapSegmentsHeader.html">CubeSat: Utilities/WrapSegments</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

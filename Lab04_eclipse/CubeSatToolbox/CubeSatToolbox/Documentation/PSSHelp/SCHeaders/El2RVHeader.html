@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>El2RV</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>El2RV:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Converts orbital elements to r and v for an elliptic orbit.
+ Type El2RV for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [r, v] = El2RV( el, tol, mu )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   el    (:,6)  Elements vector [a,i,W,w,e,M]           (angles in radians)
+   tol   (1,1)* Tolerance for Kepler's equation solver. (default = 1e-14)
+   mu    (1,1)* Gravitational constant.                 (default = 3.98600436e5)
+
+   -------
+   Outputs
+   -------
+   r     (3,:)  position vector
+   v     (3,:)  velocity vector
+
+--------------------------------------------------------------------------
+   References:	Battin, R.H., An Introduction to the Mathematics and 
+              	Methods of Astrodynamics, p 128.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/DispWithTitleHeader.html">Common: General/DispWithTitle</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/E2NuHeader.html">SC: BasicOrbit/E2Nu</a>
+<a href="../SCHeaders/M2EHeader.html">SC: BasicOrbit/M2E</a>
+<a href="../SCHeaders/M2EAppHeader.html">SC: BasicOrbit/M2EApp</a>
+<a href="../SCHeaders/M2EElHeader.html">SC: BasicOrbit/M2EEl</a>
+<a href="../SCHeaders/M2EHyHeader.html">SC: BasicOrbit/M2EHy</a>
+<a href="../SCHeaders/M2NuHeader.html">SC: BasicOrbit/M2Nu</a>
+<a href="../SCHeaders/M2NuPbHeader.html">SC: BasicOrbit/M2NuPb</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>QHills</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>QHills:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Generate the quaternion that transforms from the ECI to the Hills frame.
+   The coordinates of the Hills frame are defined as:
+        x: Radial
+        z: Orbit-normal, or cross-track
+        y: Completes RHS (Along-track for circular orbits)
+
+   The relative position vector in the Frenet frame can be computed as:
+
+   rF = QForm( qEF, drE );
+
+   where dr is the relative position vector in the ECI frame. Or you may obtain 
+   the transformation matrix, mEF, as the second output. In this case, use:
+
+   rF = mEF*drE;
+--------------------------------------------------------------------------
+   Usages:
+   qEH       = QHills( rE, vE );
+   [qEH,mEH] = QHills( rE, vE );
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   rE          (3,n) Position vectors
+   vE          (3,n) Velocity vectors
+
+   -------
+   Outputs
+   -------
+   qEH        (4,n) Quaternions
+   qEH        (4,n) Quaternions
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+<a href="../CommonHeaders/Mat2QHeader.html">Common: Quaternion/Mat2Q</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../MathHeaders/UnitHeader.html">Math: Linear/Unit</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

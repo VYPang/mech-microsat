@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>PlanetWithTerrain</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PlanetWithTerrain:</h2>
+<p>Path: SCPro/ProTools</p>
+<pre>
+% Generate vertices and faces for a planet with terrain.
+
+ Adds a height map to a sphere to produce a 3D terrain map. 
+ theta needs to include 0 and pi. lambda should include 0 but not 2*pi.
+
+ scale exaggerates the surface variations from a sphere to make them
+ easier to see. 
+
+ Rendering the planet is done with patch.
+
+ patch('vertices',v,'faces',f,'facecolor',[0.5 0.5 0.5],...
+           'facelighting','gouraud','linestyle','none');
+ axis equal
+ ambient = 0.2; diffuse = 1; specular = 0.0;
+ material([ambient diffuse specular])
+
+ Type PlanetWithTerrain for a model of the moon using Clementine data.
+--------------------------------------------------------------------------
+   Form:
+   [v, f] = PlanetWithTerrain( h, f )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   h   (.)     Height map data structure
+               .r       (theta,lambda)   Distance from center
+               .lambda	 (1,:)            Equatorial angle
+               .theta   (1,:)            Angle from pole
+               .rEq     (1,1)            Equatorial radius (m)
+               .name    (1,:)            Planet name
+   scale (1,1) Exaggerate the terrain by this factor
+
+   -------
+   Outputs
+   -------
+   v   (:,3) Vertices
+   f   (:,3) Faces
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../SCHeaders/RSHMoonHeader.html">SC: Ephem/RSHMoon</a>
+</pre>
+<hr><p> <a href="../SCProFunctions.html">Back</a> to the SCPro Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

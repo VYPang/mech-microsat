@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>QIToBDot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>QIToBDot:</h2>
+<p>Path: AerospaceUtils/Coord</p>
+<pre>
+% Computes the time derivative of a quaternion. 
+ The quaternion transforms from the inertial frame to the body frame. 
+ Requires the angular velocity measured in the body frame.
+--------------------------------------------------------------------------
+   Form:
+   qD                 = QIToBDot( q, w )	
+   [a, b, c, d, dqdt] = QIToBDot( q, w )
+   [a, b, c, d, dqdt] = QIToBDot( q, w, dT )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   q              (4,1)  Quaternion from a to b
+   w              (3,1)  Rate of b with respect to a measured in b
+   dT             (1,1)  Time step
+
+   -------
+   Outputs
+   -------
+   qD             (4,1)  Derivative of Q
+
+   or
+
+   a              (4,4)  Plant matrix
+   b              (4,3)  Input matrix
+   c              (4,4)  Measurement matrix
+   d              (4,3)  Feedthrough matrix
+   dqdt           (4,1)  Constant quaternion derivative
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/C2DZOHHeader.html">Common: Control/C2DZOH</a>
+<a href="../MathHeaders/SkewSymmHeader.html">Math: Linear/SkewSymm</a>
+</pre>
+<hr><p> <a href="../AerospaceUtilsFunctions.html">Back</a> to the AerospaceUtils Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

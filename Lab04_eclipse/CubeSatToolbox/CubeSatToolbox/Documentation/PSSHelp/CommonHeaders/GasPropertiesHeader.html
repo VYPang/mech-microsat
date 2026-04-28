@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>GasProperties</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GasProperties:</h2>
+<p>Path: Common/Materials</p>
+<pre>
+% Returns gas properties.
+
+--------------------------------------------------------------------------
+   Form:
+   [m, gamma] = GasProperties( gas )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   gas           (1,:)  Name of gas to be used. One of:
+                        'hydrogen', 'helium', 'nitrogen', 'air',
+                        'argon', 'krypton'
+
+   -------
+   Outputs
+   -------
+   m             (1,1)  Molecular weight
+   gamma         (1,1)  Ratio of specific heats
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/StrMtchHeader.html">Common: General/StrMtch</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

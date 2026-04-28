@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>TrnsZero</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>TrnsZero:</h2>
+<p>Path: Common/Control</p>
+<pre>
+% Computes the transmission zeros of a plant
+
+   For continuous time systems.
+
+--------------------------------------------------------------------------
+   Form: z = TrnsZero( a, b, c, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a                   Plant matrix
+   b                   Input matrix
+   c                   Measurement matrix
+   d                   Input feedthrough matrix
+
+   -------
+   Outputs
+   -------
+   z                   Transmission zeros
+
+--------------------------------------------------------------------------
+   References:   Maciejowski, J.M., Multivariable Feedback Design, 
+                 Addison-Wesley, 1989, pp. 386-389.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SizeABCDHeader.html">Common: Control/SizeABCD</a>
+<a href="../MathHeaders/ColCompRHeader.html">Math: Linear/ColCompR</a>
+<a href="../MathHeaders/IsZeroHeader.html">Math: Linear/IsZero</a>
+<a href="../MathHeaders/RowCompUHeader.html">Math: Linear/RowCompU</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

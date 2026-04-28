@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>ConvertNORAD</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>ConvertNORAD:</h2>
+<p>Path: Orbit/OrbitCoord</p>
+<pre>
+% Convert NORAD TLE string into a data structure.
+   Requires three-line version of elements.
+--------------------------------------------------------------------------
+   Form:
+   x = ConvertNORAD( a )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   a		      (:,1)   Data, file name or string
+
+   -------
+   Outputs
+   -------
+   x            (n)  Data structure
+    .satelliteNumber  Object ID
+    .launchYear       Year (part of international designator)
+    .launchNumber     Launch number
+    .launchpiece      Launch piece
+    .epochYear        Two/one digit epoch year
+    .epochDay         Epoch day number
+    .n0Dot            1st Derivative of the Mean Motion (rad/min^2)
+    .n0DDot           2nd Derivative of the Mean Motion
+    .bStar            Adjusted ballistic coefficient
+    .i0               Inclination (rad)
+    .f0               Right Ascension of Ascending Node (rad)
+    .e0               Eccentricity
+    .w0               Argument of Perigee (rad)
+    .M0               Mean Anomaly (rad)
+    .n0               Mean Motion (rad/min)
+
+   The following fields are computed from the element data.
+    .ballisticCoeff   Ballistic coefficient (m2/kg)
+    .julianDate       Epoch Julian date
+    .fullLaunchYear   Four digit launch year
+    .sma              Semi-major axis (km)
+  
+   n          (1,1)   Number of element sets
+
+   t          (3,n)   Time information if present on second line
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

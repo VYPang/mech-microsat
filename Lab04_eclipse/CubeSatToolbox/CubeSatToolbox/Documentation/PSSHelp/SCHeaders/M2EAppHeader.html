@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>M2EApp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>M2EApp:</h2>
+<p>Path: SC/BasicOrbit</p>
+<pre>
+% Approximate root to Kepler's Equation for elliptical and hyperbolic orbits.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   eccAnom = M2EApp( e, meanAnom )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   e             (: or 1)  Eccentricity
+   meanAnom      (:)       Mean anomaly
+
+   -------
+   Outputs
+   -------
+   eccAnom       (:)       Eccentric anomaly
+
+--------------------------------------------------------------------------
+   References: Battin, R.H. (1987). An Introduction to the
+               Mathematics and Methods of Astrodynamics, AIAA Press, p. 194.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

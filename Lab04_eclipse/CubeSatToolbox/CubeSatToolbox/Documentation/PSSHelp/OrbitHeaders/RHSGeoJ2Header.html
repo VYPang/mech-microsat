@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>RHSGeoJ2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RHSGeoJ2:</h2>
+<p>Path: Orbit/RHSOrbit</p>
+<pre>
+% Computes the right hand side for Earth gravity with J2.
+ Uses a local version of AGravityC that explicitly uses only the J2 term.
+--------------------------------------------------------------------------
+   Form:
+   xDot = RHSGeoJ2( x, t, d )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   x           (6,1)    Position vector [rECI (km); vECI (km)];
+   t           (1,1)    Time since start Julian Date (s) 
+   d            (.)     Gravity model struct
+                        .j2    (1,2)	J2 term (unnormalized and positive)
+                        .mu    (1,1)	Spherical gravitational potential
+                        .a     (1,1)	Planet radius
+                        .jD0	  (1,1) Start Julian Date    
+
+   -------
+   Outputs
+   -------
+   xDot        (6,1)   [rDot;vDot]
+
+--------------------------------------------------------------------------
+ See also: ECIToEF, RHSGeoGarm
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../AerospaceUtilsHeaders/ECIToEFHeader.html">AerospaceUtils: Coord/ECIToEF</a>
+<a href="../CommonHeaders/DTSToDTAHeader.html">Common: Time/DTSToDTA</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../CommonHeaders/T2JDHeader.html">Common: Time/T2JD</a>
+</pre>
+<hr><p> <a href="../OrbitFunctions.html">Back</a> to the Orbit Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

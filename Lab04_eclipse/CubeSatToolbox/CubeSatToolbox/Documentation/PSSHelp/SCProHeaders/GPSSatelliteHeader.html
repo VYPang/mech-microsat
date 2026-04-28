@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>GPSSatellite</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GPSSatellite:</h2>
+<p>Path: SCPro/ProSensors</p>
+<pre>
+% Gives the location of the GPS satellites at JD.
+   Choice of Earth-fixed or ECI reference frames.
+
+   Type GPSSatellite for a demo.
+
+--------------------------------------------------------------------------
+   Forms:
+   [r, v] = GPSSatellite( jD )
+   [r, v] = GPSSatellite( jD, coord )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jD            (1,1)   Julian Date
+   coord         (1,:)   'ef' or 'eci' (eci is the default)
+
+   -------
+   Outputs
+   -------
+   r             (3,24)  Satellite locations
+   v             (3,24)  Satellite velocity
+
+--------------------------------------------------------------------------
+   Reference: Kayton, M. and W. R. Fried. (1997.) "Avionics Navigation 
+              Systems," John Wiley & Sons.
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Axis3DHeader.html">Common: Graphics/Axis3D</a>
+<a href="../CommonHeaders/MapHeader.html">Common: Graphics/Map</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/TitleSHeader.html">Common: Graphics/TitleS</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../CommonHeaders/JD2THeader.html">Common: Time/JD2T</a>
+<a href="../MathHeaders/CrossHeader.html">Math: Linear/Cross</a>
+<a href="../SCHeaders/CP2IHeader.html">SC: BasicOrbit/CP2I</a>
+<a href="../SCHeaders/OrbRateHeader.html">SC: BasicOrbit/OrbRate</a>
+<a href="../SCHeaders/RVFromKeplerHeader.html">SC: BasicOrbit/RVFromKepler</a>
+<a href="../SCHeaders/EarthRteHeader.html">SC: Ephem/EarthRte</a>
+<a href="../SCHeaders/TruEarthHeader.html">SC: Ephem/TruEarth</a>
+</pre>
+<hr><p> <a href="../SCProFunctions.html">Back</a> to the SCPro Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>PAL</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>PAL:</h2>
+<p>Path: Math/Analysis</p>
+<pre>
+% Generates the Associated Legendre Functions of the first kind
+ The first index is n and the second is m
+ Input is limited to -1 ¾ x ¾ 1
+                                   m
+ The output matrix is P(n,m) ==   P   or P
+                                   n      nm
+ P(0,0)
+ P(1,0) P(1,1)
+ P(2,0) P(2,1) P(2,2)
+ P(3,0) P(3,1) P(3,2) P(3,3)
+ P(4,0) P(4,1) P(4,2) P(4,3) P(4,4)
+                                    P(nMax,mMax)
+
+--------------------------------------------------------------------------
+   Form:
+   p = PAL ( nMax, mMax, x )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   nMax               Max value of first index
+   mMax               Max value of second index
+   x                  Argument
+
+   -------
+   Outputs
+   -------
+   p                  Associated Legendre functions
+
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../MathFunctions.html">Back</a> to the Math Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

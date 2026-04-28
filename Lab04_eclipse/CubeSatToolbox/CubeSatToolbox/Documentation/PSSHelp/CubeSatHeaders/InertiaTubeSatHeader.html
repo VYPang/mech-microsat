@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>InertiaTubeSat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>InertiaTubeSat:</h2>
+<p>Path: CubeSat/AttitudeControl</p>
+<pre>
+% Compute the inertia of a TubeSat. 
+ This assumes a cylindrical shape  and the mass is uniformly distributed
+ throught the volume. This is a good first cut.
+
+ Type InertiaTubeSat for a demo. See also TubeSatFaces.
+------------------------------------------------------------------------
+   Form:
+   inertia = InertiaTubeSat( type, mass )
+------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   l      (1,1)     Either (1,2,3,4) for single, double, triple or quad
+   mass   (1,1)     Mass (kg)
+
+   -------
+   Outputs
+   -------
+   inertia (3,3)     Inertia matrix (kg-m^2)
+
+------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/IC623X3Header.html">Common: MassProperties/IC623X3</a>
+<a href="../CommonHeaders/InertiasHeader.html">Common: MassProperties/Inertias</a>
+</pre>
+<hr><p> <a href="../CubeSatFunctions.html">Back</a> to the CubeSat Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

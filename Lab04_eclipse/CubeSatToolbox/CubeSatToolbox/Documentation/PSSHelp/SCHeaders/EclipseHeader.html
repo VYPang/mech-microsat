@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>Eclipse</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>Eclipse:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Computes eclipses.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   [n, eclipseType] = Eclipse( rSC, rSource, rPlanet, radiusPlanet, radiusSource )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   rSC             (3,:)      Position vector of the spacecraft
+   rSource         (3,: or 1) Position vector of the light source
+   rPlanet         (3,: or 1) Position vector of the planet causing the eclipse
+                              (default is zeros)
+   radiusPlanet    (1,1)      Radius of the planet causing the eclipse 
+                              (default is the earth)
+   radiusSource    (1,1)      Radius of the light source (default is the sun)
+
+   -------
+   Outputs
+   -------
+   n               (1,:)      Normalized Source intensity ( 0 < n < 1 )
+   eclipseType     (1,:)      0 = none 1 = partial, 2 = annular 3 = total
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NPlotHeader.html">Common: Graphics/NPlot</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../MathHeaders/DotHeader.html">Math: Linear/Dot</a>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

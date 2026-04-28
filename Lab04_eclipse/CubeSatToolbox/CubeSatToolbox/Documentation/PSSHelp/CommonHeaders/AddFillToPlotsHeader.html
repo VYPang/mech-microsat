@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>AddFillToPlots</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>AddFillToPlots:</h2>
+<p>Path: Common/Graphics</p>
+<pre>
+% Find mode changes in data and draw as filled sections on existing plots.
+
+ Time and data must be the same size. diff will be used to find the points
+ where the value of data changes. Each segment will then be assigned a
+ background color from colors. The 'auto' colors mode used the axes color
+ order property. If a figure handle is not specified the current figure is
+ used.
+   
+ Type AddFillToPlots for a demo.
+--------------------------------------------------------------------------
+   Form:
+   AddFillToPlots(time,data,h,colors,alpha)
+--------------------------------------------------------------------------
+
+   -------
+   Inputs:
+   -------
+   time      (1,n)            Time axis data (the same for all subplots)
+   data      (1,n)            Data containing the mode changes
+   h         (1,1)            Figure handle with plots
+   colors    (n,3) or 'auto'  Colors for fill patches
+   alpha     (1,1)            facealpha property for the patch, in range [0 1]
+
+   --------
+   Outputs:
+   --------
+   None.
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/SwooshWatermarkHeader.html">Common: CommonData/SwooshWatermark</a>
+<a href="../CommonHeaders/CellToMatHeader.html">Common: General/CellToMat</a>
+<a href="../CommonHeaders/MatToCellHeader.html">Common: General/MatToCell</a>
+<a href="../CommonHeaders/WatermarkHeader.html">Common: General/Watermark</a>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/Plot2DHeader.html">Common: Graphics/Plot2D</a>
+<a href="../CommonHeaders/PltStyleHeader.html">Common: Graphics/PltStyle</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

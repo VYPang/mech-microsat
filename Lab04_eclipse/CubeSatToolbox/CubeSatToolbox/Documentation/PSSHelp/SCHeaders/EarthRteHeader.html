@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>EarthRte</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>EarthRte:</h2>
+<p>Path: SC/Ephem</p>
+<pre>
+% Computes the mean earth rate.
+   See also MSidDay.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   w = EarthRte( jD )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   jD              (1,1)   Julian date (day)
+
+   -------
+   Outputs
+   -------
+   w               (1,1)    Mean earth rate (rad/sec)
+
+--------------------------------------------------------------------------
+	References:	The Astronomical Almanac for the Year 1993, U.S. Government
+               Printing Office, 1993, p. B6. 
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/Date2JDHeader.html">Common: Time/Date2JD</a>
+<a href="../SCHeaders/MSidDayHeader.html">SC: Ephem/MSidDay</a>
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

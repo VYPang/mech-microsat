@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>SolarF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>SolarF:</h2>
+<p>Path: SC/Disturbances</p>
+<pre>
+%   Compute the solar force on a set of elemental areas.
+
+   Since version 1.
+--------------------------------------------------------------------------
+   Form:
+   f = SolarF( p, rho, normal, source, area )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   p             (1,1) Solar pressure (flux/speed of light)
+   rho           (3,n) Coefficient fraction, may also be (3,1)
+                       [absorbed;specular;diffuse]
+   normal        (3,n) Surface normal vector
+   source        (3,1) Unit vector to source
+   area          (n)   Elemental area
+
+   -------
+   Outputs
+   -------
+   f             (3,n) Solar force
+
+-------------------------------------------------------------------------
+	  Reference:  Hughes, P. C., "Spacecraft Attitude Dynamics"
+             	John Wiley and Sons, 1986, pp. 260-263.
+--------------------------------------------------------------------------
+</pre>
+<hr><p> <a href="../SCFunctions.html">Back</a> to the SC Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

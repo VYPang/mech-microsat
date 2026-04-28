@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>GeomPatch</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>GeomPatch:</h2>
+<p>Path: Common/ComponentModels</p>
+<pre>
+% Get vertices for surfaces of revolution, ellipsoids and cylinders
+ All surfaces, except for ellipsoids, are closed. Type GeomPatch for a demo.
+--------------------------------------------------------------------------
+   Form:
+   [v, f, c] = GeomPatch( d, cData, cMap )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   d           (.)   Data structure
+                     Surface of revolution: d.a, d.n, d.zUpper, d.zLower
+                     d.a          r as a function of polynomial z
+                                  a(1)*z^n + a(2)*z^(n-1)... a(n)*z^0]
+                     d.n          Number of divisions
+                     d.zUpper     Upper z limit
+                     d.zLower     Lower z limit
+
+                     Cylinder: d.rU, d.rL, d.zUpper, d.zLower, d.n
+                     d.rU         Upper radius
+                     d.rL         Lower radius
+                     d.zUpper     Upper z limit
+                     d.zLower     Lower z limit
+                     d.endcap     Any value creates endcaps   
+
+                     Ellipsoid: d.a, d.b, d.c, d.thetaUpper, d.n
+                     d.a          X radius
+                     d.b          Y radius
+                     d.c          Z radius
+                     d.thetaUpper Upper angle. Ranges from 0 to thetaUpper
+                     d.n          Number of divisions
+
+                     The default value for n is 6.
+
+   cData       (m,p) Indexes to the color map where the values range
+                     from 1 to n
+   cMap        (n,3) Color Map
+
+   -------
+   Outputs
+   -------
+   v           (:,3) Vertices
+   f           (:,3) Faces
+   c           (:,3) Vertex color data where the number of rows equal
+                     the number of vertices
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../CommonHeaders/NewFigHeader.html">Common: Graphics/NewFig</a>
+<a href="../CommonHeaders/XLabelSHeader.html">Common: Graphics/XLabelS</a>
+<a href="../CommonHeaders/YLabelSHeader.html">Common: Graphics/YLabelS</a>
+<a href="../CommonHeaders/ZLabelSHeader.html">Common: Graphics/ZLabelS</a>
+<a href="../MathHeaders/MagHeader.html">Math: Linear/Mag</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

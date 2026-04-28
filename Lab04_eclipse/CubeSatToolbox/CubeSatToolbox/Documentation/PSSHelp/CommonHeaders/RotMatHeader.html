@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>RotMat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<?php
+	$rootPath = "../../..";
+	include("$rootPath/includes/header.inc");
+?>
+</head>
+<body>
+<div class=page>
+
+<h2>RotMat:</h2>
+<p>Path: Common/Transform</p>
+<pre>
+% Generates a rotation matrix that transforms in the opposite direction
+   of the rotation. Angle may be one to three. Axis gives the order of
+   transformation. For example:
+
+   axis = [1;2;3]
+
+   then b = b(3)*b(2)*b(1)
+
+   and v            = b*v
+        unrotated        rotated
+
+   If angle has more than one column, then b will be
+
+   [b1, b2, b3, ..., bn]
+
+   and each row of bK will give the column indices of the 
+   corresponding transformation matrix. For example, to get the
+   3rd transformation matrix type
+
+   b(:,bK(3,:))
+
+--------------------------------------------------------------------------
+   Form:
+   [b, bK] = RotMat( angle, axis )
+--------------------------------------------------------------------------
+
+   ------
+   Inputs
+   ------
+   angle       (:,n)            Angle (rad)
+   axis        (:,n)            Axis of rotation
+
+   -------
+   Outputs
+   -------
+   b           (3,n)            Transformation matrix
+   bK          (3,n)            Indexes to n
+
+--------------------------------------------------------------------------
+</pre>
+
+<h2>Children:</h2>
+<pre>
+<a href="../MathHeaders/DupVectHeader.html">Math: Linear/DupVect</a>
+</pre>
+<hr><p> <a href="../CommonFunctions.html">Back</a> to the Common Module page</p></div>
+<?php include("$rootPath/includes/footer.inc"); ?>
+</html>

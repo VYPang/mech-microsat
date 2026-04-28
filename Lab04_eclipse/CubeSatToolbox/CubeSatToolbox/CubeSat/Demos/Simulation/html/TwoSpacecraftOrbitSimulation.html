@@ -1,0 +1,355 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Demonstrate a 2 satellite CubeSat constellation.</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-08"><meta name="DC.source" content="TwoSpacecraftOrbitSimulation.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Demonstrate a 2 satellite CubeSat constellation.</h1><!--introduction--><p>This simulation includes drag, solar radiation pressure, sun and moon perturbations, and a thruster model. Uses ode113 and FOrbitMultiSpacecraft. The simulation takes a few minutes and there is no waitbar; be patient!</p><pre>----------------------------------------------------------------------
+See also LabelLine, NewFig, Plot2D, TimeLabl, XLabelS, YLabelS, Skew,
+Date2JD, CubeSatPropulsion, CubeSatAero, CubeSatRadiationPressure,
+CubeSatFaces, FOrbitMultiSpacecraft, SolarFluxPrediction
+------------------------------------------------------------------------</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2">Simulation duration</a></li><li><a href="#3">Common fields</a></li><li><a href="#4">Initial state vector</a></li><li><a href="#5">Atmosphere data</a></li><li><a href="#6">Make a second copy for the second spacecraft</a></li><li><a href="#7">CubeSat face areas</a></li><li><a href="#8">Attitude model</a></li><li><a href="#9">Propulsion system for two CubeSats</a></li><li><a href="#10">Add surface models for both CubeSats</a></li><li><a href="#11">ode 113 parameters</a></li><li><a href="#12">Numerically integrate the orbit</a></li><li><a href="#13">Flip the matrices for plotting</a></li><li><a href="#14">Plot the xy-plane</a></li></ul></div><pre class="codeinput"><span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Copyright (c) 2009 Princeton Satellite Systems, Inc.</span>
+<span class="comment">%   All rights reserved.</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+<span class="comment">%   Since version 8.</span>
+<span class="comment">%   2016.1: Update data structure format to match RHSCubeSat</span>
+<span class="comment">%------------------------------------------------------------------------</span>
+
+d    = FOrbitMultiSpacecraft;
+</pre><h2 id="2">Simulation duration</h2><pre class="codeinput"><span class="comment">%--------------------</span>
+days  = 0.5;
+tEnd  = days*86400;
+</pre><h2 id="3">Common fields</h2><pre class="codeinput"><span class="comment">%---------------</span>
+d.jD0           = Date2JD([2012 4 5 0 0 0]);
+d.planet        = <span class="string">'earth'</span>;
+d.thrusterModel = @CubeSatPropulsion;
+d.aeroModel     = @CubeSatAero;
+d.opticalModel  = @CubeSatRadiationPressure;
+d.gravityModel  = LoadGravityModel(<span class="string">'load file'</span>,<span class="string">'GemT1.geo'</span>);
+</pre><h2 id="4">Initial state vector</h2><pre class="codeinput"><span class="comment">%----------------------</span>
+m0   = 1;         <span class="comment">% Initial mass, kg</span>
+<span class="keyword">switch</span> d.planet
+  <span class="keyword">case</span> <span class="string">'moon'</span>
+    x0 = 3500;
+    mu = Constant( <span class="string">'mu moon'</span> );
+  <span class="keyword">case</span> <span class="string">'earth'</span>
+    x0 = 6500;
+    mu = Constant( <span class="string">'mu earth'</span> );
+<span class="keyword">end</span>
+
+x1   = x0;          <span class="comment">% Orbit radius</span>
+x2   = x0 + 0.010;  <span class="comment">% Radius with an offset</span>
+vY1  = VOrbit(x1,x1,mu);
+vY2  = VOrbit(x2,x2,mu);
+
+<span class="comment">% State is [position;velocity;mass]</span>
+<span class="comment">% CubeSats are 1 kg</span>
+<span class="comment">%---------------------------------</span>
+r1   = [x1;0;0];
+r2   = [x2;0;0];
+v1   = [0;vY1;0];
+v2   = [0;vY2;0];
+x    = [r1;v1;1;r2;v2;m0];
+</pre><h2 id="5">Atmosphere data</h2><pre class="codeinput"><span class="comment">%-----------------</span>
+<span class="comment">% if you want J70, uncomment this.</span>
+<span class="comment">% [aP, f, fHat, fHat400] = SolarFluxPrediction( d.jD0, 'nominal' );</span>
+<span class="comment">% atm = struct;</span>
+<span class="comment">% atm.aP = aP(1);</span>
+<span class="comment">% atm.f = f(1);</span>
+<span class="comment">% atm.fHat = fHat(1);</span>
+<span class="comment">% atm.fHat400 = fHat400(1);</span>
+d.atm = []; <span class="comment">% atm;</span>
+</pre><h2 id="6">Make a second copy for the second spacecraft</h2><pre class="codeinput"><span class="comment">%----------------------------------------------</span>
+d(2) = d;
+</pre><h2 id="7">CubeSat face areas</h2><pre class="codeinput"><span class="comment">%-------------------</span>
+[a,n,r] = CubeSatFaces( <span class="string">'1U'</span>, 1 );
+cM      = [0;0;0];
+</pre><h2 id="8">Attitude model</h2><pre class="codeinput"><span class="comment">%---------------</span>
+att             = struct();
+att.type        = <span class="string">'lvlh'</span>;
+att.qLVLHToBody = [1;0;0;0];
+</pre><h2 id="9">Propulsion system for two CubeSats</h2><pre class="codeinput"><span class="comment">%-----------------------------------</span>
+thrusterData = CubeSatPropulsion();
+d(1).thrusterData = thrusterData;
+d(1).thrusterData.gas                 = <span class="string">'nitrogen'</span>;
+d(1).thrusterData.thrustCoeff         = 0.05/690000;
+d(1).thrusterData.Isp                 = 68; <span class="comment">% s</span>
+d(1).thrusterData.temperature         = 300;
+d(1).thrusterData.volumeTank          = (4/3)*pi*0.02^3;
+d(1).thrusterData.rNozzle             = [0.05;0;0];
+d(1).thrusterData.uNozzle             = [0;1;0];
+d(1).thrusterData.qECIToBody          = [1;0;0;0];
+d(1).thrusterData.massDry             = 0.99;
+d(1).thrusterData.pulsewidthFraction  = 1.0;
+d(1).thrusterData.cM                  = cM;
+d(1).thrusterData.att.calc            = false;
+d(2).thrusterData                     = d(1).thrusterData;
+d(2).thrusterData.pulsewidthFraction  = 0;
+</pre><h2 id="10">Add surface models for both CubeSats</h2><pre class="codeinput"><span class="comment">%--------------------------------------</span>
+surfData = CubeSatAero();
+surfData = CubeSatRadiationPressure(surfData);
+surfData.nFace = n;
+surfData.rFace = r;
+surfData.area  = a;
+surfData.cM    = cM;
+surfData.att   = att;
+surfData.rho   = [1 1 1 1 1 1;zeros(2,6)];
+d(1).surfData  = surfData;
+d(2).surfData  = surfData;
+</pre><h2 id="11">ode 113 parameters</h2><pre class="codeinput"><span class="comment">%-------------------</span>
+opt   = odeset( <span class="string">'AbsTol'</span>, 1e-7, <span class="string">'RelTol'</span>, 1e-4, <span class="string">'outputfcn'</span>, @ODETimeDisplay );
+</pre><h2 id="12">Numerically integrate the orbit</h2><pre class="codeinput"><span class="comment">%--------------------------------</span>
+disp(<span class="string">'Simulating with ode113. This will take a few minutes.'</span>);
+tic
+[t,x] = ode113( @FOrbitMultiSpacecraft, [0 tEnd], x, opt, d );
+toc
+</pre><pre class="codeoutput">Simulating with ode113. This will take a few minutes.
+Elapsed time is 91.080515 seconds.
+</pre><h2 id="13">Flip the matrices for plotting</h2><pre class="codeinput"><span class="comment">%-------------------------------</span>
+delT = diff(t);
+[t,tL] = TimeLabl( t');
+x     = x';
+</pre><h2 id="14">Plot the xy-plane</h2><pre class="codeinput"><span class="comment">%------------------</span>
+dX    = x([1;2],:) - x([8:9],:);
+
+NewFig(<span class="string">'Simulation Timestep'</span>)
+plot(delT);
+YLabelS(<span class="string">'Timestep (sec)'</span>)
+XLabelS(<span class="string">'Steps'</span>)
+grid <span class="string">on</span>
+
+Plot2D( dX(1,:)*1000, dX(2,:)*1000, <span class="string">'\Delta x (m)'</span>, <span class="string">'\Delta y (m)'</span>, <span class="string">'Two spacecraft XY-Plane'</span> );
+LabelLine( dX*1000, t, 10, [<span class="string">'- %4.1f '</span> tL(7:end-1)]  )
+
+Plot2D(t,x(7,:),tL,<span class="string">'Mass (kg)'</span>,<span class="string">'Fuel Consumption'</span>)
+
+
+<span class="comment">%--------------------------------------</span>
+<span class="comment">% PSS internal file version information</span>
+<span class="comment">%--------------------------------------</span>
+</pre><img vspace="5" hspace="5" src="TwoSpacecraftOrbitSimulation_01.png" alt=""> <img vspace="5" hspace="5" src="TwoSpacecraftOrbitSimulation_02.png" alt=""> <img vspace="5" hspace="5" src="TwoSpacecraftOrbitSimulation_03.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Demonstrate a 2 satellite CubeSat constellation.
+% This simulation includes drag, solar radiation pressure, sun and moon
+% perturbations, and a thruster model. Uses ode113 and FOrbitMultiSpacecraft.
+% The simulation takes a few minutes and there is no waitbar; be patient!
+%
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%  See also LabelLine, NewFig, Plot2D, TimeLabl, XLabelS, YLabelS, Skew, 
+%  Date2JD, CubeSatPropulsion, CubeSatAero, CubeSatRadiationPressure, 
+%  CubeSatFaces, FOrbitMultiSpacecraft, SolarFluxPrediction
+%  REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%%
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Copyright (c) 2009 Princeton Satellite Systems, Inc.
+%   All rights reserved.
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+%   Since version 8.
+%   2016.1: Update data structure format to match RHSCubeSat
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+d    = FOrbitMultiSpacecraft;
+
+%% Simulation duration
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+days  = 0.5;
+tEnd  = days*86400; 
+
+%% Common fields
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+d.jD0           = Date2JD([2012 4 5 0 0 0]);
+d.planet        = 'earth';
+d.thrusterModel = @CubeSatPropulsion;
+d.aeroModel     = @CubeSatAero;
+d.opticalModel  = @CubeSatRadiationPressure;
+d.gravityModel  = LoadGravityModel('load file','GemT1.geo');
+
+%% Initial state vector
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+m0   = 1;         % Initial mass, kg
+switch d.planet
+  case 'moon'
+    x0 = 3500;
+    mu = Constant( 'mu moon' );
+  case 'earth'
+    x0 = 6500;
+    mu = Constant( 'mu earth' ); 
+end
+
+x1   = x0;          % Orbit radius
+x2   = x0 + 0.010;  % Radius with an offset
+vY1  = VOrbit(x1,x1,mu);
+vY2  = VOrbit(x2,x2,mu);
+
+% State is [position;velocity;mass]
+% CubeSats are 1 kg
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+r1   = [x1;0;0];
+r2   = [x2;0;0];
+v1   = [0;vY1;0];
+v2   = [0;vY2;0];
+x    = [r1;v1;1;r2;v2;m0];
+
+%% Atmosphere data
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% if you want J70, uncomment this.
+% [aP, f, fHat, fHat400] = SolarFluxPrediction( d.jD0, 'nominal' );
+% atm = struct;
+% atm.aP = aP(1); 
+% atm.f = f(1); 
+% atm.fHat = fHat(1); 
+% atm.fHat400 = fHat400(1);
+d.atm = []; % atm;
+
+%% Make a second copy for the second spacecraft
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+d(2) = d;
+
+%% CubeSat face areas
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+[a,n,r] = CubeSatFaces( '1U', 1 );
+cM      = [0;0;0];
+
+%% Attitude model
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+att             = struct();
+att.type        = 'lvlh';
+att.qLVLHToBody = [1;0;0;0];
+
+%% Propulsion system for two CubeSats
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+thrusterData = CubeSatPropulsion();
+d(1).thrusterData = thrusterData;
+d(1).thrusterData.gas                 = 'nitrogen';
+d(1).thrusterData.thrustCoeff         = 0.05/690000;
+d(1).thrusterData.Isp                 = 68; % s
+d(1).thrusterData.temperature         = 300;
+d(1).thrusterData.volumeTank          = (4/3)*pi*0.02^3;
+d(1).thrusterData.rNozzle             = [0.05;0;0];
+d(1).thrusterData.uNozzle             = [0;1;0];
+d(1).thrusterData.qECIToBody          = [1;0;0;0];
+d(1).thrusterData.massDry             = 0.99;
+d(1).thrusterData.pulsewidthFraction  = 1.0;
+d(1).thrusterData.cM                  = cM;
+d(1).thrusterData.att.calc            = false;
+d(2).thrusterData                     = d(1).thrusterData;
+d(2).thrusterData.pulsewidthFraction  = 0;
+
+%% Add surface models for both CubeSats
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+surfData = CubeSatAero();
+surfData = CubeSatRadiationPressure(surfData);
+surfData.nFace = n;
+surfData.rFace = r; 
+surfData.area  = a;
+surfData.cM    = cM;
+surfData.att   = att;
+surfData.rho   = [1 1 1 1 1 1;zeros(2,6)];
+d(1).surfData  = surfData;
+d(2).surfData  = surfData;
+
+%% ode 113 parameters
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+opt   = odeset( 'AbsTol', 1e-7, 'RelTol', 1e-4, 'outputfcn', @ODETimeDisplay );
+
+%% Numerically integrate the orbit
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+disp('Simulating with ode113. This will take a few minutes.');
+tic
+[t,x] = ode113( @FOrbitMultiSpacecraft, [0 tEnd], x, opt, d ); 
+toc
+
+%% Flip the matrices for plotting
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+delT = diff(t);
+[t,tL] = TimeLabl( t');
+x     = x';
+
+%% Plot the xy-plane
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+dX    = x([1;2],:) - x([8:9],:);
+
+NewFig('Simulation Timestep')
+plot(delT);
+YLabelS('Timestep (sec)')
+XLabelS('Steps')
+grid on
+
+Plot2D( dX(1,:)*1000, dX(2,:)*1000, '\Delta x (m)', '\Delta y (m)', 'Two spacecraft XY-Plane' );
+LabelLine( dX*1000, t, 10, ['- %4.1f ' tL(7:end-1)]  )
+
+Plot2D(t,x(7,:),tL,'Mass (kg)','Fuel Consumption')
+
+
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% PSS internal file version information
+%REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% $Date: 2020-05-29 16:40:27 -0400 (Fri, 29 May 2020) $
+% $Revision: 52560 $
+
+##### SOURCE END #####
+--></body></html>
