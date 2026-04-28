@@ -62,7 +62,7 @@
 &
 &
 \node [Function] (THM) {$\text{Thermal}$};&
-\node [DataInter] (THM-ORB) {$\rho_{eff}$};&
+\node [DataInter] (THM-ORB) {$C_r$};&
 &
 \node [DataInter] (THM-BDG) {$M_{thm}, V_{thm}$};&
 &
@@ -80,7 +80,7 @@
 %Row 6
 &
 &
-\node [DataInter] (PRP-PWR) {$P_{ion}$};&
+\node [DataInter] (PRP-PWR) {$P_{ion}, t_{burn}$};&
 &
 \node [DataInter] (PRP-ORB) {$M_{prop}$};&
 \node [Function] (PRP) {$\text{Propulsion}$};&

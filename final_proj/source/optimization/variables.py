@@ -46,6 +46,7 @@ SOL_SENTINEL_VARIABLES: tuple[VariableDefinition, ...] = (
     VariableDefinition("ballistic_coefficient_m2_per_kg", "\\beta", "m^2/kg", "Collapsed SRP scaling variable.", "orbit"),
     VariableDefinition("orbit_mass_for_srp_kg", "M_{orb}", "kg", "Mass used internally by the orbit surrogate.", "orbit"),
     VariableDefinition("propulsion_power_w", "P_{ion}", "W", "Propulsion electrical draw.", "propulsion"),
+    VariableDefinition("burn_duration_s", "t_{burn}", "s", "Station-keeping burn duration promoted from Propulsion for EPS sizing.", "propulsion"),
     VariableDefinition("propellant_mass_kg", "M_{prop}", "kg", "Propellant mass required by the propulsion model.", "propulsion"),
     VariableDefinition("propulsion_mass_kg", "M_{prop,sys}", "kg", "Propulsion hardware dry mass.", "propulsion"),
     VariableDefinition("propulsion_volume_u", "V_{prop}", "U", "Propulsion subsystem volume.", "propulsion"),

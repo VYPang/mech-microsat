@@ -146,6 +146,7 @@ class FixedThrusterPropulsionModule:
     delta_v_variable: str = "delta_v_mps_per_year"
     total_mass_variable: str = "total_wet_mass_kg"
     propulsion_power_variable: str = "propulsion_power_w"
+    burn_duration_variable: str = "burn_duration_s"
     propellant_mass_variable: str = "propellant_mass_kg"
     propulsion_mass_variable: str = "propulsion_mass_kg"
     propulsion_volume_variable: str = "propulsion_volume_u"
@@ -165,6 +166,7 @@ class FixedThrusterPropulsionModule:
     def provided_outputs(self) -> tuple[str, ...]:
         return (
             self.propulsion_power_variable,
+            self.burn_duration_variable,
             self.propellant_mass_variable,
             self.propulsion_mass_variable,
             self.propulsion_volume_variable,
@@ -183,12 +185,19 @@ class FixedThrusterPropulsionModule:
         exponent = -delta_v_life / (_G0_MPS2 * self.config.thruster.specific_impulse_s)
         return total_mass * (1.0 - math.exp(exponent))
 
+    def _burn_duration_s(self, state: SystemState) -> float:
+        total_mass = state.get(self.total_mass_variable)
+        delta_v_effective = self._effective_delta_v_per_year(state)
+        delta_v_cycle = delta_v_effective * self.config.mission.correction_cadence_s / _SECONDS_PER_YEAR
+        cycle_impulse_required = total_mass * delta_v_cycle
+        return cycle_impulse_required / self.config.thruster.thrust_n
+
     def diagnostics(self, state: SystemState) -> dict[str, float]:
         total_mass = state.get(self.total_mass_variable)
         delta_v_effective = self._effective_delta_v_per_year(state)
         delta_v_cycle = delta_v_effective * self.config.mission.correction_cadence_s / _SECONDS_PER_YEAR
         cycle_impulse_required = total_mass * delta_v_cycle
-        burn_duration_s = cycle_impulse_required / self.config.thruster.thrust_n
+        burn_duration_s = self._burn_duration_s(state)
         duty_cycle = burn_duration_s / self.config.mission.correction_cadence_s
         mission_delta_v = self._mission_delta_v(state)
         mission_total_impulse = total_mass * mission_delta_v
@@ -205,6 +214,7 @@ class FixedThrusterPropulsionModule:
     def evaluate(self, state: SystemState) -> dict[str, float]:
         return {
             self.propulsion_power_variable: self.config.thruster.power_w,
+            self.burn_duration_variable: self._burn_duration_s(state),
             self.propellant_mass_variable: self._propellant_mass_required(state),
             self.propulsion_mass_variable: self.config.thruster.resolved_hardware_mass_kg,
             self.propulsion_volume_variable: self.config.thruster.volume_u,

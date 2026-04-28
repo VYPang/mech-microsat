@@ -20,7 +20,7 @@ x.connect('OPT', 'BDG', r'M_{payload}, V_{payload}')
 x.connect('COM', 'PWR', r'P_{tx}')
 x.connect('PWR', 'THM', r'A_{sa}, P_{dissipated}')
 x.connect('PWR', 'ORB', r'A_{sa}')
-x.connect('THM', 'ORB', r'\rho_{eff}')
+x.connect('THM', 'ORB', r'C_r')
 x.connect('ORB', 'PRP', r'\Delta V_{avg}')
 x.connect('COM', 'BDG', r'M_{com}, V_{com}')
 x.connect('PWR', 'BDG', r'M_{pwr}, V_{pwr}')
@@ -29,7 +29,7 @@ x.connect('PRP', 'BDG', r'M_{prop}, V_{prop}')
 
 # 3. Define the Feedback Connections (Lower Left Triangle)
 # Power feedback: ion engine electrical draw closes the A_sa <-> P loop.
-x.connect('PRP', 'PWR', r'P_{ion}')
+x.connect('PRP', 'PWR', r'P_{ion}, t_{burn}')
 # Mass feedback: SRP acceleration scales as 1/m, so total wet mass enters Orbit.
 x.connect('BDG', 'ORB', r'M_{tot}')
 # Mass feedback: the rocket equation in Propulsion needs wet mass to size propellant.
