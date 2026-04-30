@@ -39,7 +39,7 @@ console = Console()
 @dataclass(frozen=True)
 class ConfigDesignVariable:
     name: str
-    config_path: str
+    config_paths: tuple[str, ...]
     lower: float
     upper: float
     initial: float
@@ -64,16 +64,45 @@ def _load_design_variables(payload: dict[str, Any]) -> tuple[ConfigDesignVariabl
             "optimizer.design_variables is empty. The current config is set up for the sizing solver only; "
             "run final_proj/scripts/run_design_point.py or add outer design variables before using run_optimization.py."
         )
-    return tuple(
-        ConfigDesignVariable(
-            name=str(raw_variable["name"]),
-            config_path=str(raw_variable["config_path"]),
-            lower=float(raw_variable["lower"]),
-            upper=float(raw_variable["upper"]),
-            initial=float(raw_variable["initial"]),
+
+    design_variables: list[ConfigDesignVariable] = []
+    for raw_variable in raw_variables:
+        raw_config_paths = raw_variable.get("config_paths")
+        if raw_config_paths is None:
+            raw_config_path = raw_variable.get("config_path")
+            if raw_config_path is None:
+                raise KeyError(
+                    "Each optimizer design variable must define config_path or config_paths."
+                )
+            config_paths = (str(raw_config_path),)
+        else:
+            config_paths = tuple(str(config_path) for config_path in raw_config_paths)
+            if not config_paths:
+                raise ValueError("optimizer design variable config_paths must not be empty.")
+
+        lower = float(raw_variable["lower"])
+        upper = float(raw_variable["upper"])
+        initial = float(raw_variable["initial"])
+        if lower > upper:
+            raise ValueError(
+                f"optimizer design variable '{raw_variable['name']}' has lower > upper: {lower} > {upper}."
+            )
+        if not lower <= initial <= upper:
+            raise ValueError(
+                f"optimizer design variable '{raw_variable['name']}' has initial {initial} outside "
+                f"[{lower}, {upper}]."
+            )
+
+        design_variables.append(
+            ConfigDesignVariable(
+                name=str(raw_variable["name"]),
+                config_paths=config_paths,
+                lower=lower,
+                upper=upper,
+                initial=initial,
+            )
         )
-        for raw_variable in raw_variables
-    )
+    return tuple(design_variables)
 
 
 def _set_nested_value(payload: dict[str, Any], dotted_path: str, value: float) -> None:
@@ -87,6 +116,11 @@ def _set_nested_value(payload: dict[str, Any], dotted_path: str, value: float) -
 def _build_analysis_from_payload(config_path: Path, payload: dict[str, Any]):
     return build_sol_sentinel_analysis(
         surrogate_source=load_orbit_surrogate_path(config_path),
+        orbit_inclination_deg=(
+            None
+            if payload.get("orbit", {}).get("inclination_deg") is None
+            else float(payload["orbit"]["inclination_deg"])
+        ),
         comms_config_source=CommsConfig.from_mapping(payload.get("comms", {})),
         power_config_source=PowerConfig.from_mapping(payload["power"]),
         thermal_config_source=ThermalConfig.from_mapping(payload["thermal"]),
@@ -105,7 +139,8 @@ def _evaluate_candidate(
 ) -> tuple[float, dict[str, Any]]:
     payload = copy.deepcopy(base_payload)
     for design_variable, value in zip(design_variables, vector, strict=True):
-        _set_nested_value(payload, design_variable.config_path, float(value))
+        for target_path in design_variable.config_paths:
+            _set_nested_value(payload, target_path, float(value))
 
     analysis = _build_analysis_from_payload(config_path, payload)
     result = analysis.run(dict(base_inputs))
@@ -244,7 +279,7 @@ def main(
             "Optimized Design Variables",
             [
                 (
-                    f"{design_variable.name} ({design_variable.config_path})",
+                    f"{design_variable.name} ({', '.join(design_variable.config_paths)})",
                     _format_float(float(value)),
                 )
                 for design_variable, value in zip(design_variables, optimization_result.x, strict=True)

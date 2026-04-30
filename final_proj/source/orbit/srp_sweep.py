@@ -1,4 +1,4 @@
-"""Full-factorial 3-D parameter sweep over (area, c_R, mass).
+"""Full-factorial SRP parameter sweep over inclination, area, c_R, and mass.
 
 The sweep is append-safe: existing rows in the output Parquet are
 preserved and only missing grid points are simulated.  This lets the
@@ -51,7 +51,7 @@ class SweepSpec:
     """Everything needed to enumerate and execute the design grid."""
 
     epoch_utc: str
-    inclination_deg: float
+    inclination_values_deg: tuple[float, ...]
     duration_years: float
     timestep_s: float
     area: GridAxis
@@ -60,13 +60,18 @@ class SweepSpec:
 
 
 def _enumerate_grid(spec: SweepSpec) -> list[dict]:
-    """Cartesian product of the three axes as a list of design points."""
+    """Cartesian product of all sweep axes as a list of design points."""
     rows = []
-    for a, c, m in itertools.product(spec.area.values(), spec.cr.values(), spec.mass.values()):
+    for inclination, a, c, m in itertools.product(
+        spec.inclination_values_deg,
+        spec.area.values(),
+        spec.cr.values(),
+        spec.mass.values(),
+    ):
         rows.append(
             {
                 "epoch_utc": spec.epoch_utc,
-                "inclination_deg": float(spec.inclination_deg),
+                "inclination_deg": float(inclination),
                 "duration_years": float(spec.duration_years),
                 "timestep_s": float(spec.timestep_s),
                 "area_m2": float(a),

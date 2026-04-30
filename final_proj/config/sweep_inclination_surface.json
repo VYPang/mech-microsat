@@ -1,0 +1,22 @@
+{
+    "simulation": {
+        "epoch_utc": "2026 MAY 01 00:00:00.0 (UTC)",
+        "duration_years": 3.0,
+        "timestep_s": 600.0
+    },
+    "grid": {
+        "inclination_deg": {"min": 7.0, "max": 15.0, "step": 1.0},
+        "area_m2": {"min": 0.02, "max": 0.30, "n": 5},
+        "cr": {"min": 1.0, "max": 2.0, "n": 5},
+        "mass_kg": {"min": 3.2, "max": 24.0, "n": 5}
+    },
+    "surrogate": {
+        "degree": 2
+    },
+    "output": {
+        "samples_parquet": "final_proj/output/inclination_surface/srp_samples.parquet",
+        "surrogate_json": "final_proj/output/inclination_surface/srp_surrogate_surface.json",
+        "plot_html": "final_proj/output/inclination_surface/plots/srp_response_surface_3d.html",
+        "plot_png": "final_proj/output/inclination_surface/plots/srp_response_surface_3d.png"
+    }
+}

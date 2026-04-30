@@ -5,7 +5,8 @@
         "correction_cadence_days": 30.0
     },
     "orbit": {
-        "surrogate_json_path": "../output/low_inc/srp_surrogate.json"
+        "surrogate_json_path": "../output/low_inc/srp_surrogate.json",
+        "inclination_deg": 7.25
     },
     "payload": {
         "power_w": 2.2,

@@ -136,6 +136,15 @@ def load_orbit_surrogate_path(source: Path) -> Path:
     return _resolve_config_path(Path(source), str(raw_path))
 
 
+def load_orbit_inclination_deg(source: Path) -> float | None:
+    payload = _load_optimizer_payload(source)
+    orbit_section = payload.get("orbit", {})
+    raw_inclination = orbit_section.get("inclination_deg")
+    if raw_inclination is None:
+        return None
+    return float(raw_inclination)
+
+
 def load_optimizer_startup_seeds(source: Path) -> dict[str, float]:
     payload = _load_optimizer_payload(source)
     seed_payload = payload.get("optimizer", {}).get("startup_seed", {})
@@ -240,6 +249,8 @@ def build_budget_module() -> EquationModule:
 def build_sol_sentinel_analysis(
     surrogate_source: ResponseSurface | Path | None = None,
     *,
+    orbit_inclination_deg: float | None = None,
+    orbit_inclination_variable: str | None = None,
     comms_module: DisciplineModule | None = None,
     comms_config_source: CommsConfig | Path | None = None,
     power_module: DisciplineModule | None = None,
@@ -275,7 +286,15 @@ def build_sol_sentinel_analysis(
             )
         resolved_surrogate_source = load_orbit_surrogate_path(shared_config_source)
 
-    orbit_module = OrbitSurrogateModule(_load_surrogate(resolved_surrogate_source))
+    resolved_orbit_inclination_deg = orbit_inclination_deg
+    if resolved_orbit_inclination_deg is None and shared_config_source is not None:
+        resolved_orbit_inclination_deg = load_orbit_inclination_deg(shared_config_source)
+
+    orbit_module = OrbitSurrogateModule(
+        _load_surrogate(resolved_surrogate_source),
+        fixed_inclination_deg=resolved_orbit_inclination_deg,
+        inclination_variable=orbit_inclination_variable,
+    )
 
     resolved_comms_module = comms_module
     if resolved_comms_module is None and comms_config_source is not None:

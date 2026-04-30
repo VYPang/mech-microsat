@@ -31,6 +31,8 @@ class OrbitSurrogateModule:
     reflectivity_variable: str = "effective_reflectivity"
     total_mass_variable: str = "total_wet_mass_kg"
     propellant_mass_variable: str | None = "propellant_mass_kg"
+    fixed_inclination_deg: float | None = None
+    inclination_variable: str | None = None
     delta_v_variable: str = "delta_v_mps_per_year"
     beta_variable: str = "ballistic_coefficient_m2_per_kg"
     effective_mass_variable: str = "orbit_mass_for_srp_kg"
@@ -44,6 +46,8 @@ class OrbitSurrogateModule:
         inputs = [self.area_variable, self.reflectivity_variable, self.total_mass_variable]
         if self.propellant_mass_variable is not None:
             inputs.append(self.propellant_mass_variable)
+        if self.inclination_variable is not None:
+            inputs.append(self.inclination_variable)
         return tuple(inputs)
 
     @property
@@ -60,6 +64,11 @@ class OrbitSurrogateModule:
         rho_s = state.get(self.reflectivity_variable)
         return 1.0 + rho_s
 
+    def _inclination_deg(self, state: SystemState) -> float | None:
+        if self.inclination_variable is not None:
+            return state.get(self.inclination_variable)
+        return self.fixed_inclination_deg
+
     def evaluate(self, state: SystemState) -> dict[str, float]:
         area = state.get(self.area_variable)
         reflectivity = self._cannonball_reflectivity(state)
@@ -69,6 +78,7 @@ class OrbitSurrogateModule:
             area_m2=area,
             cr=reflectivity,
             mass_kg=effective_mass,
+            inclination_deg=self._inclination_deg(state),
         )
         return {
             self.delta_v_variable: delta_v,

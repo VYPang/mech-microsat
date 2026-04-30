@@ -98,10 +98,13 @@ uv run python final_proj/scripts/run_baseline.py --config <path-to-config.json> 
 
 ### SRP Sweep + Surrogate
 
-Run a full-factorial sweep over solar-array area, reflectivity coefficient, and spacecraft mass on the low-inclination reference orbit. Each grid point runs a Basilisk propagation with cannonball SRP enabled, writes the raw samples to Parquet, fits a polynomial surrogate, and generates both an interactive HTML plot and a static report-ready PNG.
+Run a full-factorial sweep over solar-array area, reflectivity coefficient, and spacecraft mass on a selected reference orbit. Each grid point runs a Basilisk propagation with cannonball SRP enabled, writes the raw samples to Parquet, fits a polynomial surrogate, and generates both an interactive HTML plot and a static report-ready PNG.
 
 ```bash
 uv run python final_proj/scripts/run_sweep.py --config final_proj/config/sweep_low_inc.json
+
+# Build the inclination-expanded surrogate surface from 7° to 15°
+uv run python final_proj/scripts/run_sweep.py --config final_proj/config/sweep_inclination_surface.json
 ```
 
 Useful flags:
@@ -116,7 +119,7 @@ uv run python final_proj/scripts/run_sweep.py \
     --config final_proj/config/sweep_low_inc.json --plot-only
 ```
 
-The sweep is append-safe. If you later widen the design-variable bounds or increase the grid resolution in the JSON config, re-running the command will only simulate the missing grid points and will preserve the existing Parquet samples.
+The sweep is append-safe. If you later widen the design-variable bounds, increase the grid resolution, or extend the inclination range in the JSON config, re-running the command will only simulate the missing grid points and will preserve the existing Parquet samples.
 
 ### Surrogate Validation Study
 
@@ -183,11 +186,11 @@ The SRP sweep uses a separate JSON config containing `simulation`, `grid`, `surr
 {
     "simulation": {
         "epoch_utc": "2026 MAY 01 00:00:00.0 (UTC)",
-        "inclination_deg": 7.25,
         "duration_years": 3.0,
         "timestep_s": 600.0
     },
     "grid": {
+        "inclination_deg": {"min": 7.0, "max": 15.0, "step": 1.0},
         "area_m2":  {"min": 0.02, "max": 0.30, "n": 5},
         "cr":       {"min": 1.0,  "max": 2.0,  "n": 5},
         "mass_kg":  {"min": 3.2,  "max": 24.0, "n": 5}
@@ -209,16 +212,19 @@ The SRP sweep uses a separate JSON config containing `simulation`, `grid`, `surr
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `epoch_utc` | string | SPICE-compatible UTC epoch string for the sweep start. |
-| `inclination_deg` | float | Reference-orbit inclination for the SRP sweep. For now use the low-inclination orbit. |
+| `inclination_deg` | float | Optional fixed inclination for a single-curve sweep. Use this when fitting one surrogate at one orbit case. |
 | `duration_years` | float | Propagation length for each grid point. Recommended: 2 to 5 years. |
 | `timestep_s` | float | Integration timestep for each grid point. |
 
 #### Sweep `grid` section
 
-Each axis is defined by `min`, `max`, and `n`, and is sampled on a linear grid.
+`area_m2`, `cr`, and `mass_kg` are defined by `min`, `max`, and `n`, and are sampled on linear grids.
+
+`inclination_deg` is optional. When present, it defines a sweep axis in degrees using `min`, `max`, and `step`. The script then fits one beta-curve per inclination and linearly interpolates those fitted curves into a 3-D surrogate surface.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
+| `inclination_deg` | object | Optional inclination sweep axis using `min`, `max`, and `step` in degrees. |
 | `area_m2` | object | Solar-array effective area bounds and point count. |
 | `cr` | object | SRP reflectivity coefficient bounds and point count. |
 | `mass_kg` | object | Spacecraft wet-mass bounds and point count. |
@@ -236,7 +242,20 @@ Each axis is defined by `min`, `max`, and `n`, and is sampled on a linear grid.
 | `samples_parquet` | string | Append-safe Parquet file storing all simulated grid points. |
 | `surrogate_json` | string | JSON file storing the fitted surrogate coefficients and bounds. |
 | `plot_html` | string | Plotly HTML visualising the samples and fitted surrogate. |
-| `plot_png` | string | Static publication-style PNG of the fitted surrogate with a residual sub-plot. |
+| `plot_png` | string | Static report figure. For a single inclination this is the fit + residual plot. For an inclination-expanded sweep this is a heatmap of the interpolated surface. |
+
+### Solver Use with an Inclination Surface
+
+If the surrogate JSON spans multiple inclinations, the solver must still evaluate one fixed orbit case at a time. Set the selected inclination in the solver config under `orbit.inclination_deg`.
+
+```json
+"orbit": {
+    "surrogate_json_path": "../output/inclination_surface/srp_surrogate_surface.json",
+    "inclination_deg": 7.25
+}
+```
+
+This tells the Orbit module to evaluate the full surrogate surface at one fixed inclination while solving the coupled design point. A later optimization campaign could promote inclination into a variable and evaluate the same surface directly.
 
 ### Validation Section
 
@@ -267,6 +286,7 @@ The optional `validation` section drives the same-`β` collapse study used by `-
 | `config/low_inc.json` | 7.25° | 50 yr | Solar ecliptic inclination — minimal out-of-plane excursion. |
 | `config/recommand_inc.json` | 14.5° | 50 yr | Recommended inclination from literature — larger z-amplitude for better solar observation geometry. |
 | `config/sweep_low_inc.json` | 7.25° | 3 yr per grid point | Low-inclination SRP sweep over area, reflectivity, and mass. |
+| `config/sweep_inclination_surface.json` | 7° to 15° | 3 yr per grid point | Inclination-expanded SRP sweep for building a beta-by-inclination surrogate surface. |
 
 To create a new config, copy one of the above and edit the values.
 
@@ -307,8 +327,8 @@ final_proj/output/low_inc/
 | **rotating_3d.html** | Static interactive Plotly 3D scatter in the Sun-centred synodic frame. Sun at origin, Earth pinned on +x axis, satellite trace coloured by time. Shows tadpole libration around L4. |
 | **inertial_3d.html** | Lightweight browser animation (JS + Plotly restyle). Shows Earth and satellite both orbiting the Sun. Play/Pause button and time slider. Labelled head markers for Earth and Sat. |
 | **z_vs_time.html** | Time series of the satellite's ecliptic-normal displacement with a dashed theoretical sinusoidal overlay. |
-| **srp_response_surface.html** | Scatter of Basilisk SRP sweep samples with the fitted surrogate curve. The sweep is 3-D in `(A, c_R, m)`, but the cannonball SRP response collapses to the ballistic coefficient `β = c_R · A / m`, so the fitted response is shown against `β`. |
-| **srp_response_surface.png** | Static publication-style figure (matplotlib, 300 dpi, serif). Top panel: all sweep samples overlaid with the fitted surrogate against `β`. Bottom panel: relative residual `(ΔV − Δ̂V)/Δ̂V [%]` with RMS and max-absolute deviation annotated. Intended for direct use in the report. |
+| **srp_response_surface.html** | For a single-inclination sweep: scatter of Basilisk SRP sweep samples with the fitted surrogate curve against `β = c_R · A / m`. For an inclination-expanded sweep: a Plotly 3-D surface in `(β, inclination_deg, ΔV/yr)` with a Viridis heatmap and sample overlay. |
+| **srp_response_surface.png** | For a single-inclination sweep: static fit + residual figure. For an inclination-expanded sweep: a static Viridis heatmap of the interpolated `(β, inclination)` surrogate surface. |
 | **srp_validation.png** | Static publication-style figure (matplotlib, 300 dpi, serif) generated by `--validate`. Top panel: surrogate curve overlaid with three families of same-`β` design points (vary `A`, vary `c_R`, vary `m`). Bottom panel: relative residual `(ΔV − Δ̂V)/Δ̂V [%]` with the RMS and max-absolute deviation annotated. Used in the report to justify the 1-D `β` surrogate. |
 
 ---
@@ -332,6 +352,10 @@ uv run python final_proj/scripts/run_baseline.py \
 # Run the default 10x10x10 low-inclination SRP sweep
 uv run python final_proj/scripts/run_sweep.py \
     --config final_proj/config/sweep_low_inc.json
+
+# Run the 7° to 15° inclination-expanded SRP sweep and build the 3-D surface
+uv run python final_proj/scripts/run_sweep.py \
+    --config final_proj/config/sweep_inclination_surface.json
 
 # Refit the surrogate after manually editing the sample parquet or config
 uv run python final_proj/scripts/run_sweep.py \

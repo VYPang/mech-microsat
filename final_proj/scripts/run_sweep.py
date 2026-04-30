@@ -42,6 +42,35 @@ def _load_cfg(path: Path) -> dict:
     return cfg
 
 
+def _has_inclination_sweep(cfg: dict) -> bool:
+    return "inclination_deg" in cfg.get("grid", {})
+
+
+def _build_inclination_values(cfg: dict) -> tuple[float, ...]:
+    grid = cfg["grid"]
+    if "inclination_deg" not in grid:
+        return (float(cfg["simulation"]["inclination_deg"]),)
+
+    raw_axis = grid["inclination_deg"]
+    minimum = float(raw_axis["min"])
+    maximum = float(raw_axis["max"])
+    step = float(raw_axis["step"])
+    if step <= 0.0:
+        raise ValueError(f"grid.inclination_deg.step must be positive; got {step}.")
+    if maximum < minimum:
+        raise ValueError(
+            f"grid.inclination_deg.max must be >= min; got {maximum} < {minimum}."
+        )
+
+    values = []
+    current = minimum
+    tolerance = 0.5 * step
+    while current <= maximum + tolerance:
+        values.append(round(current, 10))
+        current += step
+    return tuple(float(value) for value in values)
+
+
 def _build_spec(cfg: dict):
     from final_proj.source.orbit.srp_sweep import GridAxis, SweepSpec
 
@@ -49,7 +78,7 @@ def _build_spec(cfg: dict):
     g = cfg["grid"]
     return SweepSpec(
         epoch_utc=sim["epoch_utc"],
-        inclination_deg=float(sim["inclination_deg"]),
+        inclination_values_deg=_build_inclination_values(cfg),
         duration_years=float(sim["duration_years"]),
         timestep_s=float(sim["timestep_s"]),
         area=GridAxis("area_m2", g["area_m2"]["min"], g["area_m2"]["max"], int(g["area_m2"]["n"])),
@@ -87,9 +116,16 @@ def main(
     plot_path = Path(cfg["output"]["plot_html"])
     plot_png_path = Path(cfg["output"].get("plot_png", str(plot_path.with_suffix(".png"))))
     degree = int(cfg["surrogate"]["degree"])
+    inclination_values = _build_inclination_values(cfg)
 
     # ----- Validation-only fast paths --------------------------------
     if validate or validate_plot_only:
+        if _has_inclination_sweep(cfg):
+            console.print(
+                "[red]Same-β validation currently supports a single inclination only. "
+                "Use a fixed simulation.inclination_deg config for validation runs.[/red]"
+            )
+            raise typer.Exit(code=1)
         if "validation" not in cfg:
             console.print("[red]Config has no 'validation' section.[/red]")
             raise typer.Exit(code=1)
@@ -168,11 +204,20 @@ def main(
     else:
         surrogate = fit_response_surface(df, degree=degree)
         surrogate.to_json(surrogate_path)
-        console.print(
-            f"[bold green]Surrogate:[/bold green] degree {surrogate.degree}, "
-            f"R²={surrogate.r_squared:.4f}, n={surrogate.n_samples}, "
-            f"coeffs={[f'{c:.4e}' for c in surrogate.coefficients]}"
-        )
+        if len(inclination_values) > 1:
+            console.print(
+                f"[bold green]Surrogate surface:[/bold green] degree {surrogate.degree}, "
+                f"R²={surrogate.r_squared:.4f}, n={surrogate.n_samples}, "
+                f"inclinations={len(surrogate.inclination_nodes_deg)} "
+                f"({surrogate.inclination_nodes_deg[0]:.3f}° → "
+                f"{surrogate.inclination_nodes_deg[-1]:.3f}°)"
+            )
+        else:
+            console.print(
+                f"[bold green]Surrogate:[/bold green] degree {surrogate.degree}, "
+                f"R²={surrogate.r_squared:.4f}, n={surrogate.n_samples}, "
+                f"coeffs={[f'{c:.4e}' for c in surrogate.coefficients]}"
+            )
         console.print(f"[dim]Wrote surrogate → {surrogate_path}[/dim]")
 
     # 3. Plot.
