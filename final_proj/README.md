@@ -54,6 +54,17 @@ Open the HTML files in `final_proj/output/low_inc/plots/` in a browser to view t
 
 ---
 
+## Design Docs
+
+![Sol-Sentinel coupled design-point solver XDSM](docs/xdsm/xdsm.png)
+
+- Overall framework: [Coupled design-point solver slides](docs/coupled_design_point_solver_slides.md)
+- Power Module & Thermal Module: [Power and thermal module formulation](docs/power_thermal/power_thermal_module_formulation.md)
+- Orbit Module with SRP Surrogate Model: [SRP response curve report](docs/srp_response_curve_result/srp_response_curve_report.md)
+- Propulsion Module: [Propulsion module report](docs/propulsion/propulsion_module_report.md)
+
+---
+
 ## Source Layout
 
 - `final_proj/source/orbit/` contains all orbit, SRP sweep, validation, and surrogate code.
