@@ -4,7 +4,7 @@ venv/
 env/
 
 # Output
-final_proj/output/
+output/
 
 # Python
 __pycache__/

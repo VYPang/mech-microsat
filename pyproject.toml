@@ -13,6 +13,7 @@ dependencies = [
     "plotly>=6.3.1",
     "polars>=1.39.3",
     "pyxdsm>=2.3.2",
+    "pytest",
     "rich>=14.1.0",
     "scipy>=1.17.1",
     "sgp4>=2.25",
