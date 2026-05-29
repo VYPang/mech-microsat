@@ -1,4 +1,4 @@
-# Sol-Sentinel 鈥?CR3BP Baseline Simulation and SRP Sweep
+# Sol-Sentinel CR3BP Baseline Simulation and SRP Sweep
 
 User guide for running the Sun-Earth L4 baseline orbit simulation, visualisation pipeline, and SRP response-surface sweep.
 
